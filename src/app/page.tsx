@@ -8,15 +8,15 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <Hero />
-      <div id="packages" className="container mx-auto px-4 py-16 sm:py-24">
+      <div id="packages" className="container mx-auto px-4 py-24 sm:py-32">
         <Packages />
       </div>
-      <div id="sustainability" className="bg-secondary">
-        <div className="container mx-auto px-4 py-16 sm:py-24">
+      <div id="sustainability" className="bg-secondary/20">
+        <div className="container mx-auto px-4 py-24 sm:py-32">
           <Sustainability />
         </div>
       </div>
-      <div id="contact" className="container mx-auto px-4 py-16 sm:py-24">
+      <div id="contact" className="container mx-auto px-4 py-24 sm:py-32">
         <Contact />
       </div>
        <MapSection />

@@ -30,7 +30,7 @@ import { AnimateOnScroll } from "./animate-on-scroll";
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters.").max(50),
   email: z.string().email("Please enter a valid email address."),
-  eventType: z.enum(["tedx", "corporate", "other"], {
+  eventType: z.enum(["tedx", "corporate", "conference", "college", "brand"], {
     required_error: "Please select an event type.",
   }),
   message: z
@@ -84,8 +84,8 @@ export function ContactForm() {
       hiddenClass="opacity-0"
     >
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <FormField
               control={form.control}
               name="name"
@@ -93,7 +93,7 @@ export function ContactForm() {
                 <FormItem>
                   <FormLabel>Full Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Jane Doe" {...field} />
+                    <Input placeholder="Jane Doe" {...field} className="bg-input border-border focus:ring-primary"/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -106,7 +106,7 @@ export function ContactForm() {
                 <FormItem>
                   <FormLabel>Email Address</FormLabel>
                   <FormControl>
-                    <Input placeholder="jane.doe@example.com" {...field} />
+                    <Input placeholder="jane.doe@example.com" {...field} className="bg-input border-border focus:ring-primary"/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -118,20 +118,22 @@ export function ContactForm() {
             name="eventType"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Event Type</FormLabel>
+                <FormLabel>What kind of event are you planning?</FormLabel>
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                 >
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select the type of event" />
+                    <SelectTrigger className="bg-input border-border focus:ring-primary">
+                      <SelectValue placeholder="Select event type" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="tedx">TEDx Style</SelectItem>
-                    <SelectItem value="corporate">Corporate</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
+                    <SelectItem value="tedx">TEDx Event</SelectItem>
+                    <SelectItem value="corporate">Corporate & Business Event</SelectItem>
+                    <SelectItem value="conference">Conference</SelectItem>
+                    <SelectItem value="college">College & Cultural Event</SelectItem>
+                    <SelectItem value="brand">Brand & Experiential</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -146,23 +148,23 @@ export function ContactForm() {
                 <FormLabel>Your Message</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder="Tell us a little bit about your event..."
-                    className="min-h-[150px]"
+                    placeholder="Tell us about your event..."
+                    className="min-h-[150px] bg-input border-border focus:ring-primary"
                     {...field}
                   />
                 </FormControl>
                 <FormDescription>
-                  Please include details like event date, location, and number of guests.
+                  Please include details like event date, potential locations, and audience size.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" size="lg" disabled={form.formState.isSubmitting}>
+          <Button type="submit" size="lg" disabled={form.formState.isSubmitting} variant="secondary">
             {form.formState.isSubmitting && (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             )}
-            Send Message
+            Send Inquiry
           </Button>
         </form>
       </Form>

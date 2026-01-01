@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { CheckCircle2, Leaf, Mic, PartyPopper, Users } from "lucide-react";
+import { CheckCircle2, Leaf, Mic, Briefcase, Megaphone, School } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -21,50 +21,50 @@ const packages = [
     title: "TEDx & Speaker Events",
     description: "Amplify powerful ideas with flawless execution and a sustainable footprint.",
     image: PlaceHolderImages.find((img) => img.id === "tedx"),
-    icon: <Mic className="h-6 w-6 text-primary" />,
+    icon: <Mic className="h-8 w-8 text-primary" />,
     features: [
-      "Stage Design & A/V",
-      "Speaker Management",
+      "Stage & Set Design",
+      "AV & Theatrical Lighting",
+      "Speaker Coordination",
       "Live Streaming & Recording",
-      "Audience Engagement Tools",
     ],
     ecoHighlights: [
-      "Recycled material for badges",
-      "Locally-sourced catering",
+      "Recycled material staging",
+      "Digital ticketing & programs",
     ],
   },
   {
     id: "corporate",
-    title: "Corporate Functions",
+    title: "Corporate & Business",
     description: "Elevate your brand with professional, engaging, and eco-conscious corporate events.",
     image: PlaceHolderImages.find((img) => img.id === "corporate"),
-    icon: <Users className="h-6 w-6 text-primary" />,
+    icon: <Briefcase className="h-8 w-8 text-primary" />,
     features: [
-      "Conferences & Seminars",
+      "Conferences & Summits",
       "Product Launches",
-      "Team Building Retreats",
+      "Networking Receptions",
       "Gala Dinners & Awards",
     ],
     ecoHighlights: [
-      "Digital invitations & programs",
       "Carbon-offsetting for travel",
+      "Locally-sourced catering",
     ],
   },
   {
-    id: "other",
-    title: "Bespoke Celebrations",
-    description: "From intimate gatherings to grand celebrations, we make your special moments shine.",
-    image: PlaceHolderImages.find((img) => img.id === "other"),
-    icon: <PartyPopper className="h-6 w-6 text-primary" />,
+    id: "brand",
+    title: "Brand & Experiential",
+    description: "Create immersive brand worlds and unforgettable moments for your audience.",
+    image: PlaceHolderImages.find((img) => img.id === "brand"),
+    icon: <Megaphone className="h-8 w-8 text-primary" />,
     features: [
-      "Weddings & Anniversaries",
-      "Private Parties",
-      "Non-profit Fundraisers",
-      "Art & Fashion Shows",
+      "Brand Activations",
+      "Immersive Installations",
+      "Pop-Up Shops",
+      "Cultural & Lifestyle Events",
     ],
     ecoHighlights: [
-      "Sustainable floral arrangements",
-      "Zero-waste food service",
+      "Upcycled & reusable decor",
+      "Zero-waste service principles",
     ],
   },
 ];
@@ -75,17 +75,17 @@ export function Packages() {
       <AnimateOnScroll
         animationClass="animate-slide-in-up"
         hiddenClass="opacity-0"
-        className="text-center mb-12"
+        className="text-center mb-16"
       >
-        <Badge variant="outline">Our Offerings</Badge>
-        <h2 className="font-headline text-3xl font-bold tracking-tight sm:text-4xl mt-2">
-          Tailored Events, Sustainable by Design
+        <Badge variant="secondary" className="text-sm">Our Expertise</Badge>
+        <h2 className="font-headline text-4xl font-bold tracking-tight sm:text-5xl mt-4">
+          Services, Tailored to Your Vision
         </h2>
-        <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">
-          We offer a range of packages to suit your needs, each with a commitment to environmental responsibility.
+        <p className="mt-6 max-w-3xl mx-auto text-lg text-muted-foreground">
+          From intimate conferences to large-scale brand activations, we deliver excellence with a commitment to sustainability.
         </p>
       </AnimateOnScroll>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {packages.map((pkg, index) => (
           <AnimateOnScroll
             key={pkg.id}
@@ -93,10 +93,10 @@ export function Packages() {
             hiddenClass="opacity-0"
             delay={`${index * 0.1}s`}
           >
-          <Card className="flex flex-col h-full overflow-hidden transition-transform transform hover:-translate-y-2 hover:shadow-2xl">
+          <Card className="flex flex-col h-full bg-card/50 backdrop-blur-sm border-white/10 rounded-xl overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_30px_-5px] hover:shadow-primary/20 hover:-translate-y-2">
             <CardHeader className="p-0">
               {pkg.image && (
-                <div className="relative h-48 w-full">
+                <div className="relative h-56 w-full">
                   <Image
                     src={pkg.image.imageUrl}
                     alt={pkg.image.description}
@@ -104,46 +104,47 @@ export function Packages() {
                     className="object-cover"
                     data-ai-hint={pkg.image.imageHint}
                   />
+                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 </div>
               )}
               <div className="p-6">
-                <div className="flex items-center gap-4 mb-2">
+                <div className="flex items-center gap-4 mb-3">
                     {pkg.icon}
-                    <CardTitle className="font-headline text-2xl">{pkg.title}</CardTitle>
+                    <CardTitle className="font-headline text-2xl text-white">{pkg.title}</CardTitle>
                 </div>
-                <CardDescription>{pkg.description}</CardDescription>
+                <CardDescription className="text-muted-foreground">{pkg.description}</CardDescription>
               </div>
             </CardHeader>
-            <CardContent className="flex-grow space-y-6">
+            <CardContent className="flex-grow space-y-6 px-6">
               <div>
-                <h4 className="font-semibold mb-2 text-sm">What's Included</h4>
-                <ul className="space-y-2">
+                <h4 className="font-semibold mb-3 text-base text-white">What's Included</h4>
+                <ul className="space-y-2.5">
                   {pkg.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <CheckCircle2 className="h-4 w-4 text-primary" />
+                    <li key={feature} className="flex items-center gap-3 text-sm text-muted-foreground">
+                      <CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
                       <span>{feature}</span>
                     </li>
                   ))}
                 </ul>
               </div>
                <div>
-                <h4 className="font-semibold mb-2 text-sm flex items-center gap-2">
-                    <Leaf className="h-4 w-4 text-green-700" />
-                    <span>Eco-Friendly Highlights</span>
+                <h4 className="font-semibold mb-3 text-base text-white flex items-center gap-2">
+                    <Leaf className="h-4 w-4" />
+                    <span>Eco-Conscious Highlights</span>
                 </h4>
-                <ul className="space-y-2">
+                <ul className="space-y-2.5">
                   {pkg.ecoHighlights.map((highlight) => (
-                    <li key={highlight} className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Leaf className="h-4 w-4 text-green-700/70" />
+                    <li key={highlight} className="flex items-center gap-3 text-sm text-muted-foreground">
+                      <Leaf className="h-4 w-4 text-primary/70 shrink-0" />
                       <span>{highlight}</span>
                     </li>
                   ))}
                 </ul>
               </div>
             </CardContent>
-            <CardFooter>
-              <Button asChild className="w-full font-bold">
-                <Link href="/#contact">Inquire Now</Link>
+            <CardFooter className="p-6">
+              <Button asChild className="w-full font-bold" variant="secondary">
+                <Link href="/#contact">Enquire Now</Link>
               </Button>
             </CardFooter>
           </Card>
