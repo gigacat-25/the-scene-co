@@ -1,3 +1,28 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero",
+      "description": "An elegant outdoor event setup at dusk.",
+      "imageUrl": "https://images.unsplash.com/photo-1633443682042-17462ad4ad76?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxlbGVnYW50JTIwZXZlbnR8ZW58MHx8fHwxNzY3Mjc3MzcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "elegant event"
+    },
+    {
+      "id": "tedx",
+      "description": "A speaker on a stage at a TEDx event.",
+      "imageUrl": "https://images.unsplash.com/photo-1596522354195-e84ae3c98731?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjb25mZXJlbmNlJTIwc3RhZ2V8ZW58MHx8fHwxNzY3Mjc3MzcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "conference stage"
+    },
+    {
+      "id": "corporate",
+      "description": "Professionals networking at a corporate event.",
+      "imageUrl": "https://images.unsplash.com/photo-1709715357510-b687304cee3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8YnVzaW5lc3MlMjBtZWV0aW5nfGVufDB8fHx8MTc2NzIxMTMwNXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "business meeting"
+    },
+    {
+      "id": "other",
+      "description": "A beautifully decorated wedding reception.",
+      "imageUrl": "https://images.unsplash.com/photo-1618107095181-e3ba0f53ee59?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx3ZWRkaW5nJTIwcmVjZXB0aW9ufGVufDB8fHx8MTc2NzI2MTA5M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "wedding reception"
+    }
+  ]
 }
