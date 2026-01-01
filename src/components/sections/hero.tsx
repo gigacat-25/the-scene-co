@@ -1,27 +1,14 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { AnimateOnScroll } from "../animate-on-scroll";
+import { MagneticParticles } from "../magnetic-particles";
 
 export function Hero() {
-  const heroImage = PlaceHolderImages.find((img) => img.id === 'hero');
-
   return (
     <section className="relative h-[80vh] min-h-[600px] w-full flex items-center justify-center text-center text-white overflow-hidden">
-      {heroImage && (
-        <Image
-          src="/img/scene-hero-image.avif"
-          alt={heroImage.description}
-          fill
-          className="object-cover"
-          priority
-          data-ai-hint={heroImage.imageHint}
-        />
-      )}
+      <MagneticParticles />
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
-      <div className="absolute inset-0 bg-black/40" />
-
+      
       <div className="relative z-10 p-4 flex flex-col items-center">
         <AnimateOnScroll
           animationClass="animate-slide-in-up"
