@@ -11,7 +11,7 @@ export function Hero() {
     <section className="relative h-[80vh] min-h-[600px] w-full flex items-center justify-center text-center text-white overflow-hidden">
       {heroImage && (
         <Image
-          src={heroImage.imageUrl}
+          src="/img/scene-hero-image.avif"
           alt={heroImage.description}
           fill
           className="object-cover"
