@@ -17,7 +17,6 @@ export function Hero() {
           className="object-cover"
           priority
           data-ai-hint={heroImage.imageHint}
-          unoptimized={true}
         />
       )}
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
