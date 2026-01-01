@@ -67,6 +67,40 @@ const packages = [
       "Zero-waste service principles",
     ],
   },
+    {
+    id: "conference",
+    title: "Conferences",
+    description: "Large-scale conferences that are impactful and sustainably produced.",
+    image: PlaceHolderImages.find((img) => img.id === "conference"),
+    icon: <Briefcase className="h-8 w-8 text-primary" />,
+    features: [
+      "Multi-track agenda planning",
+      "Exhibitor & sponsor management",
+      "Delegate registration & services",
+      "Hybrid event technology",
+    ],
+    ecoHighlights: [
+        "Sustainably sourced swag",
+        "Paperless information sharing",
+    ],
+  },
+  {
+    id: "college",
+    title: "College & Cultural",
+    description: "Vibrant and memorable events for the next generation of leaders.",
+    image: PlaceHolderImages.find((img) => img.id === "college"),
+    icon: <School className="h-8 w-8 text-primary" />,
+    features: [
+      "University Fests",
+      "Cultural & Arts Festivals",
+      "Alumni Events",
+      "Student leadership summits",
+    ],
+    ecoHighlights: [
+        "Community engagement initiatives",
+        "Local artist showcases",
+    ],
+  },
 ];
 
 export function Packages() {

@@ -3,7 +3,7 @@
     {
       "id": "hero",
       "description": "A dark and moody stage with dramatic lighting.",
-      "imageUrl": "https://images.unsplash.com/photo-1540039155733-5bb30b5338d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzdGFnZSUyMGxpZ2h0aW5nfGVufDB8fHx8MTc3MDI0MjI3Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/img/hero.jpg",
       "imageHint": "stage lighting"
     },
     {
@@ -35,6 +35,18 @@
       "description": "Behind the scenes of an event production with crew working.",
       "imageUrl": "https://images.unsplash.com/photo-1603190287605-e6ade32fa852?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxldmVudCUyMHByb2R1Y3Rpb258ZW58MHx8fHwxNzcwMjQyNTEyfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "event production"
+    },
+    {
+      "id": "conference",
+      "description": "Large conference hall with many attendees.",
+      "imageUrl": "https://images.unsplash.com/photo-1568304603980-85ff55550db2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjb25mZXJlbmNlJTIwaGFsbHxlbnwwfHx8fDE3NjcyODE3NzZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "conference hall"
+    },
+    {
+      "id": "college",
+      "description": "Students at a college cultural event.",
+      "imageUrl": "https://images.unsplash.com/photo-1673440096815-d5d761994ae1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb2xsZWdlJTIwZmVzdGl2YWx8ZW58MHx8fHwxNzY3MjgxNzc2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "college festival"
     }
   ]
 }
