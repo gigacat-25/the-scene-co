@@ -4,6 +4,8 @@ import { Sustainability } from "@/components/sections/sustainability";
 import { Contact } from "@/components/sections/contact";
 import { MapSection } from "@/components/sections/map-section";
 
+export const runtime = "edge";
+
 export default function Home() {
   return (
     <div className="flex flex-col">
