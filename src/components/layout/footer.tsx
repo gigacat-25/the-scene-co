@@ -1,6 +1,6 @@
 "use client";
 
-import { Instagram, Linkedin, Twitter, Mail, BotMessageSquare } from "lucide-react";
+import { Instagram, Linkedin, Twitter, Mail, BotMessageSquare, Facebook, Youtube } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "../ui/button";
@@ -93,6 +93,16 @@ export function Footer() {
                     <Twitter className="h-5 w-5" />
                   </a>
                 </Button>
+                <Button variant="ghost" size="icon" asChild>
+                  <a href="#" aria-label="Facebook">
+                    <Facebook className="h-5 w-5" />
+                  </a>
+                </Button>
+                <Button variant="ghost" size="icon" asChild>
+                  <a href="#" aria-label="YouTube">
+                    <Youtube className="h-5 w-5" />
+                  </a>
+                </Button>
               </div>
 
               <div className="space-y-2 text-sm">
@@ -120,7 +130,8 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-muted-foreground sm:flex-row">
           <p>
-            &copy; {new Date().getFullYear()} The Scene Co. All rights reserved.
+            &copy; {new Date().getFullYear()} The Scene Co. All rights reserved. <br className="sm:hidden" />
+            Designed & Developed by <a href="#" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors underline">Developer</a>
           </p>
           <div className="flex gap-4">
             <Link

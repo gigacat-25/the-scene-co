@@ -3,6 +3,9 @@ import { Packages } from "@/components/sections/packages";
 import { Sustainability } from "@/components/sections/sustainability";
 import { Contact } from "@/components/sections/contact";
 import { MapSection } from "@/components/sections/map-section";
+import { Leadership } from "@/components/sections/leadership";
+import { Testimonials } from "@/components/sections/testimonials";
+import { FAQ } from "@/components/sections/faq";
 
 export const runtime = "edge";
 
@@ -18,10 +21,19 @@ export default function Home() {
           <Sustainability />
         </div>
       </div>
+      <div id="leadership" className="container mx-auto px-4 py-24 sm:py-32">
+        <Leadership />
+      </div>
+      <div id="testimonials" className="w-full bg-secondary/10 border-y border-white/5 py-24 sm:py-32 overflow-hidden">
+        <Testimonials />
+      </div>
+      <div id="faq" className="container mx-auto px-4 py-24 sm:py-32">
+        <FAQ />
+      </div>
       <div id="contact" className="container mx-auto px-4 py-24 sm:py-32">
         <Contact />
       </div>
-       <MapSection />
+      <MapSection />
     </div>
   );
 }

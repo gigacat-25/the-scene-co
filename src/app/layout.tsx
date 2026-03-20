@@ -4,9 +4,28 @@ import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/toaster';
 
+export const runtime = "edge";
+
 export const metadata: Metadata = {
   title: 'The Scene Co. | Events & Experiences, Curated to Perfection.',
   description: 'Premium, experiential, and eco-conscious event planning for TEDx, corporate functions, cultural events, and brand activations.',
+  metadataBase: new URL('https://thescene.co.in'),
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: "https://thescene.co.in",
+    title: "The Scene Co. | Events & Experiences, Curated to Perfection.",
+    description: "Premium, experiential, and eco-conscious event planning for TEDx, corporate functions, cultural events, and brand activations.",
+    siteName: "The Scene Co.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Scene Co. | Events & Experiences, Curated to Perfection.",
+    description: "Premium, experiential, and eco-conscious event planning for TEDx, corporate functions, cultural events, and brand activations.",
+  },
+  alternates: {
+    canonical: "https://thescene.co.in",
+  },
 };
 
 export default function RootLayout({
@@ -15,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth dark">
+    <html lang="en" className="scroll-smooth dark" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

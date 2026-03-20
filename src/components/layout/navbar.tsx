@@ -16,8 +16,10 @@ import {
 
 const navLinks = [
   { href: "/#packages", label: "Packages" },
+  { href: "/team", label: "Our Team" },
   { href: "/about", label: "About Us" },
   { href: "/sustainability", label: "Sustainability" },
+  { href: "/past-events", label: "Past Events" },
   { href: "/#contact", label: "Contact" },
 ];
 
