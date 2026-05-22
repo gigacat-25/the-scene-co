@@ -72,70 +72,70 @@
 @layer utilities {
   /* Typography Classes exactly matching DESIGN.md */
   .display-xl {
-    font-size: 86px;
+    font-size: clamp(36px, 9vw, 86px);
     font-weight: 340;
     line-height: 1.00;
     letter-spacing: -1.72px;
   }
   
   .display-lg {
-    font-size: 64px;
+    font-size: clamp(28px, 7vw, 64px);
     font-weight: 340;
     line-height: 1.10;
     letter-spacing: -0.96px;
   }
 
   .headline-story {
-    font-size: 26px;
+    font-size: clamp(20px, 4vw, 26px);
     font-weight: 540;
     line-height: 1.35;
     letter-spacing: -0.26px;
   }
 
   .subhead {
-    font-size: 26px;
+    font-size: clamp(18px, 4vw, 26px);
     font-weight: 340;
     line-height: 1.35;
     letter-spacing: -0.26px;
   }
 
   .card-title-figma {
-    font-size: 24px;
+    font-size: clamp(18px, 3vw, 24px);
     font-weight: 700;
     line-height: 1.45;
     letter-spacing: 0px;
   }
 
   .body-lg-figma {
-    font-size: 20px;
+    font-size: clamp(16px, 2.5vw, 20px);
     font-weight: 330;
     line-height: 1.40;
     letter-spacing: -0.14px;
   }
 
   .body-figma {
-    font-size: 18px;
+    font-size: clamp(15px, 2.2vw, 18px);
     font-weight: 320;
     line-height: 1.45;
     letter-spacing: -0.26px;
   }
 
   .body-sm-figma {
-    font-size: 16px;
+    font-size: clamp(14px, 2vw, 16px);
     font-weight: 330;
     line-height: 1.45;
     letter-spacing: -0.14px;
   }
 
   .link-figma {
-    font-size: 20px;
+    font-size: clamp(15px, 2.5vw, 20px);
     font-weight: 480;
     line-height: 1.40;
     letter-spacing: -0.10px;
   }
 
   .btn-text-figma {
-    font-size: 20px;
+    font-size: clamp(15px, 2.5vw, 20px);
     font-weight: 480;
     line-height: 1.40;
     letter-spacing: -0.10px;
@@ -143,7 +143,7 @@
 
   .eyebrow-mono {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 18px;
+    font-size: clamp(11px, 1.8vw, 18px);
     font-weight: 400;
     line-height: 1.30;
     letter-spacing: 0.54px;
@@ -152,7 +152,7 @@
 
   .caption-mono {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 400;
     line-height: 1.00;
     letter-spacing: 0.60px;
@@ -172,48 +172,46 @@
     border-color: var(--hairline-soft);
   }
 
-  /* Button Components from DESIGN.md */
+  /* Button Components — mobile-first sizing */
   .btn-primary-figma {
     background-color: var(--ink);
     color: var(--canvas);
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 480;
     line-height: 1.40;
     letter-spacing: -0.10px;
     border-radius: 9999px;
-    padding: 10px 24px;
+    padding: 10px 20px;
     transition: all 0.2s ease-in-out;
+    white-space: nowrap;
+    display: inline-block;
   }
-  .btn-primary-figma:hover {
-    transform: scale(1.02);
-  }
-  .btn-primary-figma:active {
-    transform: scale(0.98);
-  }
+  .btn-primary-figma:hover { transform: scale(1.02); }
+  .btn-primary-figma:active { transform: scale(0.98); }
 
   .btn-secondary-figma {
     background-color: var(--canvas);
     color: var(--ink);
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 480;
     line-height: 1.40;
     letter-spacing: -0.10px;
     border-radius: 9999px;
-    padding: 8px 22px 10px;
+    padding: 9px 20px 10px;
     border: 1px solid var(--hairline);
     transition: all 0.2s ease-in-out;
+    white-space: nowrap;
+    display: inline-block;
   }
   .btn-secondary-figma:hover {
     background-color: var(--surface-soft);
     transform: scale(1.02);
   }
-  .btn-secondary-figma:active {
-    transform: scale(0.98);
-  }
+  .btn-secondary-figma:active { transform: scale(0.98); }
 
   .btn-tertiary-text-figma {
     color: var(--ink);
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 480;
     line-height: 1.40;
     letter-spacing: -0.10px;
@@ -221,8 +219,18 @@
     border-radius: 9999px;
     transition: background-color 0.2s ease;
   }
-  .btn-tertiary-text-figma:hover {
-    background-color: var(--surface-soft);
+  .btn-tertiary-text-figma:hover { background-color: var(--surface-soft); }
+
+  /* Scale up buttons on tablet+ */
+  @media (min-width: 640px) {
+    .btn-primary-figma    { font-size: 18px; padding: 10px 24px; }
+    .btn-secondary-figma  { font-size: 18px; padding: 8px 22px 10px; }
+    .btn-tertiary-text-figma { font-size: 18px; }
+  }
+  @media (min-width: 1024px) {
+    .btn-primary-figma    { font-size: 20px; }
+    .btn-secondary-figma  { font-size: 20px; }
+    .btn-tertiary-text-figma { font-size: 20px; }
   }
 
   .btn-icon-circular {
@@ -231,10 +239,12 @@
     border-radius: 9999px;
     width: 40px;
     height: 40px;
+    min-width: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease;
+    flex-shrink: 0;
   }
   .btn-icon-circular:hover {
     background-color: var(--hairline-soft);
@@ -247,6 +257,7 @@
     border-radius: 9999px;
     width: 40px;
     height: 40px;
+    min-width: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -260,7 +271,7 @@
   .btn-magenta-promo-figma {
     background-color: var(--accent-magenta);
     color: var(--canvas);
-    font-size: 20px;
+    font-size: clamp(15px, 2.5vw, 20px);
     font-weight: 480;
     line-height: 1.40;
     letter-spacing: -0.10px;
@@ -273,45 +284,28 @@
     transform: scale(1.02);
   }
 
-  /* Color-Block Sections */
+  /* Color-Block Sections — mobile-first padding */
   .color-block-panel {
-    border-radius: 24px;
-    padding: 48px;
+    border-radius: 16px;
+    padding: 24px 20px;
     transition: transform 0.3s ease;
   }
 
-  .color-block-panel-lime {
-    background-color: var(--block-lime);
-    color: var(--ink);
+  .color-block-panel-lime   { background-color: var(--block-lime);   color: var(--ink); }
+  .color-block-panel-lilac  { background-color: var(--block-lilac);  color: var(--ink); }
+  .color-block-panel-cream  { background-color: var(--block-cream);  color: var(--ink); }
+  .color-block-panel-mint   { background-color: var(--block-mint);   color: var(--ink); }
+  .color-block-panel-pink   { background-color: var(--block-pink);   color: var(--ink); }
+  .color-block-panel-coral  { background-color: var(--block-coral);  color: var(--ink); }
+  .color-block-panel-navy   { background-color: var(--block-navy);   color: var(--inverse-ink); }
+
+  /* Tablet: more breathing room */
+  @media (min-width: 640px) {
+    .color-block-panel { border-radius: 20px; padding: 40px; }
   }
 
-  .color-block-panel-lilac {
-    background-color: var(--block-lilac);
-    color: var(--ink);
-  }
-
-  .color-block-panel-cream {
-    background-color: var(--block-cream);
-    color: var(--ink);
-  }
-
-  .color-block-panel-mint {
-    background-color: var(--block-mint);
-    color: var(--ink);
-  }
-
-  .color-block-panel-pink {
-    background-color: var(--block-pink);
-    color: var(--ink);
-  }
-
-  .color-block-panel-coral {
-    background-color: var(--block-coral);
-    color: var(--ink);
-  }
-
-  .color-block-panel-navy {
-    background-color: var(--block-navy);
-    color: var(--inverse-ink);
+  /* Desktop: full padding */
+  @media (min-width: 1024px) {
+    .color-block-panel { border-radius: 24px; padding: 48px; }
   }
 }

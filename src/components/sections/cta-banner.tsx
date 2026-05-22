@@ -31,7 +31,7 @@ export function CtaBanner({
   const isNavy = colorBlock === "navy";
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 my-24">
+    <div className="container mx-auto px-4 sm:px-6 my-12 md:my-24">
       <div className={colorMap[colorBlock]}>
         <div className="max-w-3xl">
           <div className={`eyebrow-mono mb-4 ${isNavy ? "text-white/60" : "text-ink/60"}`}>

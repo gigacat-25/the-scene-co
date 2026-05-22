@@ -23,20 +23,20 @@ export function Leadership() {
     <section className="w-full bg-canvas py-24">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
 
-        {/* Stats row — marquee-style on white canvas */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-hairline rounded-lg overflow-hidden mb-24">
+        {/* Stats row */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-hairline border border-hairline rounded-lg overflow-hidden mb-12 md:mb-24">
           {stats.map((stat, i) => (
             <div
               key={i}
-              className="p-8 text-center border-r border-hairline last:border-r-0 bg-canvas hover:bg-surface-soft transition-colors duration-200"
+              className="p-5 sm:p-8 text-center bg-canvas hover:bg-surface-soft transition-colors duration-200"
             >
               <div
                 className="text-ink mb-2"
-                style={{ fontSize: "clamp(28px,4vw,48px)", fontWeight: 700, lineHeight: 1 }}
+                style={{ fontSize: "clamp(24px,4vw,48px)", fontWeight: 700, lineHeight: 1 }}
               >
                 {stat.value}
               </div>
-              <div className="caption-mono text-ink/50">{stat.label}</div>
+              <div className="caption-mono text-ink/50 text-[10px] sm:text-xs">{stat.label}</div>
             </div>
           ))}
         </div>

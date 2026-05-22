@@ -24,7 +24,7 @@ export default async function Home() {
       <MarqueeStrip />
 
       {/* 3. White canvas — services/packages grid */}
-      <div id="services" className="container mx-auto px-4 sm:px-6 py-24 max-w-6xl">
+      <div id="services" className="container mx-auto px-4 sm:px-6 py-12 md:py-24 max-w-6xl">
         <Packages />
       </div>
 

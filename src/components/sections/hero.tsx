@@ -83,11 +83,16 @@ export function Hero() {
   return (
     <section
       className="relative w-full overflow-hidden"
-      style={{ minHeight: "88vh", background: "#111" }}
+      style={{ minHeight: "80vh", background: "#111" }}
     >
-      {/* ── Mosaic grid ── */}
+      {/* ── Mobile: single full-bleed image ── */}
+      <div className="absolute inset-0 md:hidden">
+        <ImageCell imageIndex={0} className="w-full h-full" />
+      </div>
+
+      {/* ── Desktop: Mosaic grid ── */}
       <div
-        className="absolute inset-0 flex gap-2 p-2"
+        className="absolute inset-0 hidden md:flex gap-2 p-2"
         style={{ opacity: isPaused ? 0.7 : 1, transition: "opacity 0.4s" }}
       >
         {/* Column 1 — narrow, two stacked cells */}
@@ -137,18 +142,18 @@ export function Hero() {
       </div>
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/35 pointer-events-none" />
+      <div className="absolute inset-0 bg-black/40 pointer-events-none" />
 
       {/* ── Floating card ── */}
-      <div className="relative z-10 flex items-center justify-center min-h-[88vh] px-4">
+      <div className="relative z-10 flex items-center justify-center min-h-[80vh] px-4 py-12">
         <div
-          className="bg-canvas rounded-2xl p-8 md:p-12 w-full max-w-xl shadow-2xl"
+          className="bg-canvas rounded-2xl p-6 sm:p-8 md:p-12 w-full max-w-xl shadow-2xl"
           style={{ boxShadow: "0 20px 60px rgba(0,0,0,0.4)" }}
         >
           <h1
-            className="text-ink leading-tight mb-6"
+            className="text-ink leading-tight mb-4 sm:mb-6"
             style={{
-              fontSize: "clamp(30px, 4.5vw, 56px)",
+              fontSize: "clamp(26px, 5vw, 56px)",
               fontWeight: 340,
               lineHeight: 1.05,
               letterSpacing: "-1px",
@@ -159,8 +164,8 @@ export function Hero() {
             <span style={{ fontWeight: 700 }}>zero templates.</span>
           </h1>
           <p
-            className="text-ink/70 mb-8 leading-relaxed"
-            style={{ fontSize: 17, fontWeight: 320, lineHeight: 1.55 }}
+            className="text-ink/70 mb-6 sm:mb-8 leading-relaxed"
+            style={{ fontSize: "clamp(14px, 2.5vw, 17px)", fontWeight: 320, lineHeight: 1.55 }}
           >
             Custom websites, e-commerce stores, and POS systems — built from scratch with a CMS you control.{" "}
             <span className="text-ink font-medium">1&nbsp;year free hosting included.</span>
@@ -177,7 +182,7 @@ export function Hero() {
       </div>
 
       {/* ── Controls ── */}
-      <div className="absolute bottom-6 right-6 z-20 flex items-center gap-2">
+      <div className="absolute bottom-4 right-4 z-20 hidden md:flex items-center gap-2">
         <button
           onClick={() => setIsPaused(!isPaused)}
           className="btn-icon-circular-inverse"
@@ -189,10 +194,11 @@ export function Hero() {
 
       {/* ── Hint label ── */}
       {isPaused && (
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 caption-mono text-white/60 bg-black/40 px-4 py-1.5 rounded-full">
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 caption-mono text-white/60 bg-black/40 px-4 py-1.5 rounded-full">
           Paused
         </div>
       )}
     </section>
   );
 }
+
