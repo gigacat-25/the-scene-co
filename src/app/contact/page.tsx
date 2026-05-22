@@ -10,7 +10,21 @@ export const metadata: Metadata = {
   description: "Get in touch for a free consultation and quote. We respond within 24 hours.",
 };
 
-export default function ContactPage() {
+import { getAllSettings } from "@/lib/db";
+
+export default async function ContactPage() {
+  const settings: Record<string, string> = await getAllSettings().catch(() => ({}));
+  const email = settings.contact_email || "hello@thescene.co.in";
+  const phone = settings.contact_phone || "080 3150720 / +91 98457 14699";
+  
+  const rawWa = settings.whatsapp_number || "9845714699";
+  const waClean = rawWa.replace(/\D/g, "");
+  const waLink = waClean.length === 10 ? `91${waClean}` : waClean;
+  const whatsappUrl = `https://wa.me/${waLink}`;
+
+  const primaryPhone = phone.split("/")[0].trim();
+  const telLink = `tel:${primaryPhone.replace(/[\s\-\+]/g, '')}`;
+
   return (
     <div className="flex flex-col bg-canvas">
 
@@ -47,25 +61,25 @@ export default function ContactPage() {
             <div className="bg-canvas border border-hairline rounded-lg p-6">
               <h3 className="text-ink font-bold mb-5" style={{ fontSize: 20, fontWeight: 540 }}>Get in touch</h3>
               <div className="space-y-4">
-                <a href="mailto:hello@thescene.co.in" className="flex items-center gap-3 group">
+                <a href={`mailto:${email}`} className="flex items-center gap-3 group">
                   <div className="btn-icon-circular shrink-0">
                     <Mail className="h-4 w-4" />
                   </div>
                   <div>
                     <div className="caption-mono text-ink/40 mb-0.5">Email</div>
-                    <span className="body-sm-figma text-ink group-hover:underline">hello@thescene.co.in</span>
+                    <span className="body-sm-figma text-ink group-hover:underline">{email}</span>
                   </div>
                 </a>
-                <a href="tel:+919876543210" className="flex items-center gap-3 group">
+                <a href={telLink} className="flex items-center gap-3 group">
                   <div className="btn-icon-circular shrink-0">
                     <Phone className="h-4 w-4" />
                   </div>
                   <div>
                     <div className="caption-mono text-ink/40 mb-0.5">Phone</div>
-                    <span className="body-sm-figma text-ink group-hover:underline">+91 98765 43210</span>
+                    <span className="body-sm-figma text-ink group-hover:underline">{phone}</span>
                   </div>
                 </a>
-                <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
                   <div className="btn-icon-circular shrink-0">
                     <MessageCircle className="h-4 w-4" />
                   </div>

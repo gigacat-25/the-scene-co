@@ -4,7 +4,18 @@ import { Instagram, Linkedin, Twitter, Mail, BotMessageSquare, Facebook, Youtube
 import Link from "next/link";
 import Image from "next/image";
 
-export function Footer() {
+export function Footer({ settings }: { settings?: Record<string, string> }) {
+  const email = settings?.contact_email || "hello@thescene.co.in";
+  const instagram = settings?.social_instagram || "https://www.instagram.com/thescene.co.in/";
+  const twitter = settings?.social_twitter || "#";
+  const linkedin = settings?.social_linkedin || "#";
+  
+  const rawWa = settings?.whatsapp_number || "9845714699";
+  const waClean = rawWa.replace(/\D/g, "");
+  // Prefix with 91 if it's a 10-digit Indian number without country code
+  const waLink = waClean.length === 10 ? `91${waClean}` : waClean;
+  const whatsappUrl = `https://wa.me/${waLink}`;
+
   return (
     <footer className="bg-canvas border-t border-hairline-soft pt-16 pb-12 px-6">
       <div className="container mx-auto max-w-6xl">
@@ -85,13 +96,13 @@ export function Footer() {
               </h3>
 
               <div className="mb-4 flex space-x-2">
-                <a href="#" className="btn-icon-circular" aria-label="LinkedIn">
+                <a href={linkedin} className="btn-icon-circular" aria-label="LinkedIn">
                   <Linkedin className="h-4 w-4" />
                 </a>
-                <a href="https://www.instagram.com/thescene.co.in?igsh=cGxpbmFtb2plZGcy" className="btn-icon-circular" aria-label="Instagram">
+                <a href={instagram} target="_blank" rel="noopener noreferrer" className="btn-icon-circular" aria-label="Instagram">
                   <Instagram className="h-4 w-4" />
                 </a>
-                <a href="#" className="btn-icon-circular" aria-label="Twitter">
+                <a href={twitter} className="btn-icon-circular" aria-label="Twitter">
                   <Twitter className="h-4 w-4" />
                 </a>
                 <a href="#" className="btn-icon-circular" aria-label="Facebook">
@@ -101,14 +112,14 @@ export function Footer() {
 
               <div className="space-y-2 caption-mono">
                 <a
-                  href="mailto:hello@thescene.co.in"
+                  href={`mailto:${email}`}
                   className="flex items-center gap-2 text-ink/80 transition-colors hover:text-ink hover:underline"
                 >
                   <Mail className="h-4 w-4 text-ink/65" />
-                  <span>hello@thescene.co.in</span>
+                  <span>{email}</span>
                 </a>
                 <a
-                  href="https://wa.me/919876543210"
+                  href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-ink/80 transition-colors hover:text-ink hover:underline"

@@ -29,11 +29,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+import { getAllSettings } from '@/lib/db';
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const settings: Record<string, string> = await getAllSettings().catch(() => ({}));
+
   return (
     <ClerkProvider>
       <html lang="en" className="scroll-smooth" suppressHydrationWarning>
@@ -45,7 +49,7 @@ export default function RootLayout({
         <body className="font-body antialiased bg-canvas text-ink">
           <Navbar />
           <main>{children}</main>
-          <Footer />
+          <Footer settings={settings} />
           <Toaster />
         </body>
       </html>
