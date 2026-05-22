@@ -49,14 +49,14 @@ export function CtaBanner({
           <div className="flex flex-wrap gap-3">
             <Link
               href={ctaLink}
-              className={isNavy ? "btn-icon-circular-inverse px-6 py-2.5 rounded-full font-[480] text-[20px] w-auto bg-white/90 text-black hover:bg-white" : "btn-primary-figma"}
+              className={isNavy ? "inline-block bg-white text-ink hover:opacity-90 font-sans text-sm sm:text-base md:text-lg font-semibold px-6 py-3 rounded-full transition-all duration-200 text-center" : "btn-primary-figma"}
             >
               {ctaText}
             </Link>
             {secondaryText && secondaryLink && (
               <Link
                 href={secondaryLink}
-                className={isNavy ? "btn-icon-circular-inverse px-6 py-2.5 rounded-full font-[480] text-[20px] w-auto" : "btn-secondary-figma"}
+                className={isNavy ? "inline-block border border-white/30 text-white hover:bg-white/10 font-sans text-sm sm:text-base md:text-lg font-semibold px-6 py-3 rounded-full transition-all duration-200 text-center" : "btn-secondary-figma"}
               >
                 {secondaryText}
               </Link>
