@@ -1,11 +1,11 @@
 import { Hero } from "@/components/sections/hero";
 import { Packages } from "@/components/sections/packages";
-import { Sustainability } from "@/components/sections/sustainability";
-import { Contact } from "@/components/sections/contact";
-import { MapSection } from "@/components/sections/map-section";
 import { Leadership } from "@/components/sections/leadership";
 import { Testimonials } from "@/components/sections/testimonials";
 import { FAQ } from "@/components/sections/faq";
+import { Contact } from "@/components/sections/contact";
+import { MapSection } from "@/components/sections/map-section";
+import { CtaBanner } from "@/components/sections/cta-banner";
 
 export const runtime = "edge";
 
@@ -13,15 +13,16 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <Hero />
-      <div id="packages" className="container mx-auto px-4 py-24 sm:py-32">
+      <div id="services" className="container mx-auto px-4 py-24 sm:py-32">
         <Packages />
       </div>
-      <div id="sustainability" className="bg-secondary/20">
-        <div className="container mx-auto px-4 py-24 sm:py-32">
-          <Sustainability />
-        </div>
-      </div>
-      <div id="leadership" className="container mx-auto px-4 py-24 sm:py-32">
+      <CtaBanner
+        title="See Our Work"
+        subtitle="Browse our portfolio of custom websites, e-commerce stores, and POS systems."
+        ctaText="View Portfolio"
+        ctaLink="/portfolio"
+      />
+      <div id="team" className="container mx-auto px-4 py-24 sm:py-32">
         <Leadership />
       </div>
       <div id="testimonials" className="w-full bg-secondary/10 border-y border-white/5 py-24 sm:py-32 overflow-hidden">

@@ -1,36 +1,164 @@
--- Drop tables if re-running
-DROP TABLE IF EXISTS events;
+-- The Scene Co — CMS Database Schema
+-- Drop existing tables if re-running
+DROP TABLE IF EXISTS rate_limits;
+DROP TABLE IF EXISTS blog_posts;
+DROP TABLE IF EXISTS portfolio_items;
+DROP TABLE IF EXISTS testimonials;
+DROP TABLE IF EXISTS pricing_plans;
+DROP TABLE IF EXISTS pricing_features;
+DROP TABLE IF EXISTS leads;
+DROP TABLE IF EXISTS site_settings;
+DROP TABLE IF EXISTS faqs;
+DROP TABLE IF EXISTS pages;
 DROP TABLE IF EXISTS admin_config;
 
--- Events table
-CREATE TABLE events (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  title TEXT NOT NULL,
-  category TEXT NOT NULL,
-  date TEXT NOT NULL,
-  description TEXT NOT NULL,
-  image_url TEXT NOT NULL,
-  likes INTEGER DEFAULT 0,
-  created_at TEXT DEFAULT (datetime('now'))
-);
-
--- Admin config table (stores the hashed password)
+-- ─── Admin Config ──────────────────────────────────────────────────────────────
 CREATE TABLE admin_config (
   key TEXT PRIMARY KEY,
   value TEXT NOT NULL
 );
 
--- Seed: default admin password hash
--- This is the bcrypt hash of "sceneco_admin" — change after first login!
--- Plain: sceneco_admin
--- You can regenerate with: https://bcrypt.online/ at cost factor 10
+-- Default admin password hash (SHA-256 of "sceneco_admin")
+-- Change after first login!
 INSERT INTO admin_config (key, value) VALUES (
   'admin_password_hash',
-  '$2a$10$n9CM8OgInDlwpvjLaLbuuuUlAaJnZVlq1FYBPxqJQNq2VFCmBbH9e'
+  'dcb6ba1b0db77ed6389c29f5438886cbb5d3cee92a180eb4a91572846568c'
 );
 
--- Seed some starter past events
-INSERT INTO events (title, category, date, description, image_url) VALUES
-  ('TEDx Youth @ Example', 'TEDx', 'November 2025', 'A completely carbon-neutral TEDx event catering to over 500 attendees, featuring interactive zones and upcycled stage designs.', 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80'),
-  ('Global Tech Summit 2025', 'Corporate', 'August 2025', 'An experiential corporate summit blending cutting-edge tech showcases with sustainable hospitality, hosting 1200+ industry leaders.', 'https://images.unsplash.com/photo-1556761175-5973dc0f32b7?auto=format&fit=crop&w=800&q=80'),
-  ('Eco-Fashion Launch', 'Brand Activation', 'June 2025', 'A stunning product launch for an eco-aware fashion label, featuring immersive botanical art installations and zero-waste catering.', 'https://images.unsplash.com/photo-1509822929063-6b6cfc2b4293?auto=format&fit=crop&w=800&q=80');
+-- ─── Site Settings ─────────────────────────────────────────────────────────────
+CREATE TABLE site_settings (
+  key TEXT PRIMARY KEY,
+  value TEXT NOT NULL
+);
+
+INSERT INTO site_settings (key, value) VALUES
+  ('site_name', 'The Scene Co.'),
+  ('site_tagline', 'We Build Premium Websites, POS Systems & SaaS Products'),
+  ('hero_title', 'Your Vision. Our Code. Zero Templates.'),
+  ('hero_subtitle', 'Custom websites, e-commerce stores, and POS systems — built from scratch with a CMS you control. 1 year free hosting included.'),
+  ('hero_cta_text', 'Get a Free Quote'),
+  ('hero_cta_link', '/contact'),
+  ('contact_email', 'hello@thescene.co.in'),
+  ('contact_phone', '+91 98765 43210'),
+  ('contact_address', 'India'),
+  ('whatsapp_number', '+919876543210'),
+  ('social_twitter', ''),
+  ('social_instagram', ''),
+  ('social_linkedin', ''),
+  ('social_github', '');
+
+-- ─── Pages (CMS-managed website pages) ─────────────────────────────────────────
+CREATE TABLE pages (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  slug TEXT UNIQUE NOT NULL,
+  title TEXT NOT NULL,
+  meta_description TEXT DEFAULT '',
+  content TEXT DEFAULT '',
+  is_published INTEGER DEFAULT 1,
+  created_at TEXT DEFAULT (datetime('now')),
+  updated_at TEXT DEFAULT (datetime('now'))
+);
+
+-- ─── Portfolio Items ───────────────────────────────────────────────────────────
+CREATE TABLE portfolio_items (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  slug TEXT UNIQUE NOT NULL,
+  category TEXT NOT NULL,
+  description TEXT NOT NULL,
+  image_url TEXT NOT NULL,
+  gallery_urls TEXT DEFAULT '[]',
+  client_name TEXT DEFAULT '',
+  technologies TEXT DEFAULT '[]',
+  is_featured INTEGER DEFAULT 0,
+  is_published INTEGER DEFAULT 1,
+  created_at TEXT DEFAULT (datetime('now')),
+  updated_at TEXT DEFAULT (datetime('now'))
+);
+
+-- ─── Testimonials ──────────────────────────────────────────────────────────────
+CREATE TABLE testimonials (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  role TEXT NOT NULL,
+  company TEXT DEFAULT '',
+  quote TEXT NOT NULL,
+  avatar_url TEXT DEFAULT '',
+  rating INTEGER DEFAULT 5,
+  is_published INTEGER DEFAULT 1,
+  order_index INTEGER DEFAULT 0,
+  created_at TEXT DEFAULT (datetime('now'))
+);
+
+-- ─── Pricing Plans ─────────────────────────────────────────────────────────────
+CREATE TABLE pricing_plans (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  slug TEXT UNIQUE NOT NULL,
+  price_min INTEGER NOT NULL,
+  price_max INTEGER NOT NULL,
+  currency TEXT DEFAULT '₹',
+  description TEXT NOT NULL,
+  delivery_time TEXT NOT NULL,
+  is_popular INTEGER DEFAULT 0,
+  is_published INTEGER DEFAULT 1,
+  order_index INTEGER DEFAULT 0,
+  created_at TEXT DEFAULT (datetime('now'))
+);
+
+CREATE TABLE pricing_features (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  plan_id INTEGER NOT NULL,
+  feature TEXT NOT NULL,
+  order_index INTEGER DEFAULT 0,
+  FOREIGN KEY (plan_id) REFERENCES pricing_plans(id) ON DELETE CASCADE
+);
+
+-- ─── Leads (Contact form submissions) ──────────────────────────────────────────
+CREATE TABLE leads (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  phone TEXT DEFAULT '',
+  message TEXT NOT NULL,
+  service_interest TEXT DEFAULT '',
+  budget_range TEXT DEFAULT '',
+  is_read INTEGER DEFAULT 0,
+  created_at TEXT DEFAULT (datetime('now'))
+);
+
+-- ─── Blog Posts ────────────────────────────────────────────────────────────────
+CREATE TABLE blog_posts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  slug TEXT UNIQUE NOT NULL,
+  excerpt TEXT NOT NULL,
+  content TEXT NOT NULL,
+  cover_image_url TEXT DEFAULT '',
+  author TEXT DEFAULT 'The Scene Co.',
+  tags TEXT DEFAULT '[]',
+  is_published INTEGER DEFAULT 0,
+  published_at TEXT,
+  created_at TEXT DEFAULT (datetime('now')),
+  updated_at TEXT DEFAULT (datetime('now'))
+);
+
+-- ─── FAQs ──────────────────────────────────────────────────────────────────────
+CREATE TABLE faqs (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  question TEXT NOT NULL,
+  answer TEXT NOT NULL,
+  category TEXT DEFAULT 'general',
+  order_index INTEGER DEFAULT 0,
+  is_published INTEGER DEFAULT 1,
+  created_at TEXT DEFAULT (datetime('now'))
+);
+
+-- ─── Rate Limits (for contact form + login protection) ─────────────────────────
+CREATE TABLE rate_limits (
+  ip TEXT NOT NULL,
+  endpoint TEXT NOT NULL,
+  count INTEGER DEFAULT 1,
+  window_start TEXT DEFAULT (datetime('now')),
+  PRIMARY KEY (ip, endpoint)
+);

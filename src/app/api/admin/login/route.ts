@@ -3,9 +3,9 @@ import { getBindings } from "@/lib/cf-bindings";
 
 export const runtime = "edge";
 
-// ─── POST /api/admin/login ────────────────────────────────────────────────────
 export async function POST(request: NextRequest) {
-    const { password } = await request.json();
+    const body = await request.json() as { password?: string };
+    const { password } = body;
 
     if (!password) {
         return NextResponse.json({ error: "Password is required" }, { status: 400 });

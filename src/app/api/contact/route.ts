@@ -1,9 +1,11 @@
 // app/api/contact/route.ts
 import { NextResponse } from "next/server";
 
+export const runtime = "edge";
+
 export async function POST(request: Request) {
   try {
-    const formData = await request.json(); // body from fetch
+    const formData = await request.json() as { name?: string; email?: string; message?: string };
     const { name, email, message } = formData;
 
     if (!name || !email || !message) {

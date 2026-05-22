@@ -15,12 +15,12 @@ import {
 } from "@/components/ui/sheet";
 
 const navLinks = [
-  { href: "/#packages", label: "Packages" },
-  { href: "/team", label: "Our Team" },
-  { href: "/about", label: "About Us" },
-  { href: "/sustainability", label: "Sustainability" },
-  { href: "/past-events", label: "Past Events" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/services", label: "Services" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/portfolio", label: "Portfolio" },
+  { href: "/blog", label: "Blog" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export function Navbar() {
@@ -60,7 +60,7 @@ export function Navbar() {
         {/* Right side: CTA + mobile menu */}
         <div className="flex items-center gap-2">
           <Button asChild variant="ghost" className="hidden md:inline-flex">
-            <Link href="/#contact">Book a Consultation</Link>
+            <Link href="/contact">Get a Free Quote</Link>
           </Button>
 
           {/* Mobile menu */}

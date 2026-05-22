@@ -1,0 +1,15 @@
+﻿node.exe : Vercel CLI 47.0.4
+At C:\Program Files\nodejs\npx.ps1:29 char:3
++   & $NODE_EXE $NPX_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Vercel CLI 47.0.4:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+> [debug] [2026-05-22T14:36:12.139Z] user supplied known subcommand: "build"
+> [debug] [2026-05-22T14:36:12.402Z] Found ".git\config" - detected "C:\Users\pabt2\Desktop\the-scene-co-1" as repo 
+root
+No Project Settings found locally. Run `vercel pull --yes` to retrieve them.> [debug] [2026-05-22T14:36:12.798Z] 
+Vercel CLI 47.0.4
+
+> [debug] [2026-05-22T14:36:13.440Z] Telemetry event tracked
+> [debug] [2026-05-22T14:36:13.886Z] Telemetry subprocess exited with code 0

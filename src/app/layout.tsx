@@ -7,21 +7,21 @@ import { Toaster } from '@/components/ui/toaster';
 export const runtime = "edge";
 
 export const metadata: Metadata = {
-  title: 'The Scene Co. | Events & Experiences, Curated to Perfection.',
-  description: 'Premium, experiential, and eco-conscious event planning for TEDx, corporate functions, cultural events, and brand activations.',
+  title: 'The Scene Co. | Custom Websites, POS Systems & SaaS Products',
+  description: 'We build premium custom websites, e-commerce stores, and POS systems — full-stack, with built-in CMS and 1 year free hosting. Zero templates.',
   metadataBase: new URL('https://thescene.co.in'),
   openGraph: {
     type: "website",
     locale: "en_IN",
     url: "https://thescene.co.in",
-    title: "The Scene Co. | Events & Experiences, Curated to Perfection.",
-    description: "Premium, experiential, and eco-conscious event planning for TEDx, corporate functions, cultural events, and brand activations.",
+    title: "The Scene Co. | Custom Websites, POS Systems & SaaS Products",
+    description: "We build premium custom websites, e-commerce stores, and POS systems — full-stack, with built-in CMS and 1 year free hosting. Zero templates.",
     siteName: "The Scene Co.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Scene Co. | Events & Experiences, Curated to Perfection.",
-    description: "Premium, experiential, and eco-conscious event planning for TEDx, corporate functions, cultural events, and brand activations.",
+    title: "The Scene Co. | Custom Websites, POS Systems & SaaS Products",
+    description: "We build premium custom websites, e-commerce stores, and POS systems — full-stack, with built-in CMS and 1 year free hosting. Zero templates.",
   },
   alternates: {
     canonical: "https://thescene.co.in",

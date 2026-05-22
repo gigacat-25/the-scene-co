@@ -3,18 +3,17 @@ import { getBindings } from "@/lib/cf-bindings";
 
 export const runtime = "edge";
 
-// ─── GET /api/media/[...key] ──────────────────────────────────────────────────
-// Serves files stored in R2. Acts as a public proxy.
 export async function GET(
     _request: NextRequest,
-    { params }: { params: { key: string[] } }
+    { params }: { params: Promise<{ key: string[] }> }
 ) {
     const { r2 } = await getBindings();
     if (!r2) {
         return new NextResponse("R2 not available in local dev", { status: 503 });
     }
 
-    const key = params.key.join("/");
+    const resolved = await params;
+    const key = resolved.key.join("/");
     const object = await r2.get(key);
 
     if (!object) {
