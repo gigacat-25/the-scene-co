@@ -13,7 +13,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
     const { id } = await params;
     const body = await request.json() as { name?: string; price_min?: number; price_max?: number; description?: string; delivery_time?: string; is_popular?: number; order_index?: number };
     const { name, price_min, price_max, description, delivery_time, is_popular, order_index } = body;
-    await db.prepare("UPDATE pricing_plans SET name = COALESCE(?, name), price_min = COALESCE(?, price_min), price_max = COALESCE(?, price_max), description = COALESCE(?, description), delivery_time = COALESCE(?, delivery_time), is_popular = COALESCE(?, is_popular), order_index = COALESCE(?, order_index) WHERE id = ?").bind(name, price_min, price_max, description, delivery_time, is_popular, order_index, id).run();
+    await db.prepare("UPDATE pricing_plans SET name = COALESCE(?, name), price_min = COALESCE(?, price_min), price_max = COALESCE(?, price_max), description = COALESCE(?, description), delivery_time = COALESCE(?, delivery_time), is_popular = COALESCE(?, is_popular), order_index = COALESCE(?, order_index) WHERE id = ?").bind(...[name, price_min, price_max, description, delivery_time, is_popular, order_index, id].map(x => x === undefined ? null : x)).run();
     return NextResponse.json({ success: true });
   } catch (err: unknown) {
     return NextResponse.json({ error: (err as Error).message }, { status: 500 });

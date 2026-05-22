@@ -24,7 +24,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
     const { slug: id } = await params;
     const body = await request.json() as { title?: string; meta_description?: string; content?: string; is_published?: number };
     const { title, meta_description, content, is_published } = body;
-    await db.prepare("UPDATE pages SET title = COALESCE(?, title), meta_description = COALESCE(?, meta_description), content = COALESCE(?, content), is_published = COALESCE(?, is_published), updated_at = datetime('now') WHERE id = ?").bind(title, meta_description, content, is_published, id).run();
+    await db.prepare("UPDATE pages SET title = COALESCE(?, title), meta_description = COALESCE(?, meta_description), content = COALESCE(?, content), is_published = COALESCE(?, is_published), updated_at = datetime('now') WHERE id = ?").bind(...[title, meta_description, content, is_published, id].map(x => x === undefined ? null : x)).run();
     return NextResponse.json({ success: true });
   } catch (err: unknown) {
     return NextResponse.json({ error: (err as Error).message }, { status: 500 });

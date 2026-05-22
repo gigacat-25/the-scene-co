@@ -27,7 +27,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
   const { id } = await params;
   const body = await request.json() as { name?: string; role?: string; company?: string; quote?: string; avatar_url?: string; rating?: number; order_index?: number; is_published?: number };
   const { name, role, company, quote, avatar_url, rating, order_index, is_published } = body;
-  await db.prepare("UPDATE testimonials SET name = COALESCE(?, name), role = COALESCE(?, role), company = COALESCE(?, company), quote = COALESCE(?, quote), avatar_url = COALESCE(?, avatar_url), rating = COALESCE(?, rating), order_index = COALESCE(?, order_index), is_published = COALESCE(?, is_published) WHERE id = ?").bind(name, role, company, quote, avatar_url, rating, order_index, is_published, id).run();
+  await db.prepare("UPDATE testimonials SET name = COALESCE(?, name), role = COALESCE(?, role), company = COALESCE(?, company), quote = COALESCE(?, quote), avatar_url = COALESCE(?, avatar_url), rating = COALESCE(?, rating), order_index = COALESCE(?, order_index), is_published = COALESCE(?, is_published) WHERE id = ?").bind(...[name, role, company, quote, avatar_url, rating, order_index, is_published, id].map(x => x === undefined ? null : x)).run();
   return NextResponse.json({ success: true });
 }
 

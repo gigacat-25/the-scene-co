@@ -23,7 +23,8 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
   const { slug: id } = await params;
   const body = await request.json() as { title?: string; slug?: string; excerpt?: string; content?: string; cover_image_url?: string; author?: string; tags?: string[]; is_published?: number };
   const { title, slug, excerpt, content, cover_image_url, author, tags, is_published } = body;
-  await db.prepare("UPDATE blog_posts SET title = COALESCE(?, title), slug = COALESCE(?, slug), excerpt = COALESCE(?, excerpt), content = COALESCE(?, content), cover_image_url = COALESCE(?, cover_image_url), author = COALESCE(?, author), tags = COALESCE(?, tags), is_published = COALESCE(?, is_published), updated_at = datetime('now') WHERE id = ?").bind(title, slug, excerpt, content, cover_image_url, author, tags ? JSON.stringify(tags) : undefined, is_published, id).run();
+  const tagsVal = tags ? JSON.stringify(tags) : null;
+  await db.prepare("UPDATE blog_posts SET title = COALESCE(?, title), slug = COALESCE(?, slug), excerpt = COALESCE(?, excerpt), content = COALESCE(?, content), cover_image_url = COALESCE(?, cover_image_url), author = COALESCE(?, author), tags = COALESCE(?, tags), is_published = COALESCE(?, is_published), updated_at = datetime('now') WHERE id = ?").bind(...[title, slug, excerpt, content, cover_image_url, author, tagsVal, is_published, id].map(x => x === undefined ? null : x)).run();
   return NextResponse.json({ success: true });
 }
 
