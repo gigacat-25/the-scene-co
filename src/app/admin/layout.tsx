@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LayoutDashboard, Image, MessageSquare, DollarSign, FileText, HelpCircle, Inbox, Settings, LogOut } from "lucide-react";
+import { UserButton } from "@clerk/nextjs";
+import { LayoutDashboard, Image, MessageSquare, DollarSign, FileText, HelpCircle, Inbox, Settings } from "lucide-react";
 
 export const runtime = "edge";
 
@@ -45,16 +46,22 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           })}
         </nav>
 
-        <div className="p-4 border-t border-hairline bg-surface-soft">
+        {/* Footer: View Site + Clerk UserButton */}
+        <div className="p-4 border-t border-hairline bg-surface-soft space-y-1">
           <Link href="/" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-ink/70 hover:text-ink hover:bg-ink/5 transition-colors text-sm font-medium">
-            View Site
+            ↗ View Site
           </Link>
-          <form action="/api/admin/logout" method="POST">
-            <button type="submit" className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-red-600 hover:text-red-700 hover:bg-red-50 transition-colors text-sm font-medium mt-1">
-              <LogOut className="h-4 w-4" />
-              Logout
-            </button>
-          </form>
+          {/* Clerk UserButton — shows avatar, clicking opens sign-out + profile menu */}
+          <div className="flex items-center gap-3 px-3 py-2.5">
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: "h-7 w-7",
+                },
+              }}
+            />
+            <span className="text-sm text-ink/60 font-medium">Account</span>
+          </div>
         </div>
       </aside>
 

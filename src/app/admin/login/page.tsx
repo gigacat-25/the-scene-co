@@ -1,68 +1,36 @@
-"use client";
-
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Loader2 } from "lucide-react";
+import { SignIn } from "@clerk/nextjs";
 
 export const runtime = "edge";
 
-export default function LoginPage() {
-  const router = useRouter();
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    try {
-      const res = await fetch("/api/admin/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password }),
-      });
-
-      if (!res.ok) {
-        const data = await res.json() as { error?: string };
-        setError(data.error || "Invalid password");
-        return;
-      }
-
-      router.push("/admin/dashboard");
-      router.refresh();
-    } catch {
-      setError("Network error");
-    } finally {
-      setLoading(false);
-    }
-  }
-
+export default function AdminLoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="w-full max-w-md p-8 bg-secondary/20 border border-white/10 rounded-xl">
-        <h1 className="font-headline text-2xl font-bold text-white mb-2">Admin Login</h1>
-        <p className="text-muted-foreground text-sm mb-6">Enter your admin password to continue.</p>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <Input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="bg-input border-border"
-          />
-
-          {error && <p className="text-red-400 text-sm">{error}</p>}
-
-          <Button type="submit" disabled={loading} className="w-full font-bold">
-            {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Logging in...</> : "Login"}
-          </Button>
-        </form>
+    <div className="fixed inset-0 z-[100] bg-canvas flex items-center justify-center">
+      <div className="flex flex-col items-center gap-8">
+        <div className="text-center">
+          <h1 className="font-headline text-3xl font-bold text-ink mb-1">CMS Login</h1>
+          <p className="caption-mono text-ink/50 text-sm">The Scene Co. — Admin Access Only</p>
+        </div>
+        <SignIn
+          routing="hash"
+          appearance={{
+            variables: {
+              colorPrimary: "#111",
+              colorBackground: "#ffffff",
+              colorInputBackground: "#f7f7f5",
+              colorText: "#111",
+              fontFamily: "Inter, sans-serif",
+              borderRadius: "8px",
+            },
+            elements: {
+              card: "shadow-none border border-hairline",
+              headerTitle: "hidden",
+              headerSubtitle: "hidden",
+              socialButtonsBlockButton: "border border-hairline text-sm font-medium",
+              formButtonPrimary: "bg-ink text-canvas hover:bg-ink/90 text-sm font-medium",
+              footerActionLink: "text-ink underline",
+            },
+          }}
+        />
       </div>
     </div>
   );
