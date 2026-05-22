@@ -10,13 +10,25 @@ export async function POST(request: NextRequest) {
     if (!isAuthenticated(request)) return unauthorizedResponse();
 
     const { r2 } = await getBindings();
-    if (!r2) return serviceUnavailableResponse("R2 storage only available on Cloudflare deployment");
-
+    
+    // In local development, fallback to returning a base64 Data URL so uploads work without R2
+    const isDev = process.env.NODE_ENV === "development";
+    
     const formData = await request.formData();
     const file = formData.get("file");
 
     if (!file || !(file instanceof File)) {
         return NextResponse.json({ error: "No file provided" }, { status: 400 });
+    }
+
+    if (!r2) {
+        if (isDev) {
+            const buffer = await file.arrayBuffer();
+            const base64String = Buffer.from(buffer).toString("base64");
+            const dataUrl = `data:${file.type};base64,${base64String}`;
+            return NextResponse.json({ success: true, url: dataUrl }, { status: 201 });
+        }
+        return serviceUnavailableResponse("R2 storage only available on Cloudflare deployment");
     }
 
     // Validate file type
