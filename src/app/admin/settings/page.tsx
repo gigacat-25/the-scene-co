@@ -62,8 +62,8 @@ export default function AdminSettingsPage() {
       { key: "social_linkedin", label: "LinkedIn" },
       { key: "social_github", label: "GitHub" },
     ]},
-    { title: "AI Configuration (Gemini)", fields: [
-      { key: "gemini_api_key", label: "Gemini API Key" },
+    { title: "AI Configuration (Groq)", fields: [
+      { key: "groq_api_key", label: "Groq API Key" },
     ]},
     { title: "Google OAuth2 Email Configuration", fields: [
       { key: "google_client_id", label: "Google Client ID" },

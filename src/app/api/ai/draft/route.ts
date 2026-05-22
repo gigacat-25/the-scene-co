@@ -17,88 +17,84 @@ export async function POST(request: NextRequest) {
       invoiceDetails?: any;
     };
 
-    // 1. Get Gemini API Key
+    // 1. Get Groq API Key
     const settings = await getAllSettings();
-    const apiKey = settings.gemini_api_key || process.env.GEMINI_API_KEY;
+    const apiKey = settings.groq_api_key || process.env.GROQ_API_KEY;
 
     if (!apiKey) {
       return NextResponse.json(
-        { error: "Gemini API Key is not configured. Please add it in Admin Settings." },
+        { error: "Groq API Key is not configured. Please add it in Admin Settings." },
         { status: 400 }
       );
     }
 
-    // 2. Prepare prompt
+    // 2. Prepare instructions and prompts
     let systemInstruction = "";
+    let userPrompt = "";
+
     if (type === "invoice") {
-      systemInstruction = `
-        You are an AI assistant drafting a professional invoice payment request for "The Scene Co." (a premium digital studio building custom websites, e-commerce, and POS software).
-        Create a gorgeous HTML email featuring a clean, modern invoice styled with inline CSS.
-        Use a minimal black-and-white theme with gray borders matching premium aesthetics.
-        The email must include:
-        1. Professional greeting to the client.
-        2. Elegant table detailing items, rates, quantity, and total.
-        3. Clear terms & instructions.
-        
-        Invoice Details:
-        Client Name: ${recipientName || "Valued Client"}
-        Items: ${JSON.stringify(invoiceDetails?.items || [])}
-        Total Amount: ${invoiceDetails?.currency || "₹"}${invoiceDetails?.total || 0}
-        Additional prompt/context: ${prompt || "None"}
+      systemInstruction = `You are an AI assistant drafting a professional invoice payment request for "The Scene Co." (a premium digital studio building custom websites, e-commerce, and POS software).
+Create a gorgeous HTML email featuring a clean, modern invoice styled with inline CSS.
+Use a minimal black-and-white theme with gray borders matching premium aesthetics.
+The email must include:
+1. Professional greeting to the client.
+2. Elegant table detailing items, rates, quantity, and total.
+3. Clear terms & instructions.
 
-        Respond ONLY with a JSON object in this format:
-        {
-          "subject": "Invoice from The Scene Co.",
-          "htmlBody": "<html>HTML content with inline CSS</html>"
-        }
-      `;
+You must respond ONLY with a JSON object containing the keys "subject" and "htmlBody":
+{
+  "subject": "Invoice from The Scene Co.",
+  "htmlBody": "<html>HTML content with inline CSS</html>"
+}`;
+
+      userPrompt = `Client Name: ${recipientName || "Valued Client"}
+Items: ${JSON.stringify(invoiceDetails?.items || [])}
+Total Amount: ${invoiceDetails?.currency || "₹"}${invoiceDetails?.total || 0}
+Additional instruction: ${prompt || "None"}`;
     } else {
-      systemInstruction = `
-        You are an AI assistant drafting a professional business email for "The Scene Co." (a premium digital studio building custom websites, e-commerce, and POS software).
-        Create a polished HTML email with elegant inline CSS.
-        
-        Details:
-        Recipient Name: ${recipientName || "Client"}
-        Email Brief/Request: ${prompt || "General business follow-up"}
+      systemInstruction = `You are an AI assistant drafting a professional business email for "The Scene Co." (a premium digital studio building custom websites, e-commerce, and POS software).
+Create a polished HTML email with elegant inline CSS.
 
-        Respond ONLY with a JSON object in this format:
-        {
-          "subject": "Professional Subject Line",
-          "htmlBody": "<html>HTML content with inline CSS</html>"
-        }
-      `;
+You must respond ONLY with a JSON object containing the keys "subject" and "htmlBody":
+{
+  "subject": "Professional Subject Line",
+  "htmlBody": "<html>HTML content with inline CSS</html>"
+}`;
+
+      userPrompt = `Recipient Name: ${recipientName || "Client"}
+Email Brief/Request: ${prompt || "General business follow-up"}`;
     }
 
-    // 3. Request Gemini API
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-    const response = await fetch(geminiUrl, {
+    // 3. Request Groq API
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Authorization": `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
-        contents: [
-          {
-            parts: [{ text: systemInstruction }],
-          },
+        model: "llama-3.3-70b-versatile",
+        messages: [
+          { role: "system", content: systemInstruction },
+          { role: "user", content: userPrompt },
         ],
-        generationConfig: {
-          responseMimeType: "application/json",
-        },
+        response_format: { type: "json_object" },
       }),
     });
 
     if (!response.ok) {
       const errText = await response.text();
-      return NextResponse.json({ error: `Gemini API error: ${errText}` }, { status: 502 });
+      return NextResponse.json({ error: `Groq API error: ${errText}` }, { status: 502 });
     }
 
     const resData = await response.json() as any;
-    const textResult = resData?.candidates?.[0]?.content?.parts?.[0]?.text;
+    const textResult = resData?.choices?.[0]?.message?.content;
 
     if (!textResult) {
-      return NextResponse.json({ error: "No response generated from Gemini." }, { status: 500 });
+      return NextResponse.json({ error: "No response generated from Groq model." }, { status: 500 });
     }
 
-    // Parse the JSON returned by Gemini
+    // Parse the JSON returned by Llama on Groq
     const parsed = JSON.parse(textResult.trim()) as { subject: string; htmlBody: string };
     return NextResponse.json(parsed);
   } catch (error: any) {
