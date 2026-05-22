@@ -44,6 +44,7 @@ Style Guide:
 - Table style: width 100%, border-collapse collapse, margin 24px 0, font-size 14px. Column headers (Item, Qty, Rate, Total) in #666 with font-weight 500. Row borders 1px solid #f1f1f1. Total row font-weight 700.
 - Accent colors: Success green (#1ea64a) or brand coral (#f3c9b6) for totals or high priority blocks.
 - Payment CTA button: background #000000, color #ffffff, border-radius 12px, font-weight 600, padding 14px 28px, text-decoration none, display inline-block.
+- CRITICAL layout rule: All buttons/CTAs must be placed in their own separate blocks with vertical space, e.g., <div style="margin: 24px 0; text-align: center;"><a href="..." style="...">Button</a></div>. Never place buttons inline inside a paragraph or sentence. Simple text links can be inline.
 
 The email must include:
 1. Professional greeting to the client.
@@ -70,6 +71,7 @@ Style Guide:
 - Header block: background #1f1d3d (brand navy), padding 30px, text-align center, with title "THE SCENE CO." in white text (font-size 22px, font-weight 700) and subtitle "CLIENT MEMO" in #dceeb1 (brand lime, uppercase, letter-spacing 2px, font-size 11px, monospace).
 - Content padding: 40px, font-size 15px, line-height 1.6, color #000000.
 - Buttons / Links: background #000000, color #ffffff, border-radius 12px, font-weight 600, padding 14px 28px, text-decoration none, display inline-block.
+- CRITICAL layout rule: All buttons/CTAs must be placed in their own separate blocks with vertical space, e.g., <div style="margin: 24px 0; text-align: center;"><a href="..." style="...">Button</a></div>. Never place buttons inline inside a paragraph or sentence. Simple text links can be inline.
 
 You must respond ONLY with a JSON object containing the keys "subject" and "htmlBody":
 {
