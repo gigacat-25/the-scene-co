@@ -24,12 +24,10 @@ export async function POST(request: NextRequest) {
       // User acknowledgment email - premium Hostinger-style clean branding matching "The Scene Co."
       const userHtml = `
         <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #ffffff; color: #1f1f1f; max-width: 600px; margin: 0 auto; padding: 40px 20px; line-height: 1.6;">
-          {/* Centered Brand Logo/Header */}
           <div style="text-align: center; margin-bottom: 24px;">
             <span style="font-size: 20px; font-weight: 700; letter-spacing: 2px; color: #000000; text-transform: uppercase;">THE SCENE CO.</span>
           </div>
 
-          {/* Centered Large Title */}
           <h1 style="text-align: center; font-size: 28px; font-weight: 700; color: #111111; margin-bottom: 24px; letter-spacing: -0.5px;">We've received your request!</h1>
 
           <p style="margin-bottom: 16px; font-size: 15px; color: #333333;">Hi ${name},</p>
@@ -38,7 +36,6 @@ export async function POST(request: NextRequest) {
             Thank you for reaching out to us. We have received your inquiry regarding <strong>${service_interest || "our custom digital studio services"}</strong>. Our team is already reviewing your details.
           </p>
 
-          {/* Clean Light-Gray Summary Card */}
           <div style="background-color: #f7f7f5; border: 1px solid #e6e6e6; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
             <h3 style="font-size: 11px; text-transform: uppercase; color: #666666; letter-spacing: 1px; margin: 0 0 12px 0; font-family: monospace;">Inquiry Summary</h3>
             <table style="width: 100%; border-collapse: collapse; font-size: 14px; color: #333333;">
@@ -62,10 +59,8 @@ export async function POST(request: NextRequest) {
             <strong>The Scene Co. Team</strong>
           </p>
 
-          {/* Separator Line */}
           <hr style="border: 0; border-top: 1px solid #e6e6e6; margin: 32px 0;" />
 
-          {/* Footer Block */}
           <div style="text-align: center; font-size: 12px; color: #888888;">
             <span style="font-weight: 700; color: #000000; letter-spacing: 1px; text-transform: uppercase;">THE SCENE CO.</span>
             <p style="margin: 8px 0 12px 0; line-height: 1.5;">You received this automated notification because you submitted a request at thescene.co.in.</p>
@@ -81,19 +76,16 @@ export async function POST(request: NextRequest) {
       // Admin notification email - premium Hostinger-style clean branding matching "The Scene Co."
       const adminHtml = `
         <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #ffffff; color: #1f1f1f; max-width: 600px; margin: 0 auto; padding: 40px 20px; line-height: 1.6;">
-          {/* Centered Brand Logo/Header */}
           <div style="text-align: center; margin-bottom: 24px;">
             <span style="font-size: 20px; font-weight: 700; letter-spacing: 2px; color: #000000; text-transform: uppercase;">THE SCENE CO.</span>
           </div>
 
-          {/* Centered Large Title */}
           <h1 style="text-align: center; font-size: 28px; font-weight: 700; color: #111111; margin-bottom: 24px; letter-spacing: -0.5px;">New Lead Inbound</h1>
 
           <p style="margin-bottom: 24px; font-size: 15px; color: #333333;">
             A new inquiry has been submitted through the contact form. Details are listed below:
           </p>
 
-          {/* Clean Details Table */}
           <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 14px; color: #333333;">
             <tr style="border-bottom: 1px solid #e6e6e6;">
               <td style="padding: 12px 0; color: #666666; font-weight: 500; width: 150px;">Name</td>
@@ -117,23 +109,19 @@ export async function POST(request: NextRequest) {
             </tr>
           </table>
 
-          {/* Clean Message Box */}
           <div style="background-color: #f7f7f5; border: 1px solid #e6e6e6; border-radius: 12px; padding: 20px; margin-bottom: 30px;">
             <h4 style="margin: 0 0 10px 0; font-size: 11px; text-transform: uppercase; color: #666666; font-family: monospace; letter-spacing: 1px;">Message</h4>
             <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #333333; font-style: italic; white-space: pre-line;">${message}</p>
           </div>
 
-          {/* Centered Button */}
           <div style="text-align: center; margin: 32px 0;">
             <a href="https://thescene.co.in/admin/leads" style="display: inline-block; background-color: #000000; color: #ffffff; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-size: 14px; font-weight: 600;">
               Open Admin Dashboard
             </a>
           </div>
 
-          {/* Separator Line */}
           <hr style="border: 0; border-top: 1px solid #e6e6e6; margin: 32px 0;" />
 
-          {/* Footer Block */}
           <div style="text-align: center; font-size: 12px; color: #888888;">
             <span style="font-weight: 700; color: #000000; letter-spacing: 1px; text-transform: uppercase;">THE SCENE CO.</span>
             <p style="margin: 8px 0 12px 0; line-height: 1.5;">This is an administrative alert sent by the CMS regarding a contact submission.</p>
