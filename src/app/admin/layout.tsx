@@ -3,7 +3,7 @@ import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { LayoutDashboard, Image, MessageSquare, DollarSign, HelpCircle, Inbox, Settings, Users, Briefcase } from "lucide-react";
+import { LayoutDashboard, Image, MessageSquare, DollarSign, HelpCircle, Inbox, Settings, Users, Briefcase, Mail } from "lucide-react";
 
 export const runtime = "edge";
 
@@ -23,6 +23,7 @@ const navItems = [
   { href: "/admin/clients", label: "Clients", icon: Briefcase },
   { href: "/admin/faqs", label: "FAQs", icon: HelpCircle },
   { href: "/admin/leads", label: "Leads", icon: Inbox },
+  { href: "/admin/email-drafter", label: "AI Drafter", icon: Mail },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
