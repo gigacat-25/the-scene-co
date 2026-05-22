@@ -1,95 +1,85 @@
 "use client";
 
 import { AnimateOnScroll } from "../animate-on-scroll";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-} from "@/components/ui/carousel";
 import { Star } from "lucide-react";
 
 const testimonials = [
-    {
-        name: "Sarah Jenkins",
-        company: "TechForward Summit",
-        review: "The Scene Co. completely transformed our annual summit. Not only was the production flawless, but their zero-waste initiative resonated perfectly with our core values. We couldn't be happier.",
-        rating: 5,
-    },
-    {
-        name: "Marcus Aurelius",
-        company: "TEDx University",
-        review: "From the spectacular stage design to the coordination of 12 speakers, everything was immaculate. A truly premium experience that felt both majestic and incredibly intimate.",
-        rating: 5,
-    },
-    {
-        name: "Elena Rodriguez",
-        company: "Eco-Wear Launch",
-        review: "Their experiential brand activation was out of this world. Our guests were mesmerized by the botanical installations and sustainable catering. Best agency we've ever worked with.",
-        rating: 5,
-    },
-    {
-        name: "David Chen",
-        company: "Global Banking Gala",
-        review: "Unparalleled attention to detail. Having an event executed so elegantly with a 100% carbon-neutral footprint is a rare achievement. They are masters of their craft.",
-        rating: 5,
-    },
+  {
+    name: "Arjun Mehta",
+    company: "Spice Route Restaurant",
+    review: "The Scene Co. built our POS and website together seamlessly. Orders go straight from the website into our kitchen screen. Game changer for our team.",
+    rating: 5,
+  },
+  {
+    name: "Priya Sharma",
+    company: "Kala Boutique",
+    review: "We went from zero online presence to ₹3L+ monthly revenue in 4 months. The e-commerce store they built is beautiful and the CMS is so easy to use.",
+    rating: 5,
+  },
+  {
+    name: "Rohan Verma",
+    company: "TechLaunch SaaS",
+    review: "Hired them for a SaaS landing page and CMS. They delivered in 10 days, pixel perfect. The best dev team we've worked with — responsive and reliable.",
+    rating: 5,
+  },
+  {
+    name: "Ananya Patel",
+    company: "FreshBox Grocery",
+    review: "Our inventory, billing, and website are now one system. We cut manual work by 70%. Absolutely worth every rupee — and hosting is free for the first year!",
+    rating: 5,
+  },
 ];
 
 export function Testimonials() {
-    return (
-        <section className="w-full">
-            <AnimateOnScroll
+  return (
+    <section className="w-full">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="color-block-panel color-block-panel-navy">
+          <AnimateOnScroll
+            animationClass="animate-slide-in-up"
+            hiddenClass="opacity-0"
+            className="mb-12"
+          >
+            <span className="caption-mono text-white/50 mb-3 block">Client Experiences</span>
+            <h2
+              className="text-white"
+              style={{ fontSize: "clamp(28px,4vw,48px)", fontWeight: 340, lineHeight: 1.1, letterSpacing: "-0.96px" }}
+            >
+              Don't take our word for it.
+              <br />
+              Take theirs.
+            </h2>
+          </AnimateOnScroll>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {testimonials.map((testimonial, index) => (
+              <AnimateOnScroll
+                key={index}
                 animationClass="animate-slide-in-up"
                 hiddenClass="opacity-0"
-                className="text-center mb-12"
-            >
-                <h2 className="font-headline text-3xl font-bold tracking-tight sm:text-4xl text-white">
-                    Client Experiences
-                </h2>
-                <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">
-                    Don't just take our word for it—hear from the brands and individuals who have trusted us to orchestrate their most important moments.
-                </p>
-            </AnimateOnScroll>
-
-            <div className="px-12 max-w-5xl mx-auto">
-                <Carousel
-                    opts={{
-                        align: "start",
-                        loop: true,
-                    }}
-                    className="w-full"
-                >
-                    <CarouselContent>
-                        {testimonials.map((testimonial, index) => (
-                            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/2">
-                                <div className="p-2 h-full">
-                                    <Card className="bg-secondary/20 border-white/10 h-full">
-                                        <CardContent className="flex flex-col justify-between p-6 h-full">
-                                            <div className="flex mb-4">
-                                                {[...Array(testimonial.rating)].map((_, i) => (
-                                                    <Star key={i} className="h-4 w-4 fill-primary text-primary" />
-                                                ))}
-                                            </div>
-                                            <blockquote className="text-muted-foreground italic mb-6 flex-grow leading-relaxed">
-                                                "{testimonial.review}"
-                                            </blockquote>
-                                            <div>
-                                                <p className="font-bold text-white">{testimonial.name}</p>
-                                                <p className="text-sm text-primary">{testimonial.company}</p>
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                </div>
-                            </CarouselItem>
-                        ))}
-                    </CarouselContent>
-                    <CarouselPrevious className="bg-background/50 border-white/10 hover:bg-primary hover:text-white" />
-                    <CarouselNext className="bg-background/50 border-white/10 hover:bg-primary hover:text-white" />
-                </Carousel>
-            </div>
-        </section>
-    );
+                delay={`${index * 0.1}s`}
+              >
+                <div className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-lg p-6 h-full flex flex-col justify-between hover:bg-white/15 transition-colors duration-200">
+                  <div>
+                    <div className="flex mb-4">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="h-4 w-4 fill-white text-white" />
+                      ))}
+                    </div>
+                    <blockquote className="text-white/80 leading-relaxed mb-6" style={{ fontSize: 18, fontWeight: 320 }}>
+                      &ldquo;{testimonial.review}&rdquo;
+                    </blockquote>
+                  </div>
+                  <div>
+                    <p className="font-bold text-white" style={{ fontWeight: 540 }}>{testimonial.name}</p>
+                    <p className="caption-mono text-white/50">{testimonial.company}</p>
+                  </div>
+                </div>
+              </AnimateOnScroll>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }

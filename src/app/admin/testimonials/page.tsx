@@ -1,10 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Loader2, Plus, Edit, Trash2 } from "lucide-react";
+import { ImageUpload } from "@/components/ui/image-upload";
 
 export const runtime = "edge";
 
@@ -45,46 +43,63 @@ export default function AdminTestimonialsPage() {
   }
 
   async function handleDelete(id: number) {
-    if (!confirm("Delete?")) return;
+    if (!confirm("Delete this testimonial?")) return;
     await fetch(`/api/testimonials/${id}`, { method: "DELETE" });
     fetchItems();
   }
 
-  if (loading) return <div className="flex justify-center p-12"><Loader2 className="h-6 w-6 animate-spin text-primary" /></div>;
+  if (loading) return <div className="flex justify-center p-12"><Loader2 className="h-6 w-6 animate-spin text-ink/50" /></div>;
 
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="font-headline text-3xl font-bold text-white">Testimonials</h1>
-        <Button onClick={() => { setShowForm(!showForm); setEditingId(null); setForm({ name: "", role: "", company: "", quote: "", avatar_url: "", rating: 5 }); }}>
+        <h1 className="text-ink font-bold" style={{ fontSize: 32, fontWeight: 540 }}>Testimonials</h1>
+        <button onClick={() => { setShowForm(!showForm); setEditingId(null); setForm({ name: "", role: "", company: "", quote: "", avatar_url: "", rating: 5 }); }} className="btn-primary-figma text-sm px-4 py-2 flex items-center">
           <Plus className="h-4 w-4 mr-2" /> {showForm ? "Cancel" : "Add"}
-        </Button>
+        </button>
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="bg-secondary/20 border border-white/10 rounded-xl p-6 mb-8 space-y-4">
-          <h2 className="text-white font-semibold text-lg">{editingId ? "Edit" : "New"} Testimonial</h2>
-          <div className="grid grid-cols-2 gap-4">
-            <Input placeholder="Name *" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required className="bg-input" />
-            <Input placeholder="Role *" value={form.role} onChange={e => setForm({ ...form, role: e.target.value })} required className="bg-input" />
-            <Input placeholder="Company" value={form.company} onChange={e => setForm({ ...form, company: e.target.value })} className="bg-input" />
-            <Input placeholder="Avatar URL" value={form.avatar_url} onChange={e => setForm({ ...form, avatar_url: e.target.value })} className="bg-input" />
+        <form onSubmit={handleSubmit} className="bg-canvas border border-hairline rounded-lg p-6 mb-8 space-y-5 shadow-sm">
+          <h2 className="text-ink font-bold text-lg mb-2">{editingId ? "Edit" : "New"} Testimonial</h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2 space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <input placeholder="Name *" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required className="w-full bg-surface-soft border border-hairline rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-ink" />
+                <input placeholder="Role *" value={form.role} onChange={e => setForm({ ...form, role: e.target.value })} required className="w-full bg-surface-soft border border-hairline rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-ink" />
+                <input placeholder="Company" value={form.company} onChange={e => setForm({ ...form, company: e.target.value })} className="w-full bg-surface-soft border border-hairline rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-ink" />
+              </div>
+              <textarea placeholder="Quote *" value={form.quote} onChange={e => setForm({ ...form, quote: e.target.value })} required className="w-full h-32 bg-surface-soft border border-hairline rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-ink resize-none" />
+            </div>
+            
+            <div className="space-y-2">
+              <label className="caption-mono text-ink/60 text-xs">Avatar Image</label>
+              <ImageUpload value={form.avatar_url} onChange={(url) => setForm({ ...form, avatar_url: url })} />
+            </div>
           </div>
-          <Textarea placeholder="Quote *" value={form.quote} onChange={e => setForm({ ...form, quote: e.target.value })} required className="bg-input" />
-          <Button type="submit" disabled={submitting}>{submitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Saving...</> : "Save"}</Button>
+          
+          <div className="flex justify-end pt-4 border-t border-hairline">
+            <button type="submit" disabled={submitting} className="btn-primary-figma text-sm px-6 py-2 flex items-center">
+              {submitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Saving...</> : "Save Testimonial"}
+            </button>
+          </div>
         </form>
       )}
 
       <div className="space-y-4">
         {items.map(item => (
-          <div key={item.id} className="bg-secondary/20 border border-white/10 rounded-xl p-6 flex items-start justify-between">
-            <div>
-              <p className="text-white font-medium">&ldquo;{item.quote}&rdquo;</p>
-              <p className="text-muted-foreground text-sm mt-2">— {item.name}, {item.role}{item.company ? ` at ${item.company}` : ""}</p>
+          <div key={item.id} className="bg-canvas border border-hairline shadow-sm rounded-lg p-6 flex items-start justify-between hover:border-ink/20 transition-colors">
+            <div className="flex gap-4 items-start">
+              {item.avatar_url && <img src={item.avatar_url} className="w-12 h-12 object-cover rounded-full border border-hairline" alt="" />}
+              <div>
+                <p className="text-ink font-medium" style={{ fontSize: 16 }}>&ldquo;{item.quote}&rdquo;</p>
+                <p className="text-ink/60 text-sm mt-2">— {item.name}, {item.role}{item.company ? ` at ${item.company}` : ""}</p>
+              </div>
             </div>
             <div className="flex gap-2 shrink-0">
-              <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleEdit(item)}><Edit className="h-4 w-4" /></Button>
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-red-400" onClick={() => handleDelete(item.id)}><Trash2 className="h-4 w-4" /></Button>
+              <button className="p-2 text-ink/60 hover:text-ink transition-colors rounded hover:bg-ink/10" onClick={() => handleEdit(item)}><Edit className="h-4 w-4" /></button>
+              <button className="p-2 text-red-500 hover:text-red-700 transition-colors rounded hover:bg-red-50" onClick={() => handleDelete(item.id)}><Trash2 className="h-4 w-4" /></button>
             </div>
           </div>
         ))}

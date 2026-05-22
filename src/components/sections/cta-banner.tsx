@@ -1,23 +1,69 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
 interface CtaBannerProps {
   title: string;
   subtitle: string;
   ctaText: string;
   ctaLink: string;
+  secondaryText?: string;
+  secondaryLink?: string;
+  colorBlock?: "lime" | "coral" | "lilac" | "mint" | "navy" | "cream";
 }
 
-export function CtaBanner({ title, subtitle, ctaText, ctaLink }: CtaBannerProps) {
+const colorMap: Record<string, string> = {
+  lime: "color-block-panel color-block-panel-lime",
+  coral: "color-block-panel color-block-panel-coral",
+  lilac: "color-block-panel color-block-panel-lilac",
+  mint: "color-block-panel color-block-panel-mint",
+  navy: "color-block-panel color-block-panel-navy",
+  cream: "color-block-panel color-block-panel-cream",
+};
+
+export function CtaBanner({
+  title,
+  subtitle,
+  ctaText,
+  ctaLink,
+  secondaryText,
+  secondaryLink,
+  colorBlock = "lime",
+}: CtaBannerProps) {
+  const isNavy = colorBlock === "navy";
+
   return (
-    <section className="w-full bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 border-y border-white/5">
-      <div className="container mx-auto px-4 py-24 sm:py-32 text-center">
-        <h2 className="font-headline text-3xl md:text-4xl font-bold text-white mb-4">{title}</h2>
-        <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">{subtitle}</p>
-        <Button asChild size="lg" className="font-bold text-lg px-8">
-          <Link href={ctaLink}>{ctaText}</Link>
-        </Button>
+    <div className="container mx-auto px-4 sm:px-6 my-24">
+      <div className={colorMap[colorBlock]}>
+        <div className="max-w-3xl">
+          <div className={`eyebrow-mono mb-4 ${isNavy ? "text-white/60" : "text-ink/60"}`}>
+            The Scene Co.
+          </div>
+          <h2
+            className={`mb-6 ${isNavy ? "text-white" : "text-ink"}`}
+            style={{ fontSize: "clamp(28px,4vw,48px)", fontWeight: 340, lineHeight: 1.1, letterSpacing: "-0.96px" }}
+          >
+            {title}
+          </h2>
+          <p className={`mb-8 body-lg-figma ${isNavy ? "text-white/75" : "text-ink/75"}`}>
+            {subtitle}
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href={ctaLink}
+              className={isNavy ? "btn-icon-circular-inverse px-6 py-2.5 rounded-full font-[480] text-[20px] w-auto bg-white/90 text-black hover:bg-white" : "btn-primary-figma"}
+            >
+              {ctaText}
+            </Link>
+            {secondaryText && secondaryLink && (
+              <Link
+                href={secondaryLink}
+                className={isNavy ? "btn-icon-circular-inverse px-6 py-2.5 rounded-full font-[480] text-[20px] w-auto" : "btn-secondary-figma"}
+              >
+                {secondaryText}
+              </Link>
+            )}
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
   );
 }

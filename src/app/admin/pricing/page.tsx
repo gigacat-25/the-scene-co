@@ -1,80 +1,49 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Loader2, Edit } from "lucide-react";
+import { Loader2, Plus, Edit, Trash2 } from "lucide-react";
 
 export const runtime = "edge";
 
 export default function AdminPricingPage() {
-  const [plans, setPlans] = useState<any[]>([]);
+  const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const [form, setForm] = useState({ name: "", price_min: 0, price_max: 0, description: "", delivery_time: "", is_popular: 0 });
-  const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => { fetchPlans(); }, []);
+  useEffect(() => { fetchItems(); }, []);
 
-  async function fetchPlans() {
+  async function fetchItems() {
     try {
       const res = await fetch("/api/pricing");
       const data = await res.json() as { plans?: any[] };
-      setPlans(data.plans || []);
-    } catch { setPlans([]); }
+      setItems(data.plans || []);
+    } catch { setItems([]); }
     finally { setLoading(false); }
   }
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!editingId) return;
-    setSubmitting(true);
-    try {
-      const res = await fetch(`/api/pricing/${editingId}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
-      if (res.ok) { setEditingId(null); fetchPlans(); }
-    } finally { setSubmitting(false); }
-  }
-
-  function handleEdit(plan: any) {
-    setEditingId(plan.id);
-    setForm({ name: plan.name, price_min: plan.price_min, price_max: plan.price_max, description: plan.description, delivery_time: plan.delivery_time, is_popular: plan.is_popular });
-  }
-
-  if (loading) return <div className="flex justify-center p-12"><Loader2 className="h-6 w-6 animate-spin text-primary" /></div>;
+  if (loading) return <div className="flex justify-center p-12"><Loader2 className="h-6 w-6 animate-spin text-ink/50" /></div>;
 
   return (
     <div>
-      <h1 className="font-headline text-3xl font-bold text-white mb-8">Pricing Plans</h1>
-      <p className="text-muted-foreground mb-8">Edit plan details. To add/remove features, use the database directly.</p>
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-ink font-bold" style={{ fontSize: 32, fontWeight: 540 }}>Pricing Plans</h1>
+      </div>
 
-      <div className="space-y-6">
-        {plans.map(plan => (
-          <div key={plan.id} className="bg-secondary/20 border border-white/10 rounded-xl p-6">
-            {editingId === plan.id ? (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <Input placeholder="Name" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} className="bg-input" />
-                  <Input placeholder="Delivery Time" value={form.delivery_time} onChange={e => setForm({ ...form, delivery_time: e.target.value })} className="bg-input" />
-                  <Input type="number" placeholder="Min Price" value={form.price_min} onChange={e => setForm({ ...form, price_min: parseInt(e.target.value) || 0 })} className="bg-input" />
-                  <Input type="number" placeholder="Max Price" value={form.price_max} onChange={e => setForm({ ...form, price_max: parseInt(e.target.value) || 0 })} className="bg-input" />
-                </div>
-                <Textarea placeholder="Description" value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} className="bg-input" />
-                <div className="flex gap-2">
-                  <Button type="submit" disabled={submitting}>{submitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Saving...</> : "Save"}</Button>
-                  <Button variant="outline" onClick={() => setEditingId(null)}>Cancel</Button>
-                </div>
-              </form>
-            ) : (
-              <div className="flex items-start justify-between">
-                <div>
-                  <h3 className="text-white font-semibold text-lg">{plan.name} {plan.is_popular === 1 && <span className="text-primary text-sm">(Popular)</span>}</h3>
-                  <p className="text-muted-foreground text-sm">{plan.description}</p>
-                  <p className="text-white font-bold mt-2">₹{(plan.price_min / 1000).toFixed(0)}K – ₹{(plan.price_max / 1000).toFixed(0)}K · {plan.delivery_time}</p>
-                </div>
-                <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0" onClick={() => handleEdit(plan)}><Edit className="h-4 w-4" /></Button>
-              </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {items.map(item => (
+          <div key={item.id} className="bg-canvas border border-hairline shadow-sm rounded-lg p-6 relative">
+            {item.is_popular === 1 && (
+              <span className="absolute top-4 right-4 bg-ink text-canvas caption-mono px-2 py-1 rounded-md text-[10px]">POPULAR</span>
             )}
+            <h3 className="text-ink font-bold text-lg mb-1">{item.name}</h3>
+            <p className="text-ink/60 text-sm mb-4 h-10">{item.description}</p>
+            
+            <div className="mb-4">
+              <span className="text-ink text-3xl font-bold">{item.currency}{item.price_min}</span>
+            </div>
+            
+            <p className="text-ink/50 text-xs mb-6">Delivery: {item.delivery_time}</p>
+            
+            <button className="w-full btn-secondary-figma text-sm">Edit Plan (Coming Soon)</button>
           </div>
         ))}
       </div>

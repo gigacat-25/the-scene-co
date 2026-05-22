@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
-import { Card, CardContent } from "@/components/ui/card";
 
 const teamMembers = [
   {
@@ -12,16 +11,47 @@ const teamMembers = [
   },
 ];
 
+const stats = [
+  { value: "50+", label: "Projects Delivered" },
+  { value: "1 yr", label: "Free Hosting Included" },
+  { value: "100%", label: "Custom — No Templates" },
+  { value: "24 hr", label: "Support Response" },
+];
+
 export function Leadership() {
   return (
-    <section id="team" className="py-24 bg-background">
-      <div className="container mx-auto px-4">
+    <section className="w-full bg-canvas py-24">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+
+        {/* Stats row — marquee-style on white canvas */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-hairline rounded-lg overflow-hidden mb-24">
+          {stats.map((stat, i) => (
+            <div
+              key={i}
+              className="p-8 text-center border-r border-hairline last:border-r-0 bg-canvas hover:bg-surface-soft transition-colors duration-200"
+            >
+              <div
+                className="text-ink mb-2"
+                style={{ fontSize: "clamp(28px,4vw,48px)", fontWeight: 700, lineHeight: 1 }}
+              >
+                {stat.value}
+              </div>
+              <div className="caption-mono text-ink/50">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Team */}
         <AnimateOnScroll animationClass="animate-slide-in-up" hiddenClass="opacity-0">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="font-headline text-3xl md:text-5xl font-bold text-white mb-6">
+          <div className="text-center mb-16">
+            <span className="eyebrow-mono text-ink/60 block mb-3">The Team</span>
+            <h2
+              className="text-ink"
+              style={{ fontSize: "clamp(28px,4vw,48px)", fontWeight: 340, lineHeight: 1.1, letterSpacing: "-0.96px" }}
+            >
               Meet The Scene Co.
             </h2>
-            <p className="text-muted-foreground text-lg">
+            <p className="mt-4 body-lg-figma text-ink/70 max-w-xl mx-auto">
               We build premium websites, e-commerce platforms, and POS systems — full-stack, custom-designed, with 1 year free hosting.
             </p>
           </div>
@@ -34,29 +64,25 @@ export function Leadership() {
               animationClass="animate-slide-in-up"
               hiddenClass="opacity-0"
               delay={`${index * 0.1}s`}
-              className="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] max-w-md"
+              className="w-full sm:w-80"
             >
-              <Card className="bg-secondary/30 border-white/10 overflow-hidden hover:border-primary/50 transition-colors group w-full">
-                <div className="aspect-[4/5] relative overflow-hidden">
+              <div className="bg-canvas border border-hairline rounded-lg overflow-hidden hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)] transition-shadow duration-200">
+                <div className="aspect-[4/3] relative overflow-hidden bg-surface-soft">
                   <img
                     src={member.image_url}
                     alt={member.name}
-                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
-                  <div className="absolute bottom-0 left-0 p-6">
-                    <h3 className="font-headline text-2xl font-bold text-white mb-1">
-                      {member.name}
-                    </h3>
-                    <p className="text-primary font-medium">{member.role}</p>
-                  </div>
                 </div>
-                <CardContent className="p-6">
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {member.bio}
-                  </p>
-                </CardContent>
-              </Card>
+                <div className="p-6">
+                  <h3 className="text-ink mb-1" style={{ fontSize: 24, fontWeight: 700, lineHeight: 1.45 }}>
+                    {member.name}
+                  </h3>
+                  <p className="caption-mono text-ink/50 mb-4">{member.role}</p>
+                  <div className="h-px bg-hairline-soft mb-4" />
+                  <p className="body-sm-figma text-ink/70 leading-relaxed">{member.bio}</p>
+                </div>
+              </div>
             </AnimateOnScroll>
           ))}
         </div>

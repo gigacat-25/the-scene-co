@@ -4,37 +4,57 @@ import { Leadership } from "@/components/sections/leadership";
 import { Testimonials } from "@/components/sections/testimonials";
 import { FAQ } from "@/components/sections/faq";
 import { Contact } from "@/components/sections/contact";
-import { MapSection } from "@/components/sections/map-section";
 import { CtaBanner } from "@/components/sections/cta-banner";
+import { MarqueeStrip } from "@/components/marquee-strip";
 
 export const runtime = "edge";
 
 export default function Home() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-canvas">
+
+      {/* 1. Hero — full-bleed portfolio mosaic */}
       <Hero />
-      <div id="services" className="container mx-auto px-4 py-24 sm:py-32">
+
+      {/* 2. Marquee strip — like Figma's black ribbon of client logos */}
+      <MarqueeStrip />
+
+      {/* 3. White canvas — services/packages grid */}
+      <div id="services" className="container mx-auto px-4 sm:px-6 py-24 max-w-6xl">
         <Packages />
       </div>
+
+      {/* 4. Lime color-block — portfolio CTA */}
       <CtaBanner
-        title="See Our Work"
-        subtitle="Browse our portfolio of custom websites, e-commerce stores, and POS systems."
+        title="See our work in action"
+        subtitle="Browse our portfolio of custom websites, e-commerce stores, and POS systems built for real businesses."
         ctaText="View Portfolio"
         ctaLink="/portfolio"
+        secondaryText="Our Services"
+        secondaryLink="/services"
+        colorBlock="lime"
       />
-      <div id="team" className="container mx-auto px-4 py-24 sm:py-32">
-        <Leadership />
-      </div>
-      <div id="testimonials" className="w-full bg-secondary/10 border-y border-white/5 py-24 sm:py-32 overflow-hidden">
+
+      {/* 5. Navy color-block — testimonials */}
+      <div id="testimonials" className="py-4">
         <Testimonials />
       </div>
-      <div id="faq" className="container mx-auto px-4 py-24 sm:py-32">
+
+      {/* 6. White canvas — team & stats */}
+      <div id="team">
+        <Leadership />
+      </div>
+
+      {/* 7. Lime color-block — FAQ */}
+      <div id="faq" className="py-4">
         <FAQ />
       </div>
-      <div id="contact" className="container mx-auto px-4 py-24 sm:py-32">
+
+      {/* 8. Coral color-block — contact */}
+      <div id="contact" className="py-4">
         <Contact />
       </div>
-      <MapSection />
+
     </div>
   );
 }

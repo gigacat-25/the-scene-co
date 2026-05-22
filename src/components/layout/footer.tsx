@@ -3,12 +3,11 @@
 import { Instagram, Linkedin, Twitter, Mail, BotMessageSquare, Facebook, Youtube } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "../ui/button";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-background/70">
-      <div className="container mx-auto px-4 py-12 lg:py-16">
+    <footer className="bg-canvas border-t border-hairline-soft pt-16 pb-12 px-6">
+      <div className="container mx-auto max-w-6xl">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
           {/* Brand + tagline */}
           <div className="col-span-1 flex flex-col items-start md:col-span-2">
@@ -20,106 +19,101 @@ export function Footer() {
                 height={40}
                 className="rounded-md"
               />
-              <span className="font-headline text-2xl font-bold text-white">
+              <span className="text-2xl font-bold font-sans text-ink tracking-tight">
                 The Scene Co.
               </span>
             </Link>
-            <p className="max-w-md text-base text-muted-foreground">
-              Events &amp; Experiences, Curated to Perfection. We are your partners
-              in creating unforgettable, sustainable, and impactful events.
+            <p className="max-w-md body-sm-figma text-ink/70">
+              We build premium custom websites, e-commerce stores, and POS systems — 
+              full-stack, with built-in CMS and 1 year free hosting. Zero templates.
             </p>
           </div>
 
           {/* Navigation + contact */}
           <div className="md:col-span-2 grid grid-cols-2 gap-8">
             <div>
-              <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              <h3 className="mb-4 caption-mono text-ink/50 font-bold">
                 Navigate
               </h3>
-              <ul className="space-y-3 text-sm">
+              <ul className="space-y-3 caption-mono">
                 <li>
                   <Link
-                    href="/#packages"
-                    className="text-muted-foreground transition-colors hover:text-primary"
+                    href="/"
+                    className="text-ink/80 transition-colors hover:text-ink hover:underline"
                   >
-                    Packages
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/services"
+                    className="text-ink/80 transition-colors hover:text-ink hover:underline"
+                  >
+                    Services
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/pricing"
+                    className="text-ink/80 transition-colors hover:text-ink hover:underline"
+                  >
+                    Pricing
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/portfolio"
+                    className="text-ink/80 transition-colors hover:text-ink hover:underline"
+                  >
+                    Portfolio
                   </Link>
                 </li>
                 <li>
                   <Link
                     href="/about"
-                    className="text-muted-foreground transition-colors hover:text-primary"
+                    className="text-ink/80 transition-colors hover:text-ink hover:underline"
                   >
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/sustainability"
-                    className="text-muted-foreground transition-colors hover:text-primary"
-                  >
-                    Sustainability
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/#contact"
-                    className="text-muted-foreground transition-colors hover:text-primary"
-                  >
-                    Contact
+                    About
                   </Link>
                 </li>
               </ul>
             </div>
 
             <div>
-              <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              <h3 className="mb-4 caption-mono text-ink/50 font-bold">
                 Connect
               </h3>
 
               <div className="mb-4 flex space-x-2">
-                <Button variant="ghost" size="icon" asChild>
-                  <a href="#" aria-label="LinkedIn">
-                    <Linkedin className="h-5 w-5" />
-                  </a>
-                </Button>
-                <Button variant="ghost" size="icon" asChild>
-                  <a href="https://www.instagram.com/thescene.co.in?igsh=cGxpbmFtb2plZGcy" aria-label="Instagram">
-                    <Instagram className="h-5 w-5" />
-                  </a>
-                </Button>
-                <Button variant="ghost" size="icon" asChild>
-                  <a href="#" aria-label="Twitter">
-                    <Twitter className="h-5 w-5" />
-                  </a>
-                </Button>
-                <Button variant="ghost" size="icon" asChild>
-                  <a href="#" aria-label="Facebook">
-                    <Facebook className="h-5 w-5" />
-                  </a>
-                </Button>
-                <Button variant="ghost" size="icon" asChild>
-                  <a href="#" aria-label="YouTube">
-                    <Youtube className="h-5 w-5" />
-                  </a>
-                </Button>
+                <a href="#" className="btn-icon-circular" aria-label="LinkedIn">
+                  <Linkedin className="h-4 w-4" />
+                </a>
+                <a href="https://www.instagram.com/thescene.co.in?igsh=cGxpbmFtb2plZGcy" className="btn-icon-circular" aria-label="Instagram">
+                  <Instagram className="h-4 w-4" />
+                </a>
+                <a href="#" className="btn-icon-circular" aria-label="Twitter">
+                  <Twitter className="h-4 w-4" />
+                </a>
+                <a href="#" className="btn-icon-circular" aria-label="Facebook">
+                  <Facebook className="h-4 w-4" />
+                </a>
               </div>
 
-              <div className="space-y-2 text-sm">
+              <div className="space-y-2 caption-mono">
                 <a
-                  href="mailto:hello@thescene.co"
-                  className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
+                  href="mailto:hello@thescene.co.in"
+                  className="flex items-center gap-2 text-ink/80 transition-colors hover:text-ink hover:underline"
                 >
-                  <Mail className="h-4 w-4" />
-                  <span>hello@thescene.co</span>
+                  <Mail className="h-4 w-4 text-ink/65" />
+                  <span>hello@thescene.co.in</span>
                 </a>
                 <a
-                  href="https://wa.me/1234567890"
+                  href="https://wa.me/919876543210"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
+                  className="flex items-center gap-2 text-ink/80 transition-colors hover:text-ink hover:underline"
                 >
-                  <BotMessageSquare className="h-4 w-4" />
+                  <BotMessageSquare className="h-4 w-4 text-ink/65" />
                   <span>WhatsApp Us</span>
                 </a>
               </div>
@@ -128,21 +122,21 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-muted-foreground sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-hairline-soft pt-6 caption-mono text-ink/50 sm:flex-row">
           <p>
             &copy; {new Date().getFullYear()} The Scene Co. All rights reserved. <br className="sm:hidden" />
-            Designed & Developed by <a href="#" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors underline">Developer</a>
+            Designed &amp; Developed by <a href="#" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors underline">Developer</a>
           </p>
           <div className="flex gap-4">
             <Link
               href="/privacy"
-              className="transition-colors hover:text-primary"
+              className="transition-colors hover:text-ink hover:underline"
             >
               Privacy Policy
             </Link>
             <Link
               href="/terms"
-              className="transition-colors hover:text-primary"
+              className="transition-colors hover:text-ink hover:underline"
             >
               Terms of Service
             </Link>

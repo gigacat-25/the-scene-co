@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { markLeadRead } from "@/lib/db";
+import { isAuthenticated } from "@/lib/cf-bindings";
 
 export const runtime = "edge";
 
-function isAuthenticated(request: NextRequest): boolean {
-  return request.cookies.get("admin_session")?.value === "authenticated";
-}
+
 
 export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   if (!isAuthenticated(request)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

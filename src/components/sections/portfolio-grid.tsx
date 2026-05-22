@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 
 interface PortfolioItem {
@@ -28,30 +27,31 @@ export function PortfolioGrid({ items, categories, activeCategory }: PortfolioGr
 
   return (
     <div>
+      {/* Filter pills */}
       {categories.length > 0 && (
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
-          <Badge
-            variant={filter === "All" ? "default" : "outline"}
-            className="cursor-pointer px-4 py-1.5 text-sm"
+        <div className="flex flex-wrap gap-2 mb-12">
+          <button
             onClick={() => setFilter("All")}
+            className={filter === "All" ? "btn-primary-figma text-sm" : "btn-secondary-figma text-sm"}
           >
             All
-          </Badge>
+          </button>
           {categories.map((cat) => (
-            <Badge
+            <button
               key={cat}
-              variant={filter === cat ? "default" : "outline"}
-              className="cursor-pointer px-4 py-1.5 text-sm"
               onClick={() => setFilter(cat)}
+              className={filter === cat ? "btn-primary-figma text-sm" : "btn-secondary-figma text-sm"}
             >
               {cat}
-            </Badge>
+            </button>
           ))}
         </div>
       )}
 
       {filtered.length === 0 ? (
-        <p className="text-center text-muted-foreground py-12">No projects in this category yet.</p>
+        <div className="py-24 text-center">
+          <p className="body-figma text-ink/50">No projects in this category yet.</p>
+        </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filtered.map((item, index) => (
@@ -63,27 +63,26 @@ export function PortfolioGrid({ items, categories, activeCategory }: PortfolioGr
             >
               <Link
                 href={`/portfolio/${item.slug}`}
-                className="group block bg-secondary/20 border border-white/10 rounded-xl overflow-hidden hover:border-primary/50 transition-all duration-300 hover:-translate-y-1"
+                className="group block bg-canvas border border-hairline rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]"
               >
-                <div className="relative h-56 w-full overflow-hidden">
+                <div className="relative h-52 w-full overflow-hidden bg-surface-soft">
                   <img
                     src={item.image_url}
                     alt={item.title}
                     className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   {item.is_featured === 1 && (
-                    <Badge className="absolute top-3 left-3 bg-primary/90">Featured</Badge>
+                    <div className="absolute top-3 left-3 bg-ink text-canvas caption-mono px-3 py-1 rounded-full">
+                      Featured
+                    </div>
                   )}
-                  <div className="absolute bottom-3 left-3">
-                    <Badge variant="secondary" className="text-xs">{item.category}</Badge>
-                  </div>
                 </div>
                 <div className="p-5">
-                  <h3 className="font-headline text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors">
+                  <div className="caption-mono text-ink/40 mb-2">{item.category}</div>
+                  <h3 className="text-ink font-bold mb-2 group-hover:underline transition-all" style={{ fontSize: 20, fontWeight: 540, lineHeight: 1.35 }}>
                     {item.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm line-clamp-2">{item.description}</p>
+                  <p className="body-sm-figma text-ink/65 line-clamp-2">{item.description}</p>
                 </div>
               </Link>
             </AnimateOnScroll>

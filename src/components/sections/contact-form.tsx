@@ -1,9 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 
 export function ContactForm() {
@@ -28,7 +25,6 @@ export function ContactForm() {
         setErrorMsg("Too many submissions. Please try again later.");
         return;
       }
-
       if (!res.ok) {
         const data = await res.json() as { error?: string };
         setStatus("error");
@@ -44,50 +40,62 @@ export function ContactForm() {
     }
   }
 
+  const inputClass = "w-full bg-canvas border border-hairline rounded-md px-4 py-3 body-sm-figma text-ink placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-ink/20 transition-all duration-150";
+  const selectClass = `${inputClass} cursor-pointer`;
+
   if (status === "success") {
     return (
-      <div className="bg-secondary/20 border border-white/10 rounded-xl p-8 text-center">
-        <CheckCircle2 className="h-12 w-12 text-green-400 mx-auto mb-4" />
-        <h3 className="text-white font-semibold text-xl mb-2">Message Sent!</h3>
-        <p className="text-muted-foreground">We'll get back to you within 24 hours.</p>
-        <Button variant="outline" className="mt-4" onClick={() => setStatus("idle")}>Send Another</Button>
+      <div className="bg-canvas border border-hairline rounded-lg p-8 text-center">
+        <div className="w-12 h-12 rounded-full bg-surface-soft flex items-center justify-center mx-auto mb-4">
+          <CheckCircle2 className="h-6 w-6 text-ink" />
+        </div>
+        <h3 className="text-ink font-bold text-xl mb-2" style={{ fontWeight: 540 }}>Message Sent!</h3>
+        <p className="body-sm-figma text-ink/70 mb-6">We&apos;ll get back to you within 24 hours.</p>
+        <button
+          onClick={() => setStatus("idle")}
+          className="btn-secondary-figma text-sm"
+        >
+          Send Another
+        </button>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-secondary/20 border border-white/10 rounded-xl p-6 space-y-4">
-      <h3 className="text-white font-semibold text-lg">Send Us a Message</h3>
+    <form onSubmit={handleSubmit} className="bg-canvas border border-hairline rounded-lg p-6 space-y-4">
+      <h3 className="text-ink mb-2" style={{ fontSize: 20, fontWeight: 540, lineHeight: 1.35 }}>
+        Send us a message
+      </h3>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Input
+        <input
           placeholder="Your Name *"
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
           required
-          className="bg-input border-border"
+          className={inputClass}
         />
-        <Input
+        <input
           placeholder="Email *"
           type="email"
           value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
           required
-          className="bg-input border-border"
+          className={inputClass}
         />
       </div>
 
-      <Input
+      <input
         placeholder="Phone (optional)"
         value={form.phone}
         onChange={(e) => setForm({ ...form, phone: e.target.value })}
-        className="bg-input border-border"
+        className={inputClass}
       />
 
       <select
         value={form.service_interest}
         onChange={(e) => setForm({ ...form, service_interest: e.target.value })}
-        className="w-full bg-input border-border rounded-md px-3 py-2 text-muted-foreground"
+        className={selectClass}
       >
         <option value="">Service Interested In</option>
         <option value="website">Custom Website</option>
@@ -100,7 +108,7 @@ export function ContactForm() {
       <select
         value={form.budget_range}
         onChange={(e) => setForm({ ...form, budget_range: e.target.value })}
-        className="w-full bg-input border-border rounded-md px-3 py-2 text-muted-foreground"
+        className={selectClass}
       >
         <option value="">Budget Range</option>
         <option value="15k-25k">₹15,000 – ₹25,000</option>
@@ -110,28 +118,36 @@ export function ContactForm() {
         <option value="2.5l+">₹2,50,000+</option>
       </select>
 
-      <Textarea
+      <textarea
         placeholder="Tell us about your project *"
         value={form.message}
         onChange={(e) => setForm({ ...form, message: e.target.value })}
         required
-        className="bg-input border-border min-h-[120px]"
+        rows={4}
+        className={`${inputClass} min-h-[120px] resize-none`}
       />
 
       {status === "error" && (
-        <div className="flex items-center gap-2 text-red-400 text-sm">
-          <AlertCircle className="h-4 w-4" />
+        <div className="flex items-center gap-2 text-sm" style={{ color: "#cc0000" }}>
+          <AlertCircle className="h-4 w-4 shrink-0" />
           {errorMsg}
         </div>
       )}
 
-      <Button type="submit" disabled={status === "loading"} className="w-full font-bold">
+      <button
+        type="submit"
+        disabled={status === "loading"}
+        className="w-full btn-primary-figma flex items-center justify-center gap-2 disabled:opacity-60"
+      >
         {status === "loading" ? (
-          <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Sending...</>
+          <>
+            <Loader2 className="h-4 w-4 animate-spin" />
+            Sending...
+          </>
         ) : (
           "Send Message"
         )}
-      </Button>
+      </button>
     </form>
   );
 }

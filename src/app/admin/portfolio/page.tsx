@@ -1,10 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Loader2, Plus, Edit, Trash2 } from "lucide-react";
+import { ImageUpload } from "@/components/ui/image-upload";
 
 export const runtime = "edge";
 
@@ -56,47 +54,69 @@ export default function AdminPortfolioPage() {
     fetchItems();
   }
 
-  if (loading) return <div className="flex justify-center p-12"><Loader2 className="h-6 w-6 animate-spin text-primary" /></div>;
+  if (loading) return <div className="flex justify-center p-12"><Loader2 className="h-6 w-6 animate-spin text-ink/50" /></div>;
 
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="font-headline text-3xl font-bold text-white">Portfolio</h1>
-        <Button onClick={() => { setShowForm(!showForm); setEditingId(null); setForm({ title: "", slug: "", category: "", description: "", image_url: "", client_name: "", technologies: "" }); }}>
+        <h1 className="text-ink font-bold" style={{ fontSize: 32, fontWeight: 540 }}>Portfolio</h1>
+        <button onClick={() => { setShowForm(!showForm); setEditingId(null); setForm({ title: "", slug: "", category: "", description: "", image_url: "", client_name: "", technologies: "" }); }} className="btn-primary-figma text-sm px-4 py-2 flex items-center">
           <Plus className="h-4 w-4 mr-2" /> {showForm ? "Cancel" : "Add Item"}
-        </Button>
+        </button>
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="bg-secondary/20 border border-white/10 rounded-xl p-6 mb-8 space-y-4">
-          <h2 className="text-white font-semibold text-lg">{editingId ? "Edit" : "New"} Portfolio Item</h2>
-          <div className="grid grid-cols-2 gap-4">
-            <Input placeholder="Title *" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} required className="bg-input" />
-            <Input placeholder="Slug *" value={form.slug} onChange={e => setForm({ ...form, slug: e.target.value })} required className="bg-input" />
-            <Input placeholder="Category *" value={form.category} onChange={e => setForm({ ...form, category: e.target.value })} required className="bg-input" />
-            <Input placeholder="Client Name" value={form.client_name} onChange={e => setForm({ ...form, client_name: e.target.value })} className="bg-input" />
+        <form onSubmit={handleSubmit} className="bg-canvas border border-hairline rounded-lg p-6 mb-8 space-y-5 shadow-sm">
+          <h2 className="text-ink font-bold text-lg mb-2">{editingId ? "Edit" : "New"} Portfolio Item</h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2 space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <input placeholder="Title *" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} required className="w-full bg-surface-soft border border-hairline rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-ink" />
+                <input placeholder="Slug *" value={form.slug} onChange={e => setForm({ ...form, slug: e.target.value })} required className="w-full bg-surface-soft border border-hairline rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-ink" />
+                <input placeholder="Category *" value={form.category} onChange={e => setForm({ ...form, category: e.target.value })} required className="w-full bg-surface-soft border border-hairline rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-ink" />
+                <input placeholder="Client Name" value={form.client_name} onChange={e => setForm({ ...form, client_name: e.target.value })} className="w-full bg-surface-soft border border-hairline rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-ink" />
+              </div>
+              <input placeholder="Technologies (comma separated)" value={form.technologies} onChange={e => setForm({ ...form, technologies: e.target.value })} className="w-full bg-surface-soft border border-hairline rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-ink" />
+              <textarea placeholder="Description *" value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} required className="w-full h-32 bg-surface-soft border border-hairline rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-ink resize-none" />
+            </div>
+            
+            <div className="space-y-2">
+              <label className="caption-mono text-ink/60 text-xs">Featured Image</label>
+              <ImageUpload value={form.image_url} onChange={(url) => setForm({ ...form, image_url: url })} />
+            </div>
           </div>
-          <Input placeholder="Image URL" value={form.image_url} onChange={e => setForm({ ...form, image_url: e.target.value })} className="bg-input" />
-          <Input placeholder="Technologies (comma separated)" value={form.technologies} onChange={e => setForm({ ...form, technologies: e.target.value })} className="bg-input" />
-          <Textarea placeholder="Description *" value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} required className="bg-input" />
-          <Button type="submit" disabled={submitting}>{submitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Saving...</> : "Save"}</Button>
+          
+          <div className="flex justify-end pt-4 border-t border-hairline">
+            <button type="submit" disabled={submitting} className="btn-primary-figma text-sm px-6 py-2 flex items-center">
+              {submitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Saving...</> : "Save Item"}
+            </button>
+          </div>
         </form>
       )}
 
-      <div className="bg-secondary/20 border border-white/10 rounded-xl overflow-hidden">
+      <div className="bg-canvas border border-hairline rounded-lg overflow-hidden shadow-sm">
         <table className="w-full text-left text-sm">
-          <thead className="bg-white/5 border-b border-white/10">
-            <tr><th className="p-4 text-white">Title</th><th className="p-4 text-white">Category</th><th className="p-4 text-white">Client</th><th className="p-4 text-right text-white">Actions</th></tr>
+          <thead className="bg-surface-soft border-b border-hairline">
+            <tr>
+              <th className="p-4 text-ink font-semibold">Title</th>
+              <th className="p-4 text-ink font-semibold">Category</th>
+              <th className="p-4 text-ink font-semibold">Client</th>
+              <th className="p-4 text-right text-ink font-semibold">Actions</th>
+            </tr>
           </thead>
-          <tbody className="divide-y divide-white/10">
+          <tbody className="divide-y divide-hairline">
             {items.map(item => (
-              <tr key={item.id} className="hover:bg-white/5">
-                <td className="p-4 text-white font-medium">{item.title}</td>
-                <td className="p-4 text-muted-foreground">{item.category}</td>
-                <td className="p-4 text-muted-foreground">{item.client_name || "—"}</td>
+              <tr key={item.id} className="hover:bg-ink/5 transition-colors">
+                <td className="p-4 text-ink font-medium flex items-center gap-3">
+                  {item.image_url && <img src={item.image_url} className="w-10 h-10 object-cover rounded border border-hairline" alt="" />}
+                  {item.title}
+                </td>
+                <td className="p-4 text-ink/70">{item.category}</td>
+                <td className="p-4 text-ink/70">{item.client_name || "—"}</td>
                 <td className="p-4 flex gap-2 justify-end">
-                  <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleEdit(item)}><Edit className="h-4 w-4" /></Button>
-                  <Button variant="ghost" size="icon" className="h-8 w-8 text-red-400" onClick={() => handleDelete(item.id)}><Trash2 className="h-4 w-4" /></Button>
+                  <button className="p-2 text-ink/60 hover:text-ink transition-colors rounded hover:bg-ink/10" onClick={() => handleEdit(item)}><Edit className="h-4 w-4" /></button>
+                  <button className="p-2 text-red-500 hover:text-red-700 transition-colors rounded hover:bg-red-50" onClick={() => handleDelete(item.id)}><Trash2 className="h-4 w-4" /></button>
                 </td>
               </tr>
             ))}

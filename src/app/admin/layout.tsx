@@ -21,22 +21,22 @@ const navItems = [
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="fixed inset-0 z-[100] bg-canvas flex overflow-hidden">
       {/* Sidebar */}
-      <aside className="w-64 bg-secondary/30 border-r border-white/10 flex flex-col fixed h-full">
-        <div className="p-6 border-b border-white/10">
-          <h1 className="font-headline text-xl font-bold text-white">CMS</h1>
-          <p className="text-muted-foreground text-sm">The Scene Co.</p>
+      <aside className="w-64 bg-surface-soft border-r border-hairline flex flex-col h-full shrink-0">
+        <div className="p-6 border-b border-hairline">
+          <h1 className="font-headline text-xl font-bold text-ink">CMS</h1>
+          <p className="caption-mono text-ink/50 text-xs">The Scene Co.</p>
         </div>
 
-        <nav className="flex-1 p-4 space-y-1">
+        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex items-center gap-3 px-3 py-2 rounded-lg text-muted-foreground hover:text-white hover:bg-white/5 transition-colors text-sm"
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-ink/70 hover:text-ink hover:bg-ink/5 transition-colors text-sm font-medium"
               >
                 <Icon className="h-4 w-4" />
                 {item.label}
@@ -45,12 +45,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           })}
         </nav>
 
-        <div className="p-4 border-t border-white/10">
-          <Link href="/" className="flex items-center gap-3 px-3 py-2 rounded-lg text-muted-foreground hover:text-white hover:bg-white/5 transition-colors text-sm">
+        <div className="p-4 border-t border-hairline bg-surface-soft">
+          <Link href="/" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-ink/70 hover:text-ink hover:bg-ink/5 transition-colors text-sm font-medium">
             View Site
           </Link>
           <form action="/api/admin/logout" method="POST">
-            <button type="submit" className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors text-sm">
+            <button type="submit" className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-red-600 hover:text-red-700 hover:bg-red-50 transition-colors text-sm font-medium mt-1">
               <LogOut className="h-4 w-4" />
               Logout
             </button>
@@ -59,8 +59,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 ml-64 p-8">
-        {children}
+      <main className="flex-1 p-8 overflow-y-auto bg-canvas">
+        <div className="max-w-5xl mx-auto">
+          {children}
+        </div>
       </main>
     </div>
   );

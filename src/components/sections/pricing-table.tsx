@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 import { CheckCircle2, Star } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 
 interface PricingFeature {
@@ -38,7 +36,7 @@ function formatPrice(price: number, currency: string): string {
 
 export function PricingTable({ plans }: PricingTableProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 max-w-7xl mx-auto">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
       {plans.map((plan, index) => (
         <AnimateOnScroll
           key={plan.id}
@@ -46,39 +44,56 @@ export function PricingTable({ plans }: PricingTableProps) {
           hiddenClass="opacity-0"
           delay={`${index * 0.1}s`}
         >
-          <div className={`relative flex flex-col h-full bg-secondary/20 border rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-2 ${plan.is_popular ? "border-primary shadow-lg shadow-primary/20" : "border-white/10 hover:border-primary/50"}`}>
+          <div
+            className={`relative flex flex-col h-full bg-canvas border rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)] ${
+              plan.is_popular
+                ? "border-ink shadow-[0_4px_16px_rgba(0,0,0,0.08)]"
+                : "border-hairline"
+            }`}
+          >
             {plan.is_popular === 1 && (
-              <div className="absolute top-0 left-0 right-0 bg-primary text-primary-foreground text-center text-sm font-semibold py-1.5">
-                <Star className="h-3.5 w-3.5 inline mr-1" /> Most Popular
+              <div className="bg-ink text-canvas text-center caption-mono py-2 flex items-center justify-center gap-1.5">
+                <Star className="h-3 w-3 fill-canvas" />
+                Most Popular
               </div>
             )}
 
-            <div className={`p-6 ${plan.is_popular ? "pt-10" : ""}`}>
-              <h3 className="font-headline text-xl font-bold text-white mb-2">{plan.name}</h3>
-              <p className="text-muted-foreground text-sm mb-4">{plan.description}</p>
+            <div className={`p-6 ${plan.is_popular ? "" : ""}`}>
+              <span className="eyebrow-mono text-ink/50 text-xs block mb-3">{plan.name}</span>
 
-              <div className="mb-4">
-                <span className="text-3xl font-bold text-white">
+              <div className="mb-3">
+                <span className="text-ink" style={{ fontSize: 36, fontWeight: 700, lineHeight: 1 }}>
                   {formatPrice(plan.price_min, plan.currency)}
                 </span>
                 {plan.price_max !== plan.price_min && (
-                  <span className="text-muted-foreground text-lg"> – {formatPrice(plan.price_max, plan.currency)}</span>
+                  <span className="text-ink/50 ml-1" style={{ fontSize: 18 }}>
+                    – {formatPrice(plan.price_max, plan.currency)}
+                  </span>
                 )}
               </div>
 
-              <p className="text-sm text-muted-foreground mb-4">Delivery: {plan.delivery_time}</p>
+              <p className="body-sm-figma text-ink/65 mb-4 leading-relaxed">{plan.description}</p>
 
-              <Button asChild className="w-full font-bold" variant={plan.is_popular ? "default" : "outline"}>
-                <Link href="/contact">Get Started</Link>
-              </Button>
+              <div className="caption-mono text-ink/40 mb-5">
+                Delivery: {plan.delivery_time}
+              </div>
+
+              <Link
+                href="/contact"
+                className={`w-full text-center block ${plan.is_popular ? "btn-primary-figma" : "btn-secondary-figma"} text-sm`}
+              >
+                Get Started
+              </Link>
             </div>
 
-            <div className="px-6 pb-6 flex-grow">
+            <div className="h-px bg-hairline-soft mx-6" />
+
+            <div className="px-6 py-5 flex-grow">
               <ul className="space-y-3">
                 {plan.features.map((feature) => (
-                  <li key={feature.id} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                    <span>{feature.feature}</span>
+                  <li key={feature.id} className="flex items-start gap-2.5">
+                    <CheckCircle2 className="h-4 w-4 text-ink shrink-0 mt-0.5" />
+                    <span className="body-sm-figma text-ink/75">{feature.feature}</span>
                   </li>
                 ))}
               </ul>

@@ -2,84 +2,316 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+
 @layer base {
   :root {
-    --background: 263 33% 11%; /* Deep Indigo */
-    --foreground: 60 14% 97%; /* Off White */
-    --card: 260 41% 17%; /* Royal Violet with a bit of a twist */
-    --card-foreground: 60 14% 97%;
-    --popover: 263 33% 9%;
-    --popover-foreground: 60 14% 97%;
-    --primary: 40 76% 63%; /* Champagne Gold */
-    --primary-foreground: 263 33% 11%;
-    --secondary: 260 41% 25%; /* Royal Violet */
-    --secondary-foreground: 40 76% 63%;
-    --muted: 260 41% 20%;
-    --muted-foreground: 60 10% 80%;
-    --accent: 260 41% 30%;
-    --accent-foreground: 40 76% 63%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 260 41% 25%;
-    --input: 260 41% 20%;
-    --ring: 40 76% 63%;
-    --chart-1: 40 76% 63%;
-    --chart-2: 260 41% 50%;
-    --chart-3: 260 41% 35%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.75rem;
-    --sidebar-background: 263 33% 11%;
-    --sidebar-foreground: 60 14% 97%;
-    --sidebar-primary: 40 76% 63%;
-    --sidebar-primary-foreground: 263 33% 11%;
-    --sidebar-accent: 260 41% 20%;
-    --sidebar-accent-foreground: 40 76% 63%;
-    --sidebar-border: 260 41% 25%;
-    --sidebar-ring: 40 76% 63%;
+    --background: 0 0% 100%; /* Pure White Canvas */
+    --foreground: 0 0% 0%;    /* Pure Black Ink */
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+
+    --primary: 0 0% 0%;       /* Pure Black */
+    --primary-foreground: 0 0% 100%; /* Pure White */
+
+    --secondary: 0 0% 100%;   /* Pure White */
+    --secondary-foreground: 0 0% 0%;
+
+    --muted: 0 0% 97%;        /* Surface Soft */
+    --muted-foreground: 0 0% 40%;
+
+    --accent: 0 0% 97%;
+    --accent-foreground: 0 0% 0%;
+
+    --destructive: 343 100% 62%; /* Magenta Promo */
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%;       /* Hairline */
+    --input: 0 0% 90%;
+    --ring: 0 0% 0%;          /* Pure Black Ring */
+
+    --radius: 24px;           /* rounded.lg */
+
+    /* Figma Design System Custom Colors (Hex mapped to design.md) */
+    --ink: #000000;
+    --canvas: #ffffff;
+    --inverse-canvas: #000000;
+    --inverse-ink: #ffffff;
+    --hairline: #e6e6e6;
+    --hairline-soft: #f1f1f1;
+    --surface-soft: #f7f7f5;
+    --block-lime: #dceeb1;
+    --block-lilac: #c5b0f4;
+    --block-cream: #f4ecd6;
+    --block-pink: #efd4d4;
+    --block-mint: #c8e6cd;
+    --block-coral: #f3c9b6;
+    --block-navy: #1f1d3d;
+    --accent-magenta: #ff3d8b;
+    --semantic-success: #1ea64a;
   }
 
-  .dark {
-    --background: 263 33% 11%; /* Deep Indigo */
-    --foreground: 60 14% 97%; /* Off White */
-    --card: 260 41% 17%;
-    --card-foreground: 60 14% 97%;
-    --popover: 263 33% 9%;
-    --popover-foreground: 60 14% 97%;
-    --primary: 40 76% 63%; /* Champagne Gold */
-    --primary-foreground: 263 33% 11%;
-    --secondary: 260 41% 25%; /* Royal Violet */
-    --secondary-foreground: 40 76% 63%;
-    --muted: 260 41% 20%;
-    --muted-foreground: 60 10% 80%;
-    --accent: 260 41% 30%;
-    --accent-foreground: 40 76% 63%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 260 41% 25%;
-    --input: 260 41% 20%;
-    --ring: 40 76% 63%;
-    --chart-1: 40 76% 63%;
-    --chart-2: 260 41% 50%;
-    --chart-3: 260 41% 35%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --sidebar-background: 263 33% 11%;
-    --sidebar-foreground: 60 14% 97%;
-    --sidebar-primary: 40 76% 63%;
-    --sidebar-primary-foreground: 263 33% 11%;
-    --sidebar-accent: 260 41% 20%;
-    --sidebar-accent-foreground: 40 76% 63%;
-    --sidebar-border: 260 41% 25%;
-    --sidebar-ring: 40 76% 63%;
+  body {
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-feature-settings: "kern";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
+@layer utilities {
+  /* Typography Classes exactly matching DESIGN.md */
+  .display-xl {
+    font-size: 86px;
+    font-weight: 340;
+    line-height: 1.00;
+    letter-spacing: -1.72px;
   }
-  body {
-    @apply bg-background text-foreground;
+  
+  .display-lg {
+    font-size: 64px;
+    font-weight: 340;
+    line-height: 1.10;
+    letter-spacing: -0.96px;
+  }
+
+  .headline-story {
+    font-size: 26px;
+    font-weight: 540;
+    line-height: 1.35;
+    letter-spacing: -0.26px;
+  }
+
+  .subhead {
+    font-size: 26px;
+    font-weight: 340;
+    line-height: 1.35;
+    letter-spacing: -0.26px;
+  }
+
+  .card-title-figma {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.45;
+    letter-spacing: 0px;
+  }
+
+  .body-lg-figma {
+    font-size: 20px;
+    font-weight: 330;
+    line-height: 1.40;
+    letter-spacing: -0.14px;
+  }
+
+  .body-figma {
+    font-size: 18px;
+    font-weight: 320;
+    line-height: 1.45;
+    letter-spacing: -0.26px;
+  }
+
+  .body-sm-figma {
+    font-size: 16px;
+    font-weight: 330;
+    line-height: 1.45;
+    letter-spacing: -0.14px;
+  }
+
+  .link-figma {
+    font-size: 20px;
+    font-weight: 480;
+    line-height: 1.40;
+    letter-spacing: -0.10px;
+  }
+
+  .btn-text-figma {
+    font-size: 20px;
+    font-weight: 480;
+    line-height: 1.40;
+    letter-spacing: -0.10px;
+  }
+
+  .eyebrow-mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.30;
+    letter-spacing: 0.54px;
+    text-transform: uppercase;
+  }
+
+  .caption-mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.00;
+    letter-spacing: 0.60px;
+    text-transform: uppercase;
+  }
+
+  /* Borders & Hairlines */
+  .border-hairline {
+    border: 1px solid var(--hairline);
+  }
+
+  .border-hairline-soft {
+    border: 1px solid var(--hairline-soft);
+  }
+
+  .divide-hairline-soft > :not([hidden]) ~ :not([hidden]) {
+    border-color: var(--hairline-soft);
+  }
+
+  /* Button Components from DESIGN.md */
+  .btn-primary-figma {
+    background-color: var(--ink);
+    color: var(--canvas);
+    font-size: 20px;
+    font-weight: 480;
+    line-height: 1.40;
+    letter-spacing: -0.10px;
+    border-radius: 9999px;
+    padding: 10px 24px;
+    transition: all 0.2s ease-in-out;
+  }
+  .btn-primary-figma:hover {
+    transform: scale(1.02);
+  }
+  .btn-primary-figma:active {
+    transform: scale(0.98);
+  }
+
+  .btn-secondary-figma {
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-size: 20px;
+    font-weight: 480;
+    line-height: 1.40;
+    letter-spacing: -0.10px;
+    border-radius: 9999px;
+    padding: 8px 22px 10px;
+    border: 1px solid var(--hairline);
+    transition: all 0.2s ease-in-out;
+  }
+  .btn-secondary-figma:hover {
+    background-color: var(--surface-soft);
+    transform: scale(1.02);
+  }
+  .btn-secondary-figma:active {
+    transform: scale(0.98);
+  }
+
+  .btn-tertiary-text-figma {
+    color: var(--ink);
+    font-size: 20px;
+    font-weight: 480;
+    line-height: 1.40;
+    letter-spacing: -0.10px;
+    padding: 8px 12px;
+    border-radius: 9999px;
+    transition: background-color 0.2s ease;
+  }
+  .btn-tertiary-text-figma:hover {
+    background-color: var(--surface-soft);
+  }
+
+  .btn-icon-circular {
+    background-color: var(--surface-soft);
+    color: var(--ink);
+    border-radius: 9999px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+  .btn-icon-circular:hover {
+    background-color: var(--hairline-soft);
+    transform: scale(1.05);
+  }
+
+  .btn-icon-circular-inverse {
+    background-color: rgba(255, 255, 255, 0.16);
+    color: var(--canvas);
+    border-radius: 9999px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+  .btn-icon-circular-inverse:hover {
+    background-color: rgba(255, 255, 255, 0.24);
+    transform: scale(1.05);
+  }
+
+  .btn-magenta-promo-figma {
+    background-color: var(--accent-magenta);
+    color: var(--canvas);
+    font-size: 20px;
+    font-weight: 480;
+    line-height: 1.40;
+    letter-spacing: -0.10px;
+    border-radius: 9999px;
+    padding: 10px 18px;
+    transition: all 0.2s ease;
+  }
+  .btn-magenta-promo-figma:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
+
+  /* Color-Block Sections */
+  .color-block-panel {
+    border-radius: 24px;
+    padding: 48px;
+    transition: transform 0.3s ease;
+  }
+
+  .color-block-panel-lime {
+    background-color: var(--block-lime);
+    color: var(--ink);
+  }
+
+  .color-block-panel-lilac {
+    background-color: var(--block-lilac);
+    color: var(--ink);
+  }
+
+  .color-block-panel-cream {
+    background-color: var(--block-cream);
+    color: var(--ink);
+  }
+
+  .color-block-panel-mint {
+    background-color: var(--block-mint);
+    color: var(--ink);
+  }
+
+  .color-block-panel-pink {
+    background-color: var(--block-pink);
+    color: var(--ink);
+  }
+
+  .color-block-panel-coral {
+    background-color: var(--block-coral);
+    color: var(--ink);
+  }
+
+  .color-block-panel-navy {
+    background-color: var(--block-navy);
+    color: var(--inverse-ink);
   }
 }

@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getBindings } from "@/lib/cf-bindings";
+import { getBindings, isAuthenticated } from "@/lib/cf-bindings";
 
 export const runtime = "edge";
 
-function isAuthenticated(request: NextRequest): boolean {
-  return request.cookies.get("admin_session")?.value === "authenticated";
-}
+
 
 export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   if (!isAuthenticated(request)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

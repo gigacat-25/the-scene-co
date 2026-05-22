@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
 
 export const runtime = "edge";
@@ -39,7 +37,7 @@ export default function AdminSettingsPage() {
     setSettings(prev => ({ ...prev, [key]: value }));
   }
 
-  if (loading) return <div className="flex justify-center p-12"><Loader2 className="h-6 w-6 animate-spin text-primary" /></div>;
+  if (loading) return <div className="flex justify-center p-12"><Loader2 className="h-6 w-6 animate-spin text-ink/50" /></div>;
 
   const sections = [
     { title: "General", fields: [
@@ -69,24 +67,24 @@ export default function AdminSettingsPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="font-headline text-3xl font-bold text-white">Site Settings</h1>
-        <Button onClick={handleSave} disabled={saving}>
-          {saving ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Saving...</> : saved ? "✓ Saved!" : "Save All"}
-        </Button>
+        <h1 className="text-ink font-bold" style={{ fontSize: 32, fontWeight: 540 }}>Site Settings</h1>
+        <button onClick={handleSave} disabled={saving} className="btn-primary-figma text-sm px-6 py-2 flex items-center">
+          {saving ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Saving...</> : saved ? "✓ Saved!" : "Save All Settings"}
+        </button>
       </div>
 
-      <form onSubmit={handleSave} className="space-y-8">
+      <form onSubmit={handleSave} className="space-y-6">
         {sections.map(section => (
-          <div key={section.title} className="bg-secondary/20 border border-white/10 rounded-xl p-6">
-            <h3 className="text-white font-semibold text-lg mb-4">{section.title}</h3>
+          <div key={section.title} className="bg-canvas border border-hairline shadow-sm rounded-lg p-6">
+            <h3 className="text-ink font-semibold text-lg mb-5">{section.title}</h3>
             <div className="space-y-4">
               {section.fields.map(field => (
                 <div key={field.key}>
-                  <label className="text-sm text-muted-foreground mb-1 block">{field.label}</label>
-                  <Input
+                  <label className="caption-mono text-ink/60 text-xs mb-1.5 block uppercase">{field.label}</label>
+                  <input
                     value={settings[field.key] || ""}
                     onChange={e => update(field.key, e.target.value)}
-                    className="bg-input"
+                    className="w-full bg-surface-soft border border-hairline rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-ink transition-colors"
                   />
                 </div>
               ))}
