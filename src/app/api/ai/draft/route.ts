@@ -33,28 +33,23 @@ export async function POST(request: NextRequest) {
     let userPrompt = "";
 
     if (type === "invoice") {
-      systemInstruction = `You are an AI assistant drafting a professional invoice payment request for "The Scene Co." (a premium digital studio building custom websites, e-commerce, and POS software).
-Create a gorgeous HTML email featuring a clean, modern invoice styled with inline CSS matching the premium site theme.
+      systemInstruction = `You are an AI assistant drafting a professional invoice payment request email for "The Scene Co.".
+Create a polished HTML email with elegant inline CSS. The layout must be clean and minimal, matching a premium client billing design (resembling the modern, white-background email layout from Hostinger).
 
-Style Guide:
-- Outer wrapper background: #f7f7f5 (surface-soft) with 40px vertical padding.
-- Center card container: max-width 600px, background #ffffff, border 1px solid #e6e6e6, border-radius 24px, overflow hidden, box-shadow 0 4px 20px rgba(0,0,0,0.05).
-- Header block: background #1f1d3d (brand navy), padding 30px, text-align center, with title "THE SCENE CO." in white text (font-size 22px, font-weight 700) and subtitle "INVOICE" in #dceeb1 (brand lime, uppercase, letter-spacing 2px, font-size 11px, monospace).
-- Content padding: 40px.
-- Table style: width 100%, border-collapse collapse, margin 24px 0, font-size 14px. Column headers (Item, Qty, Rate, Total) in #666 with font-weight 500. Row borders 1px solid #f1f1f1. Total row font-weight 700.
-- Accent colors: Success green (#1ea64a) or brand coral (#f3c9b6) for totals or high priority blocks.
-- Payment CTA button: background #000000, color #ffffff, border-radius 12px, font-weight 600, padding 14px 28px, text-decoration none, display inline-block.
-- CRITICAL layout rule: All buttons/CTAs must be placed in their own separate blocks with vertical space, e.g., <div style="margin: 24px 0; text-align: center;"><a href="..." style="...">Button</a></div>. Never place buttons inline inside a paragraph or sentence. Simple text links can be inline.
-
-The email must include:
-1. Professional greeting to the client.
-2. Elegant table detailing items, rates, quantity, and total.
-3. Clear terms & instructions.
+Structure Constraints:
+1. Outer & inner container: background-color: #ffffff, font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif, max-width: 600px, margin: 0 auto, padding: 40px 20px, color: #1f1f1f.
+2. Header: Centered text "THE SCENE CO." in bold caps, font-size: 20px, letter-spacing: 2px, margin-bottom: 24px.
+3. Main Title: Large bold centered heading (e.g., "Invoice from The Scene Co." or "Payment Request"), font-size: 28px, font-weight: 700, color: #111111, margin-bottom: 24px.
+4. Salutation & Body: Left-aligned paragraphs, font-size: 15px, line-height: 1.6, color: #333333, margin-bottom: 16px.
+5. Invoice Table: A clean, minimal table showing details. Width: 100%, border-collapse: collapse, margin: 24px 0, font-size: 14px. Column headers in #666 with font-weight: 500. Row borders 1px solid #e6e6e6. Total row font-weight: 700.
+6. CTA Button: Centered inside a block <div style="text-align: center; margin: 32px 0;"><a href="[Payment Link]" style="background-color: #000000; color: #ffffff; padding: 14px 28px; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block;">Pay Invoice Now</a></div>. Never place buttons inline inside a paragraph or sentence.
+7. Footer Divider: <hr style="border: 0; border-top: 1px solid #e6e6e6; margin: 32px 0;" />.
+8. Footer text: Centered, small gray text (#888888, 12px), indicating copyright, links to Website and Support, and disclaimer.
 
 You must respond ONLY with a JSON object containing the keys "subject" and "htmlBody":
 {
   "subject": "Invoice from The Scene Co.",
-  "htmlBody": "<html>HTML content with inline CSS</html>"
+  "htmlBody": "<html>HTML content matching the structure rules</html>"
 }`;
 
       userPrompt = `Client Name: ${recipientName || "Valued Client"}
@@ -62,21 +57,22 @@ Items: ${JSON.stringify(invoiceDetails?.items || [])}
 Total Amount: ${invoiceDetails?.currency || "₹"}${invoiceDetails?.total || 0}
 Additional instruction: ${prompt || "None"}`;
     } else {
-      systemInstruction = `You are an AI assistant drafting a professional business email for "The Scene Co." (a premium digital studio building custom websites, e-commerce, and POS software).
-Create a polished HTML email with elegant inline CSS matching the premium site theme.
+      systemInstruction = `You are an AI assistant drafting a professional business memo or client email for "The Scene Co.".
+Create a polished HTML email with elegant inline CSS. The layout must be clean and minimal, matching a premium client email design (resembling the modern, white-background email layout from Hostinger).
 
-Style Guide:
-- Outer wrapper background: #f7f7f5 (surface-soft) with 40px vertical padding.
-- Center card container: max-width 600px, background #ffffff, border 1px solid #e6e6e6, border-radius 24px, overflow hidden, box-shadow 0 4px 20px rgba(0,0,0,0.05).
-- Header block: background #1f1d3d (brand navy), padding 30px, text-align center, with title "THE SCENE CO." in white text (font-size 22px, font-weight 700) and subtitle "CLIENT MEMO" in #dceeb1 (brand lime, uppercase, letter-spacing 2px, font-size 11px, monospace).
-- Content padding: 40px, font-size 15px, line-height 1.6, color #000000.
-- Buttons / Links: background #000000, color #ffffff, border-radius 12px, font-weight 600, padding 14px 28px, text-decoration none, display inline-block.
-- CRITICAL layout rule: All buttons/CTAs must be placed in their own separate blocks with vertical space, e.g., <div style="margin: 24px 0; text-align: center;"><a href="..." style="...">Button</a></div>. Never place buttons inline inside a paragraph or sentence. Simple text links can be inline.
+Structure Constraints:
+1. Outer & inner container: background-color: #ffffff, font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif, max-width: 600px, margin: 0 auto, padding: 40px 20px, color: #1f1f1f.
+2. Header: Centered text "THE SCENE CO." in bold caps, font-size: 20px, letter-spacing: 2px, margin-bottom: 24px.
+3. Main Title: Large bold centered heading summarizing the email topic, font-size: 28px, font-weight: 700, color: #111111, margin-bottom: 24px.
+4. Salutation & Body: Left-aligned paragraphs, font-size: 15px, line-height: 1.6, color: #333333, margin-bottom: 16px.
+5. CTA Button: Centered inside a block <div style="text-align: center; margin: 32px 0;"><a href="https://thescene.co.in" style="background-color: #000000; color: #ffffff; padding: 14px 28px; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block;">Get in touch</a></div>. Never place buttons inline inside a paragraph or sentence. Simple text links can be inline.
+6. Footer Divider: <hr style="border: 0; border-top: 1px solid #e6e6e6; margin: 32px 0;" />.
+7. Footer text: Centered, small gray text (#888888, 12px), indicating copyright, links to Website and Support, and disclaimer.
 
 You must respond ONLY with a JSON object containing the keys "subject" and "htmlBody":
 {
   "subject": "Professional Subject Line",
-  "htmlBody": "<html>HTML content with inline CSS</html>"
+  "htmlBody": "<html>HTML content matching the structure rules</html>"
 }`;
 
       userPrompt = `Recipient Name: ${recipientName || "Client"}
