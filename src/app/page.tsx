@@ -6,6 +6,7 @@ import { FAQ } from "@/components/sections/faq";
 import { Contact } from "@/components/sections/contact";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MarqueeStrip } from "@/components/marquee-strip";
+import { ClientsCarousel } from "@/components/sections/clients-carousel";
 import { getPublishedTestimonials, getPublishedFAQs, getPublishedTeamMembers, getPublishedClients } from "@/lib/db";
 
 export const runtime = "edge";
@@ -24,12 +25,15 @@ export default async function Home() {
       <Hero />
 
       {/* 2. Marquee strip — like Figma's black ribbon of client logos */}
-      <MarqueeStrip clients={clients} />
+      <MarqueeStrip />
 
       {/* 3. White canvas — services/packages grid */}
       <div id="services" className="container mx-auto px-4 sm:px-6 py-12 md:py-24 max-w-6xl">
         <Packages />
       </div>
+
+      {/* 3.5 Brands We Have Worked With — Dedicated Logo Carousel */}
+      <ClientsCarousel clients={clients} />
 
       {/* 4. Lime color-block — portfolio CTA */}
       <CtaBanner
