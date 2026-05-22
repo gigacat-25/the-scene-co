@@ -1,13 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getPublishedBlogPosts } from "@/lib/db";
+import { getPublishedBlogPosts, getAllBlogPosts } from "@/lib/db";
 import { getBindings, isAuthenticated } from "@/lib/cf-bindings";
 
 export const runtime = "edge";
 
-
-
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const isAdmin = searchParams.get("admin") === "1" && isAuthenticated(request as NextRequest);
+    if (isAdmin) {
+      const posts = await getAllBlogPosts();
+      return NextResponse.json({ posts });
+    }
     const posts = await getPublishedBlogPosts();
     return NextResponse.json({ posts });
   } catch {

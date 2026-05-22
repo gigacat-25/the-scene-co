@@ -41,6 +41,13 @@ export async function getPublishedPortfolio(category?: string): Promise<any[]> {
   return results || [];
 }
 
+export async function getAllPortfolioItems(): Promise<any[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const { results } = await db.prepare("SELECT * FROM portfolio_items ORDER BY is_featured DESC, created_at DESC").all();
+  return results || [];
+}
+
 export async function getPortfolioBySlug(slug: string): Promise<any | null> {
   const db = await getDb();
   if (!db) return null;
@@ -61,10 +68,24 @@ export async function getPublishedTestimonials(): Promise<any[]> {
   return results || [];
 }
 
+export async function getAllTestimonials(): Promise<any[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const { results } = await db.prepare("SELECT * FROM testimonials ORDER BY order_index ASC").all();
+  return results || [];
+}
+
 export async function getPublishedPricing(): Promise<any[]> {
   const db = await getDb();
   if (!db) return [];
   const { results } = await db.prepare("SELECT * FROM pricing_plans WHERE is_published = 1 ORDER BY order_index ASC").all();
+  return results || [];
+}
+
+export async function getAllPricingPlans(): Promise<any[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const { results } = await db.prepare("SELECT * FROM pricing_plans ORDER BY order_index ASC").all();
   return results || [];
 }
 
@@ -82,6 +103,13 @@ export async function getPublishedBlogPosts(): Promise<any[]> {
   return results || [];
 }
 
+export async function getAllBlogPosts(): Promise<any[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const { results } = await db.prepare("SELECT id, title, slug, excerpt, cover_image_url, author, tags, published_at, created_at, is_published FROM blog_posts ORDER BY created_at DESC").all();
+  return results || [];
+}
+
 export async function getBlogPostBySlug(slug: string): Promise<any | null> {
   const db = await getDb();
   if (!db) return null;
@@ -96,6 +124,13 @@ export async function getPublishedFAQs(category?: string): Promise<any[]> {
     return results || [];
   }
   const { results } = await db.prepare("SELECT * FROM faqs WHERE is_published = 1 ORDER BY order_index ASC").all();
+  return results || [];
+}
+
+export async function getAllFAQs(): Promise<any[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const { results } = await db.prepare("SELECT * FROM faqs ORDER BY order_index ASC").all();
   return results || [];
 }
 

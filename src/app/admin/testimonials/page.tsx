@@ -18,7 +18,7 @@ export default function AdminTestimonialsPage() {
 
   async function fetchItems() {
     try {
-      const res = await fetch("/api/testimonials");
+      const res = await fetch("/api/testimonials?admin=1");
       const data = await res.json() as { testimonials?: any[] };
       setItems(data.testimonials || []);
     } catch { setItems([]); }

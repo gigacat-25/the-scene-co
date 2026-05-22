@@ -18,7 +18,7 @@ export default function AdminPortfolioPage() {
 
   async function fetchItems() {
     try {
-      const res = await fetch("/api/portfolio");
+      const res = await fetch("/api/portfolio?admin=1");
       const data = await res.json() as { items?: any[] };
       setItems(data.items || []);
     } catch { setItems([]); }

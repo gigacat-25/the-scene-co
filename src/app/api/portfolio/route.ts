@@ -1,14 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getPublishedPortfolio } from "@/lib/db";
+import { getPublishedPortfolio, getAllPortfolioItems } from "@/lib/db";
 import { getBindings, isAuthenticated } from "@/lib/cf-bindings";
 
 export const runtime = "edge";
 
-
-
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
+    const isAdmin = searchParams.get("admin") === "1" && isAuthenticated(request as NextRequest);
+    if (isAdmin) {
+      const items = await getAllPortfolioItems();
+      return NextResponse.json({ items });
+    }
     const category = searchParams.get("category") || undefined;
     const items = await getPublishedPortfolio(category);
     return NextResponse.json({ items });

@@ -17,7 +17,7 @@ export default function AdminFaqsPage() {
 
   async function fetchItems() {
     try {
-      const res = await fetch("/api/faqs");
+      const res = await fetch("/api/faqs?admin=1");
       const data = await res.json() as { faqs?: any[] };
       setItems(data.faqs || []);
     } catch { setItems([]); }

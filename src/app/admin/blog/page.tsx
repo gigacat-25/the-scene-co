@@ -18,7 +18,7 @@ export default function AdminBlogPage() {
 
   async function fetchItems() {
     try {
-      const res = await fetch("/api/blog");
+      const res = await fetch("/api/blog?admin=1");
       const data = await res.json() as { posts?: any[] };
       setItems(data.posts || []);
     } catch { setItems([]); }
