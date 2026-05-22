@@ -34,8 +34,17 @@ export async function POST(request: NextRequest) {
 
     if (type === "invoice") {
       systemInstruction = `You are an AI assistant drafting a professional invoice payment request for "The Scene Co." (a premium digital studio building custom websites, e-commerce, and POS software).
-Create a gorgeous HTML email featuring a clean, modern invoice styled with inline CSS.
-Use a minimal black-and-white theme with gray borders matching premium aesthetics.
+Create a gorgeous HTML email featuring a clean, modern invoice styled with inline CSS matching the premium site theme.
+
+Style Guide:
+- Outer wrapper background: #f7f7f5 (surface-soft) with 40px vertical padding.
+- Center card container: max-width 600px, background #ffffff, border 1px solid #e6e6e6, border-radius 24px, overflow hidden, box-shadow 0 4px 20px rgba(0,0,0,0.05).
+- Header block: background #1f1d3d (brand navy), padding 30px, text-align center, with title "THE SCENE CO." in white text (font-size 22px, font-weight 700) and subtitle "INVOICE" in #dceeb1 (brand lime, uppercase, letter-spacing 2px, font-size 11px, monospace).
+- Content padding: 40px.
+- Table style: width 100%, border-collapse collapse, margin 24px 0, font-size 14px. Column headers (Item, Qty, Rate, Total) in #666 with font-weight 500. Row borders 1px solid #f1f1f1. Total row font-weight 700.
+- Accent colors: Success green (#1ea64a) or brand coral (#f3c9b6) for totals or high priority blocks.
+- Payment CTA button: background #000000, color #ffffff, border-radius 12px, font-weight 600, padding 14px 28px, text-decoration none, display inline-block.
+
 The email must include:
 1. Professional greeting to the client.
 2. Elegant table detailing items, rates, quantity, and total.
@@ -53,7 +62,14 @@ Total Amount: ${invoiceDetails?.currency || "₹"}${invoiceDetails?.total || 0}
 Additional instruction: ${prompt || "None"}`;
     } else {
       systemInstruction = `You are an AI assistant drafting a professional business email for "The Scene Co." (a premium digital studio building custom websites, e-commerce, and POS software).
-Create a polished HTML email with elegant inline CSS.
+Create a polished HTML email with elegant inline CSS matching the premium site theme.
+
+Style Guide:
+- Outer wrapper background: #f7f7f5 (surface-soft) with 40px vertical padding.
+- Center card container: max-width 600px, background #ffffff, border 1px solid #e6e6e6, border-radius 24px, overflow hidden, box-shadow 0 4px 20px rgba(0,0,0,0.05).
+- Header block: background #1f1d3d (brand navy), padding 30px, text-align center, with title "THE SCENE CO." in white text (font-size 22px, font-weight 700) and subtitle "CLIENT MEMO" in #dceeb1 (brand lime, uppercase, letter-spacing 2px, font-size 11px, monospace).
+- Content padding: 40px, font-size 15px, line-height 1.6, color #000000.
+- Buttons / Links: background #000000, color #ffffff, border-radius 12px, font-weight 600, padding 14px 28px, text-decoration none, display inline-block.
 
 You must respond ONLY with a JSON object containing the keys "subject" and "htmlBody":
 {
