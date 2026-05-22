@@ -1,32 +1,20 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-// Only this email can access the admin panel
-const ADMIN_EMAIL = "thejaswinps@gmail.com";
-
 const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
 const isLoginPage = createRouteMatcher(["/admin/login(.*)"]);
+const isForbiddenPage = createRouteMatcher(["/admin/forbidden(.*)"]);
 
 export default clerkMiddleware(async (auth, request) => {
-  // Let the login page through always
-  if (isLoginPage(request)) return NextResponse.next();
+  // Let the login and forbidden pages through always
+  if (isLoginPage(request) || isForbiddenPage(request)) return NextResponse.next();
 
-  // For all other /admin/* routes, require authentication
+  // For all /admin/* routes, require Clerk sign-in
   if (isAdminRoute(request)) {
-    const { userId, sessionClaims } = await auth();
-
-    // Not signed in at all → redirect to login
-    if (!userId) {
-      const loginUrl = new URL("/admin/login", request.url);
-      return NextResponse.redirect(loginUrl);
-    }
-
-    // Signed in but wrong email → 403 forbidden page
-    const email = (sessionClaims?.email as string) ?? "";
-    if (email !== ADMIN_EMAIL) {
-      const forbiddenUrl = new URL("/admin/forbidden", request.url);
-      return NextResponse.redirect(forbiddenUrl);
-    }
+    // protect() will redirect unauthenticated users to /admin/login automatically
+    await auth.protect({
+      unauthenticatedUrl: new URL("/admin/login", request.url).toString(),
+    });
   }
 
   return NextResponse.next();

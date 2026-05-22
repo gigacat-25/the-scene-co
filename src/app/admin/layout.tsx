@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 import { LayoutDashboard, Image, MessageSquare, DollarSign, FileText, HelpCircle, Inbox, Settings } from "lucide-react";
 
 export const runtime = "edge";
@@ -8,6 +10,9 @@ export const runtime = "edge";
 export const metadata: Metadata = {
   title: "Admin — The Scene Co.",
 };
+
+// Only this email is allowed access
+const ADMIN_EMAIL = "thejaswinps@gmail.com";
 
 const navItems = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -20,7 +25,21 @@ const navItems = [
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+  // Server-side email whitelist check
+  const user = await currentUser();
+
+  if (user) {
+    const primaryEmail = user.emailAddresses.find(
+      (e: { id: string; emailAddress: string }) => e.id === user.primaryEmailAddressId
+    )?.emailAddress;
+
+    if (primaryEmail !== ADMIN_EMAIL) {
+      redirect("/admin/forbidden");
+    }
+  }
+  // If no user, middleware already redirected to /admin/login
+
   return (
     <div className="fixed inset-0 z-[100] bg-canvas flex overflow-hidden">
       {/* Sidebar */}
@@ -51,7 +70,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <Link href="/" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-ink/70 hover:text-ink hover:bg-ink/5 transition-colors text-sm font-medium">
             ↗ View Site
           </Link>
-          {/* Clerk UserButton — shows avatar, clicking opens sign-out + profile menu */}
           <div className="flex items-center gap-3 px-3 py-2.5">
             <UserButton
               appearance={{
@@ -60,7 +78,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 },
               }}
             />
-            <span className="text-sm text-ink/60 font-medium">Account</span>
+            <div>
+              <p className="text-xs font-medium text-ink leading-none">{user?.firstName || "Admin"}</p>
+              <p className="text-[10px] caption-mono text-ink/40 mt-0.5">{ADMIN_EMAIL}</p>
+            </div>
           </div>
         </div>
       </aside>
