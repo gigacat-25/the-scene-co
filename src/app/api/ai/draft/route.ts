@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const { type, recipientName, prompt, invoiceDetails } = (await request.json()) as {
-      type: "general" | "invoice";
+      type: "general" | "invoice" | "quotation";
       recipientName?: string;
       prompt?: string;
       invoiceDetails?: any;
@@ -32,23 +32,23 @@ export async function POST(request: NextRequest) {
     let systemInstruction = "";
     let userPrompt = "";
 
-    if (type === "invoice") {
-      systemInstruction = `You are an AI assistant drafting a professional invoice payment request email for "The Scene Co.".
-Create a polished HTML email with elegant inline CSS. The layout must be clean and minimal, matching a premium client billing design (resembling the modern, white-background email layout from Hostinger).
+    if (type === "invoice" || type === "quotation") {
+      systemInstruction = `You are an AI assistant drafting a professional project quotation or proposal email for "The Scene Co.".
+Create a polished HTML email with elegant inline CSS. The layout must be clean and minimal, matching a premium client proposal design (resembling the modern, white-background email layout from Hostinger).
 
 Structure Constraints:
 1. Outer & inner container: background-color: #ffffff, font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif, max-width: 600px, margin: 0 auto, padding: 40px 20px, color: #1f1f1f.
 2. Header: Centered text "THE SCENE CO." in bold caps, font-size: 20px, letter-spacing: 2px, margin-bottom: 24px.
-3. Main Title: Large bold centered heading (e.g., "Invoice from The Scene Co." or "Payment Request"), font-size: 28px, font-weight: 700, color: #111111, margin-bottom: 24px.
+3. Main Title: Large bold centered heading (e.g., "Project Quotation from The Scene Co." or "Custom Project Proposal"), font-size: 28px, font-weight: 700, color: #111111, margin-bottom: 24px.
 4. Salutation & Body: Left-aligned paragraphs, font-size: 15px, line-height: 1.6, color: #333333, margin-bottom: 16px.
-5. Invoice Table: A clean, minimal table showing details. Width: 100%, border-collapse: collapse, margin: 24px 0, font-size: 14px. Column headers in #666 with font-weight: 500. Row borders 1px solid #e6e6e6. Total row font-weight: 700.
-6. CTA Button: Centered inside a block <div style="text-align: center; margin: 32px 0;"><a href="[Payment Link]" style="background-color: #000000; color: #ffffff; padding: 14px 28px; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block;">Pay Invoice Now</a></div>. Never place buttons inline inside a paragraph or sentence.
+5. Quotation Table: A clean, minimal table showing details. Width: 100%, border-collapse: collapse, margin: 24px 0, font-size: 14px. Column headers in #666 with font-weight: 500. Row borders 1px solid #e6e6e6. Total row font-weight: 700.
+6. CTA Button: Centered inside a block <div style="text-align: center; margin: 32px 0;"><a href="https://thescene.co.in" style="background-color: #000000; color: #ffffff; padding: 14px 28px; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block;">Accept Quotation & Start Project</a></div>. Never place buttons inline inside a paragraph or sentence.
 7. Footer Divider: <hr style="border: 0; border-top: 1px solid #e6e6e6; margin: 32px 0;" />.
 8. Footer text: Centered, small gray text (#888888, 12px), indicating copyright, links to Website and Support, and disclaimer.
 
 You must respond ONLY with a JSON object containing the keys "subject" and "htmlBody":
 {
-  "subject": "Invoice from The Scene Co.",
+  "subject": "Project Quotation - The Scene Co.",
   "htmlBody": "<html>HTML content matching the structure rules</html>"
 }`;
 

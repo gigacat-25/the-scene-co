@@ -123,21 +123,21 @@ export default function AdminEmailDrafterPage() {
     <div className="space-y-8 pb-12">
       <div className="flex items-center justify-between border-b border-hairline pb-5">
         <div>
-          <h1 className="text-ink font-bold" style={{ fontSize: 32, fontWeight: 540 }}>AI Email & Invoice Drafter</h1>
-          <p className="body-sm-figma text-ink/60 mt-1">Compose custom client emails or stylized modern invoices with AI, and send them directly via your Gmail API.</p>
+          <h1 className="text-ink font-bold" style={{ fontSize: 32, fontWeight: 540 }}>AI Email & Quotation Drafter</h1>
+          <p className="body-sm-figma text-ink/60 mt-1">Compose custom client emails or stylized modern quotations with AI, and send them directly via your Gmail API.</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
         {/* Left Column: Form Controls */}
-        <div className="lg:col-span-5 bg-canvas border border-hairline rounded-lg p-6 space-y-6 shadow-sm">
+        <div className="bg-canvas border border-hairline rounded-lg p-8 space-y-6 shadow-sm">
           <div>
             <label className="caption-mono text-ink/60 text-xs mb-1.5 block uppercase">Template Type</label>
             <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
                 onClick={() => setTemplateType("general")}
-                className={`py-2 px-3 rounded-md border text-sm font-medium transition-all flex items-center justify-center gap-2 ${
+                className={`py-2.5 px-3 rounded-md border text-sm font-semibold transition-all flex items-center justify-center gap-2 ${
                   templateType === "general"
                     ? "bg-ink border-ink text-canvas"
                     : "bg-surface-soft border-hairline text-ink/75 hover:bg-ink/5"
@@ -148,13 +148,13 @@ export default function AdminEmailDrafterPage() {
               <button
                 type="button"
                 onClick={() => setTemplateType("invoice")}
-                className={`py-2 px-3 rounded-md border text-sm font-medium transition-all flex items-center justify-center gap-2 ${
+                className={`py-2.5 px-3 rounded-md border text-sm font-semibold transition-all flex items-center justify-center gap-2 ${
                   templateType === "invoice"
                     ? "bg-ink border-ink text-canvas"
                     : "bg-surface-soft border-hairline text-ink/75 hover:bg-ink/5"
                 }`}
               >
-                <FileText className="h-4 w-4" /> Invoice
+                <FileText className="h-4 w-4" /> Quotation
               </button>
             </div>
           </div>
@@ -186,7 +186,7 @@ export default function AdminEmailDrafterPage() {
           {templateType === "invoice" && (
             <div className="space-y-4 border-t border-hairline pt-4">
               <div className="flex items-center justify-between">
-                <label className="caption-mono text-ink/60 text-xs uppercase font-semibold">Invoice Items</label>
+                <label className="caption-mono text-ink/60 text-xs uppercase font-semibold">Quotation Items</label>
                 <div className="flex items-center gap-2">
                   <select
                     value={currency}
@@ -207,7 +207,7 @@ export default function AdminEmailDrafterPage() {
                 </div>
               </div>
 
-              <div className="space-y-3 max-h-[220px] overflow-y-auto pr-1">
+              <div className="space-y-3 max-h-[260px] overflow-y-auto pr-1">
                 {invoiceItems.map((item, idx) => (
                   <div key={idx} className="flex gap-2 items-center">
                     <input
@@ -243,7 +243,7 @@ export default function AdminEmailDrafterPage() {
               </div>
 
               <div className="flex justify-between items-center bg-surface-soft rounded-lg p-3 border border-hairline text-sm">
-                <span className="font-medium text-ink/70">Total Invoice Amount:</span>
+                <span className="font-semibold text-ink/70">Total Quotation Amount:</span>
                 <span className="font-bold text-ink">{currency}{totalAmount.toLocaleString()}</span>
               </div>
             </div>
@@ -254,7 +254,7 @@ export default function AdminEmailDrafterPage() {
             <textarea
               placeholder={
                 templateType === "invoice"
-                  ? "e.g. Request 50% advance payment for website development project. Mention deadline is June 15."
+                  ? "e.g. Include 50% advance payment terms for the website project. Mention validity is 30 days."
                   : "e.g. Follow up on our website kickoff call. Propose two time slots next Tuesday for our feedback session."
               }
               value={prompt}
@@ -268,7 +268,7 @@ export default function AdminEmailDrafterPage() {
             type="button"
             onClick={handleGenerate}
             disabled={generating}
-            className="w-full btn-primary-figma flex items-center justify-center gap-2 py-3"
+            className="w-full btn-primary-figma flex items-center justify-center gap-2 py-3.5 text-sm font-semibold"
           >
             {generating ? (
               <>
@@ -285,7 +285,7 @@ export default function AdminEmailDrafterPage() {
         </div>
 
         {/* Right Column: Draft Preview and Editor */}
-        <div className="lg:col-span-7 space-y-4">
+        <div className="space-y-4">
           <div className="bg-canvas border border-hairline rounded-lg p-6 shadow-sm space-y-4 min-h-[500px] flex flex-col justify-between">
             <div className="space-y-4 flex-1 flex flex-col">
               <div className="flex items-center justify-between border-b border-hairline pb-3">
