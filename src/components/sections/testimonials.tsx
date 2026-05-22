@@ -3,34 +3,55 @@
 import { AnimateOnScroll } from "../animate-on-scroll";
 import { Star } from "lucide-react";
 
-const testimonials = [
+interface TestimonialItem {
+  id?: number;
+  name: string;
+  role?: string;
+  company?: string;
+  quote?: string;
+  review?: string; // fallback for hardcoded
+  avatar_url?: string;
+  rating: number;
+}
+
+interface TestimonialsProps {
+  testimonials?: TestimonialItem[];
+}
+
+const defaultTestimonials: TestimonialItem[] = [
   {
     name: "Arjun Mehta",
+    role: "Founder",
     company: "Spice Route Restaurant",
     review: "The Scene Co. built our POS and website together seamlessly. Orders go straight from the website into our kitchen screen. Game changer for our team.",
     rating: 5,
   },
   {
     name: "Priya Sharma",
+    role: "CEO",
     company: "Kala Boutique",
     review: "We went from zero online presence to ₹3L+ monthly revenue in 4 months. The e-commerce store they built is beautiful and the CMS is so easy to use.",
     rating: 5,
   },
   {
     name: "Rohan Verma",
+    role: "Co-Founder",
     company: "TechLaunch SaaS",
     review: "Hired them for a SaaS landing page and CMS. They delivered in 10 days, pixel perfect. The best dev team we've worked with — responsive and reliable.",
     rating: 5,
   },
   {
     name: "Ananya Patel",
+    role: "Owner",
     company: "FreshBox Grocery",
     review: "Our inventory, billing, and website are now one system. We cut manual work by 70%. Absolutely worth every rupee — and hosting is free for the first year!",
     rating: 5,
   },
 ];
 
-export function Testimonials() {
+export function Testimonials({ testimonials }: TestimonialsProps) {
+  const items = testimonials && testimonials.length > 0 ? testimonials : defaultTestimonials;
+
   return (
     <section className="w-full">
       <div className="container mx-auto px-4 sm:px-6">
@@ -52,7 +73,7 @@ export function Testimonials() {
           </AnimateOnScroll>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {testimonials.map((testimonial, index) => (
+            {items.map((testimonial, index) => (
               <AnimateOnScroll
                 key={index}
                 animationClass="animate-slide-in-up"
@@ -61,18 +82,25 @@ export function Testimonials() {
               >
                 <div className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-lg p-6 h-full flex flex-col justify-between hover:bg-white/15 transition-colors duration-200">
                   <div>
-                    <div className="flex mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-4 w-4 fill-white text-white" />
-                      ))}
+                    <div className="flex mb-4 items-center justify-between">
+                      <div className="flex">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star key={i} className="h-4 w-4 fill-white text-white" />
+                        ))}
+                      </div>
+                      {testimonial.avatar_url && (
+                        <img src={testimonial.avatar_url} className="w-8 h-8 rounded-full border border-white/20 object-cover" alt="" />
+                      )}
                     </div>
                     <blockquote className="text-white/80 leading-relaxed mb-6" style={{ fontSize: 18, fontWeight: 320 }}>
-                      &ldquo;{testimonial.review}&rdquo;
+                      &ldquo;{testimonial.quote || testimonial.review}&rdquo;
                     </blockquote>
                   </div>
                   <div>
                     <p className="font-bold text-white" style={{ fontWeight: 540 }}>{testimonial.name}</p>
-                    <p className="caption-mono text-white/50">{testimonial.company}</p>
+                    <p className="caption-mono text-white/50">
+                      {testimonial.role}{testimonial.role && testimonial.company ? " @ " : ""}{testimonial.company}
+                    </p>
                   </div>
                 </div>
               </AnimateOnScroll>

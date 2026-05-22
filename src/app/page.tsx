@@ -6,10 +6,14 @@ import { FAQ } from "@/components/sections/faq";
 import { Contact } from "@/components/sections/contact";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MarqueeStrip } from "@/components/marquee-strip";
+import { getPublishedTestimonials, getPublishedFAQs } from "@/lib/db";
 
 export const runtime = "edge";
 
-export default function Home() {
+export default async function Home() {
+  const testimonials = await getPublishedTestimonials();
+  const faqs = await getPublishedFAQs();
+
   return (
     <div className="flex flex-col bg-canvas">
 
@@ -37,7 +41,7 @@ export default function Home() {
 
       {/* 5. Navy color-block — testimonials */}
       <div id="testimonials" className="py-4">
-        <Testimonials />
+        <Testimonials testimonials={testimonials} />
       </div>
 
       {/* 6. White canvas — team & stats */}
@@ -47,7 +51,7 @@ export default function Home() {
 
       {/* 7. Lime color-block — FAQ */}
       <div id="faq" className="py-4">
-        <FAQ />
+        <FAQ faqs={faqs} />
       </div>
 
       {/* 8. Coral color-block — contact */}
