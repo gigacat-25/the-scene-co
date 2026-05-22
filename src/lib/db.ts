@@ -190,3 +190,19 @@ export async function getAllTeamMembers(): Promise<any[]> {
   const { results } = await db.prepare("SELECT * FROM team_members ORDER BY order_index ASC").all();
   return results || [];
 }
+
+// ─── Clients ──────────────────────────────────────────────────────────────────
+
+export async function getPublishedClients(): Promise<any[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const { results } = await db.prepare("SELECT * FROM clients WHERE is_published = 1 ORDER BY order_index ASC").all();
+  return results || [];
+}
+
+export async function getAllClients(): Promise<any[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const { results } = await db.prepare("SELECT * FROM clients ORDER BY order_index ASC").all();
+  return results || [];
+}

@@ -6,7 +6,7 @@ import { FAQ } from "@/components/sections/faq";
 import { Contact } from "@/components/sections/contact";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MarqueeStrip } from "@/components/marquee-strip";
-import { getPublishedTestimonials, getPublishedFAQs, getPublishedTeamMembers } from "@/lib/db";
+import { getPublishedTestimonials, getPublishedFAQs, getPublishedTeamMembers, getPublishedClients } from "@/lib/db";
 
 export const runtime = "edge";
 
@@ -15,6 +15,7 @@ export default async function Home() {
   const faqs = await getPublishedFAQs();
   const teamMembers = await getPublishedTeamMembers();
   const homeTeam = teamMembers.slice(0, 4);
+  const clients = await getPublishedClients();
 
   return (
     <div className="flex flex-col bg-canvas">
@@ -23,7 +24,7 @@ export default async function Home() {
       <Hero />
 
       {/* 2. Marquee strip — like Figma's black ribbon of client logos */}
-      <MarqueeStrip />
+      <MarqueeStrip clients={clients} />
 
       {/* 3. White canvas — services/packages grid */}
       <div id="services" className="container mx-auto px-4 sm:px-6 py-12 md:py-24 max-w-6xl">

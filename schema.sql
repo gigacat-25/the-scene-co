@@ -185,3 +185,20 @@ CREATE TABLE rate_limits (
   window_start TEXT DEFAULT (datetime('now')),
   PRIMARY KEY (ip, endpoint)
 );
+
+-- ─── Clients we worked with ───────────────────────────────────────────
+CREATE TABLE clients (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  logo_url TEXT DEFAULT '',
+  order_index INTEGER DEFAULT 0,
+  is_published INTEGER DEFAULT 1,
+  created_at TEXT DEFAULT (datetime('now')),
+  updated_at TEXT DEFAULT (datetime('now'))
+);
+
+INSERT INTO clients (name, logo_url, order_index, is_published) VALUES 
+('Company A', '', 1, 1),
+('Company B', '', 2, 1),
+('Company C', '', 3, 1),
+('Company D', '', 4, 1);
