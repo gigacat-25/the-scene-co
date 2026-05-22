@@ -25,12 +25,10 @@ export async function POST(request: NextRequest) {
       const userHtml = `
         <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f7f7f5; padding: 40px 20px; text-align: center;">
           <div style="max-width: 600px; margin: 0 auto; background-color: #1f1d3d; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.15); text-align: left;">
-            {/* Header Block */}
             <div style="background-color: #000000; padding: 32px; border-bottom: 1px solid #333; text-align: center;">
               <h1 style="color: #ffffff; font-size: 28px; font-weight: 700; margin: 0; letter-spacing: -0.5px;">THE SCENE CO.</h1>
               <p style="color: #dceeb1; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; margin: 6px 0 0 0; font-family: monospace;">Vision. Code. Zero Templates.</p>
             </div>
-            {/* Body Block */}
             <div style="padding: 40px; color: #ffffff;">
               <h2 style="font-size: 22px; font-weight: 600; margin-top: 0; color: #ffffff;">We've received your request!</h2>
               <p style="color: #b0aec6; font-size: 15px; line-height: 1.6; margin: 16px 0 24px 0;">
@@ -38,7 +36,6 @@ export async function POST(request: NextRequest) {
                 Thank you for reaching out to us. We have received your inquiry regarding <strong>${service_interest || "our custom digital studio services"}</strong>. Our team is already analyzing your details.
               </p>
               
-              {/* Highlight Box */}
               <div style="background-color: #2b2852; border-radius: 16px; padding: 20px; margin-bottom: 30px; border: 1px solid #3d3b66;">
                 <h3 style="font-size: 14px; text-transform: uppercase; color: #dceeb1; letter-spacing: 1px; margin: 0 0 10px 0; font-family: monospace;">Inquiry Summary</h3>
                 <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
