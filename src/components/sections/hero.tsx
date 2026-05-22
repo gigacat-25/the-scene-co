@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Pause, Play, ChevronLeft, ChevronRight } from "lucide-react";
 
 // Pool of images — each cell will cycle through these
 const imagePool = [
@@ -20,10 +20,6 @@ const imagePool = [
   { src: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80", alt: "Design Process" },
 ];
 
-// 7 cells — each starts at a different offset in the pool so they show different images
-const CELL_COUNT = 7;
-const initialOffsets = [0, 3, 6, 9, 1, 4, 7];
-
 function ImageCell({
   imageIndex,
   className,
@@ -36,7 +32,6 @@ function ImageCell({
   const [flipping, setFlipping] = useState(false);
 
   useEffect(() => {
-    // Random interval between 3–6s so cells don't all flip together
     const delay = 3000 + Math.random() * 3000;
     const timer = setInterval(() => {
       setFlipping(true);
@@ -50,7 +45,10 @@ function ImageCell({
   }, []);
 
   return (
-    <div className={`relative overflow-hidden rounded-lg ${className}`} style={{ perspective: "1000px" }}>
+    <div 
+      className={`relative overflow-hidden rounded-lg transition-all duration-700 hover:scale-[1.04] hover:shadow-xl hover:z-20 ${className}`} 
+      style={{ perspective: "1000px" }}
+    >
       {/* Current image */}
       <img
         src={imagePool[current].src}
@@ -62,7 +60,7 @@ function ImageCell({
           transform: flipping ? "scale(1.06)" : "scale(1)",
         }}
       />
-      {/* Next image (fades in as current fades out) */}
+      {/* Next image */}
       <img
         src={imagePool[next].src}
         alt={imagePool[next].alt}
@@ -77,23 +75,94 @@ function ImageCell({
   );
 }
 
-export function Hero() {
+export function Hero({ settings }: { settings?: Record<string, string> }) {
   const [isPaused, setIsPaused] = useState(false);
+  const [displayText, setDisplayText] = useState("Build ");
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingSpeed, setTypingSpeed] = useState(100);
+
+  const phrases = [
+    "websites, zero templates.",
+    "e-commerce stores.",
+    "custom POS systems.",
+    "anything possible."
+  ];
+
+  // Typing effect loop
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    const currentPhrase = phrases[phraseIndex];
+    const fullText = "Build " + currentPhrase;
+
+    if (isDeleting) {
+      setTypingSpeed(40);
+      timer = setTimeout(() => {
+        setDisplayText(fullText.substring(0, displayText.length - 1));
+      }, typingSpeed);
+    } else {
+      setTypingSpeed(100);
+      timer = setTimeout(() => {
+        setDisplayText(fullText.substring(0, displayText.length + 1));
+      }, typingSpeed);
+    }
+
+    const minLength = "Build ".length;
+
+    if (!isDeleting && displayText === fullText) {
+      timer = setTimeout(() => setIsDeleting(true), 2500);
+    } else if (isDeleting && displayText.length === minLength) {
+      setIsDeleting(false);
+      setPhraseIndex((prev) => (prev + 1) % phrases.length);
+    }
+
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting, phraseIndex]);
+
+  // Inject blinking cursor keyframes
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const styleId = "hero-blink-cursor-style";
+      if (!document.getElementById(styleId)) {
+        const style = document.createElement("style");
+        style.id = styleId;
+        style.innerHTML = `
+          @keyframes blink {
+            50% { opacity: 0; }
+          }
+          .animate-blink {
+            animation: blink 1s step-start infinite;
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    }
+  }, []);
 
   return (
     <section
       className="relative w-full overflow-hidden"
-      style={{ minHeight: "80vh", background: "#111" }}
+      style={{ minHeight: "85vh", background: "#0b0a14" }}
     >
+      {/* Brand spotlight ambient glows */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1] opacity-40 mix-blend-screen">
+        <div className="absolute -top-40 left-1/4 w-[50vw] h-[80vh] rounded-full bg-indigo-600/20 blur-[130px] animate-pulse" style={{ animationDuration: '8s' }} />
+        <div className="absolute -top-40 right-1/4 w-[50vw] h-[80vh] rounded-full bg-purple-600/20 blur-[130px] animate-pulse" style={{ animationDuration: '12s' }} />
+      </div>
+
+      <div className="absolute inset-0 bg-radial-gradient pointer-events-none opacity-65 z-[2]" style={{
+        background: "radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.12) 0%, rgba(99, 102, 241, 0.04) 50%, transparent 100%)"
+      }} />
+
       {/* ── Mobile: single full-bleed image ── */}
       <div className="absolute inset-0 md:hidden">
-        <ImageCell imageIndex={0} className="w-full h-full" />
+        <ImageCell imageIndex={0} className="w-full h-full opacity-65" />
       </div>
 
       {/* ── Desktop: Mosaic grid ── */}
       <div
-        className="absolute inset-0 hidden md:flex gap-2 p-2"
-        style={{ opacity: isPaused ? 0.7 : 1, transition: "opacity 0.4s" }}
+        className="absolute inset-0 hidden md:flex gap-2 p-2 z-[1]"
+        style={{ opacity: isPaused ? 0.6 : 0.85, transition: "opacity 0.4s" }}
       >
         {/* Column 1 — narrow, two stacked cells */}
         <div className="flex flex-col gap-2 w-[13%] shrink-0">
@@ -105,7 +174,7 @@ export function Hero() {
         <div className="flex flex-col gap-2 w-[20%] shrink-0">
           <ImageCell imageIndex={1} className="flex-[2]" />
           {/* Color block below */}
-          <div className="flex-[1] rounded-lg flex items-center justify-center p-4" style={{ background: "#dceeb1" }}>
+          <div className="flex-[1] rounded-lg flex items-center justify-center p-4 transition-all duration-500 hover:scale-[1.04] hover:rotate-[0.5deg] hover:shadow-lg cursor-default" style={{ background: "#dceeb1" }}>
             <div className="text-center">
               <div className="caption-mono text-ink/50 mb-1 text-xs">SERVICES</div>
               <div className="font-bold text-ink text-sm">Websites</div>
@@ -116,7 +185,7 @@ export function Hero() {
         {/* Column 3 — wide, tall single + color block */}
         <div className="flex flex-col gap-2 w-[18%] shrink-0">
           <ImageCell imageIndex={2} className="flex-[3]" />
-          <div className="flex-[1] rounded-lg flex items-center justify-center p-4" style={{ background: "#c5b0f4" }}>
+          <div className="flex-[1] rounded-lg flex items-center justify-center p-4 transition-all duration-500 hover:scale-[1.04] hover:rotate-[-0.5deg] hover:shadow-lg cursor-default" style={{ background: "#c5b0f4" }}>
             <div className="text-center">
               <div className="caption-mono text-ink/50 mb-1 text-xs">GALLERY</div>
               <div className="font-bold text-ink text-sm">Our Work</div>
@@ -126,13 +195,13 @@ export function Hero() {
 
         {/* Column 4 — space for floating card (1 tall cell, muted) */}
         <div className="flex flex-col gap-2 w-[22%] shrink-0">
-          <ImageCell imageIndex={3} className="flex-1" />
+          <ImageCell imageIndex={3} className="flex-1 opacity-40 hover:opacity-100 transition-opacity duration-500" />
         </div>
 
         {/* Column 5 — two stacked cells */}
         <div className="flex flex-col gap-2 flex-1 shrink-0">
           <ImageCell imageIndex={4} className="flex-[2]" />
-          <div className="flex-[1] rounded-lg flex items-center justify-center p-4" style={{ background: "#1f1d3d" }}>
+          <div className="flex-[1] rounded-lg flex items-center justify-center p-4 transition-all duration-500 hover:scale-[1.04] hover:rotate-[0.5deg] hover:shadow-lg cursor-default" style={{ background: "#1f1d3d" }}>
             <div className="text-center">
               <div className="caption-mono text-white/50 mb-1 text-xs">FULL STACK</div>
               <div className="font-bold text-white text-sm">End-to-End</div>
@@ -142,63 +211,67 @@ export function Hero() {
       </div>
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/40 pointer-events-none" />
+      <div className="absolute inset-0 bg-black/55 pointer-events-none z-[2]" />
 
       {/* ── Floating card ── */}
-      <div className="relative z-10 flex items-center justify-center min-h-[80vh] px-4 py-12">
+      <div className="relative z-10 flex items-center justify-center min-h-[85vh] px-4 py-12">
         <div
-          className="bg-canvas rounded-2xl p-6 sm:p-8 md:p-12 w-full max-w-xl shadow-2xl"
-          style={{ boxShadow: "0 20px 60px rgba(0,0,0,0.4)" }}
+          className="bg-white rounded-[32px] p-8 sm:p-12 w-full max-w-4xl shadow-[0_30px_90px_rgba(0,0,0,0.25)] border border-neutral-100/90 flex flex-col md:flex-row md:items-end justify-between gap-8 min-h-[220px] relative overflow-hidden transition-all duration-300 hover:scale-[1.01]"
         >
-          <h1
-            className="text-ink leading-tight mb-4 sm:mb-6"
-            style={{
-              fontSize: "clamp(26px, 5vw, 56px)",
-              fontWeight: 340,
-              lineHeight: 1.05,
-              letterSpacing: "-1px",
-            }}
-          >
-            Build anything possible,
-            <br />
-            <span style={{ fontWeight: 700 }}>zero templates.</span>
-          </h1>
-          <p
-            className="text-ink/70 mb-6 sm:mb-8 leading-relaxed"
-            style={{ fontSize: "clamp(14px, 2.5vw, 17px)", fontWeight: 320, lineHeight: 1.55 }}
-          >
-            Custom websites, e-commerce stores, and POS systems — built from scratch with a CMS you control.{" "}
-            <span className="text-ink font-medium">1&nbsp;year free hosting included.</span>
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Link href="/contact" className="btn-primary-figma text-center">
-              Get a Free Quote
-            </Link>
-            <Link href="/pricing" className="btn-secondary-figma text-center">
-              View Pricing
+          {/* Main heading left side */}
+          <div className="flex-1 flex flex-col justify-center min-h-[120px]">
+            <h1
+              className="text-black font-sans leading-[1.05] tracking-[-1.5px] font-semibold text-left select-none text-balance"
+              style={{
+                fontSize: "clamp(32px, 5vw, 60px)",
+              }}
+            >
+              {displayText}
+              <span className="animate-blink font-light text-[#5551ff]">|</span>
+            </h1>
+          </div>
+          
+          {/* Button right side */}
+          <div className="flex shrink-0 items-end">
+            <Link 
+              href={settings?.hero_cta_link || "/contact"} 
+              className="bg-[#5551ff] hover:bg-[#403ce6] text-white text-base sm:text-lg font-semibold px-8 py-4 rounded-2xl transition-all duration-300 shadow-[0_4px_14px_rgba(85,81,255,0.3)] hover:shadow-[0_6px_20px_rgba(85,81,255,0.4)] active:scale-95 text-center min-w-[160px]"
+            >
+              {settings?.hero_cta_text || "Get started"}
             </Link>
           </div>
         </div>
       </div>
 
       {/* ── Controls ── */}
-      <div className="absolute bottom-4 right-4 z-20 hidden md:flex items-center gap-2">
+      <div className="absolute bottom-6 right-6 z-20 hidden md:flex items-center gap-3">
+        <button
+          className="w-10 h-10 rounded-full border border-white/20 bg-black/35 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/50 transition-colors"
+          aria-label="Previous"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
         <button
           onClick={() => setIsPaused(!isPaused)}
-          className="btn-icon-circular-inverse"
+          className="w-10 h-10 rounded-full border border-white/20 bg-black/35 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/50 transition-colors"
           aria-label={isPaused ? "Resume" : "Pause"}
         >
-          {isPaused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
+          {isPaused ? <Play className="h-4 w-4 fill-white" /> : <Pause className="h-4 w-4 fill-white" />}
+        </button>
+        <button
+          className="w-10 h-10 rounded-full border border-white/20 bg-black/35 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/50 transition-colors"
+          aria-label="Next"
+        >
+          <ChevronRight className="h-5 w-5" />
         </button>
       </div>
 
       {/* ── Hint label ── */}
       {isPaused && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 caption-mono text-white/60 bg-black/40 px-4 py-1.5 rounded-full">
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 caption-mono text-white/60 bg-black/40 px-4 py-1.5 rounded-full">
           Paused
         </div>
       )}
     </section>
   );
 }
-

@@ -2,7 +2,15 @@ import { ContactForm } from "@/components/sections/contact-form";
 import { AnimateOnScroll } from "../animate-on-scroll";
 import { Mail, MessageCircle, MapPin } from "lucide-react";
 
-export function Contact() {
+export function Contact({ settings }: { settings?: Record<string, string> }) {
+  const email = settings?.contact_email || "hello@thescene.co.in";
+  const rawWa = settings?.whatsapp_number || "9845714699";
+  const waClean = rawWa.replace(/\D/g, "");
+  const waLink = waClean.length === 10 ? `91${waClean}` : waClean;
+  const whatsappUrl = `https://wa.me/${waLink}`;
+  const whatsappDisplay = rawWa.startsWith("+") ? rawWa : `+91 ${rawWa.replace(/(\d{5})(\d{5})/, "$1 $2")}`;
+  const address = settings?.contact_address || "India — serving clients worldwide";
+
   return (
     <section className="w-full">
       <div className="container mx-auto px-4 sm:px-6">
@@ -25,7 +33,7 @@ export function Contact() {
               <AnimateOnScroll animationClass="animate-slide-in-up" hiddenClass="opacity-0" delay="0.1s">
                 <div className="space-y-5">
                   <a
-                    href="mailto:hello@thescene.co.in"
+                    href={`mailto:${email}`}
                     className="flex items-center gap-4 group"
                   >
                     <div className="btn-icon-circular shrink-0">
@@ -33,11 +41,11 @@ export function Contact() {
                     </div>
                     <div>
                       <div className="caption-mono text-ink/50 mb-0.5">Email</div>
-                      <div className="body-sm-figma text-ink group-hover:underline">hello@thescene.co.in</div>
+                      <div className="body-sm-figma text-ink group-hover:underline">{email}</div>
                     </div>
                   </a>
                   <a
-                    href="https://wa.me/919876543210"
+                    href={whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-4 group"
@@ -47,7 +55,7 @@ export function Contact() {
                     </div>
                     <div>
                       <div className="caption-mono text-ink/50 mb-0.5">WhatsApp</div>
-                      <div className="body-sm-figma text-ink group-hover:underline">+91 98765 43210</div>
+                      <div className="body-sm-figma text-ink group-hover:underline">{whatsappDisplay}</div>
                     </div>
                   </a>
                   <div className="flex items-center gap-4">
@@ -56,7 +64,7 @@ export function Contact() {
                     </div>
                     <div>
                       <div className="caption-mono text-ink/50 mb-0.5">Location</div>
-                      <div className="body-sm-figma text-ink">India — serving clients worldwide</div>
+                      <div className="body-sm-figma text-ink">{address}</div>
                     </div>
                   </div>
                 </div>
