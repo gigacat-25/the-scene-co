@@ -174,3 +174,19 @@ export async function checkRateLimit(ip: string, endpoint: string, maxRequests: 
 
   return true;
 }
+
+// ─── Team Members ───────────────────────────────────────────────────────────
+
+export async function getPublishedTeamMembers(): Promise<any[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const { results } = await db.prepare("SELECT * FROM team_members WHERE is_published = 1 ORDER BY order_index ASC").all();
+  return results || [];
+}
+
+export async function getAllTeamMembers(): Promise<any[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const { results } = await db.prepare("SELECT * FROM team_members ORDER BY order_index ASC").all();
+  return results || [];
+}

@@ -2,7 +2,20 @@
 
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 
-const teamMembers = [
+interface TeamMember {
+  id?: number;
+  name: string;
+  role: string;
+  bio?: string;
+  image_url?: string;
+  order_index?: number;
+}
+
+interface LeadershipProps {
+  teamMembers?: TeamMember[];
+}
+
+const defaultTeamMembers: TeamMember[] = [
   {
     name: "Your Name",
     role: "Founder & Creative Director",
@@ -18,7 +31,9 @@ const stats = [
   { value: "24 hr", label: "Support Response" },
 ];
 
-export function Leadership() {
+export function Leadership({ teamMembers }: LeadershipProps) {
+  const members = teamMembers && teamMembers.length > 0 ? teamMembers : defaultTeamMembers;
+
   return (
     <section className="w-full bg-canvas py-24">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
@@ -58,9 +73,9 @@ export function Leadership() {
         </AnimateOnScroll>
 
         <div className="flex flex-wrap justify-center gap-8">
-          {teamMembers.map((member, index) => (
+          {members.map((member, index) => (
             <AnimateOnScroll
-              key={member.name}
+              key={member.id ?? member.name}
               animationClass="animate-slide-in-up"
               hiddenClass="opacity-0"
               delay={`${index * 0.1}s`}
@@ -68,11 +83,17 @@ export function Leadership() {
             >
               <div className="bg-canvas border border-hairline rounded-lg overflow-hidden hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)] transition-shadow duration-200">
                 <div className="aspect-[4/3] relative overflow-hidden bg-surface-soft">
-                  <img
-                    src={member.image_url}
-                    alt={member.name}
-                    className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
-                  />
+                  {member.image_url ? (
+                    <img
+                      src={member.image_url}
+                      alt={member.name}
+                      className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-ink/20 text-5xl font-bold">
+                      {member.name.charAt(0)}
+                    </div>
+                  )}
                 </div>
                 <div className="p-6">
                   <h3 className="text-ink mb-1" style={{ fontSize: 24, fontWeight: 700, lineHeight: 1.45 }}>
@@ -80,7 +101,9 @@ export function Leadership() {
                   </h3>
                   <p className="caption-mono text-ink/50 mb-4">{member.role}</p>
                   <div className="h-px bg-hairline-soft mb-4" />
-                  <p className="body-sm-figma text-ink/70 leading-relaxed">{member.bio}</p>
+                  {member.bio && (
+                    <p className="body-sm-figma text-ink/70 leading-relaxed">{member.bio}</p>
+                  )}
                 </div>
               </div>
             </AnimateOnScroll>
@@ -90,3 +113,4 @@ export function Leadership() {
     </section>
   );
 }
+

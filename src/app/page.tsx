@@ -6,13 +6,14 @@ import { FAQ } from "@/components/sections/faq";
 import { Contact } from "@/components/sections/contact";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MarqueeStrip } from "@/components/marquee-strip";
-import { getPublishedTestimonials, getPublishedFAQs } from "@/lib/db";
+import { getPublishedTestimonials, getPublishedFAQs, getPublishedTeamMembers } from "@/lib/db";
 
 export const runtime = "edge";
 
 export default async function Home() {
   const testimonials = await getPublishedTestimonials();
   const faqs = await getPublishedFAQs();
+  const teamMembers = await getPublishedTeamMembers();
 
   return (
     <div className="flex flex-col bg-canvas">
@@ -46,7 +47,7 @@ export default async function Home() {
 
       {/* 6. White canvas — team & stats */}
       <div id="team">
-        <Leadership />
+        <Leadership teamMembers={teamMembers} />
       </div>
 
       {/* 7. Lime color-block — FAQ */}

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createLead, getLeads, checkRateLimit } from "@/lib/db";
+import { isAuthenticated } from "@/lib/cf-bindings";
 
 export const runtime = "edge";
 
@@ -21,8 +22,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
-  const session = request.cookies.get("admin_session");
-  if (session?.value !== "authenticated") return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!isAuthenticated(request)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   try {
     const leads = await getLeads();
     return NextResponse.json({ leads });

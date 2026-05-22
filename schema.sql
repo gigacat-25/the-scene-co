@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS leads;
 DROP TABLE IF EXISTS site_settings;
 DROP TABLE IF EXISTS faqs;
 DROP TABLE IF EXISTS pages;
+DROP TABLE IF EXISTS team_members;
 DROP TABLE IF EXISTS admin_config;
 
 -- ─── Admin Config ──────────────────────────────────────────────────────────────
@@ -152,6 +153,28 @@ CREATE TABLE faqs (
   order_index INTEGER DEFAULT 0,
   is_published INTEGER DEFAULT 1,
   created_at TEXT DEFAULT (datetime('now'))
+);
+
+-- ─── Team Members ────────────────────────────────────────────────────
+CREATE TABLE team_members (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  role TEXT NOT NULL,
+  bio TEXT DEFAULT '',
+  image_url TEXT DEFAULT '',
+  order_index INTEGER DEFAULT 0,
+  is_published INTEGER DEFAULT 1,
+  created_at TEXT DEFAULT (datetime('now')),
+  updated_at TEXT DEFAULT (datetime('now'))
+);
+
+INSERT INTO team_members (name, role, bio, image_url, order_index, is_published) VALUES (
+  'Your Name',
+  'Founder & Creative Director',
+  'Building premium websites, POS systems, and SaaS products for businesses that want more than templates.',
+  'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
+  0,
+  1
 );
 
 -- ─── Rate Limits (for contact form + login protection) ─────────────────────────
