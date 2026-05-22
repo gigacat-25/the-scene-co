@@ -71,6 +71,7 @@ CREATE TABLE portfolio_items (
   gallery_urls TEXT DEFAULT '[]',
   client_name TEXT DEFAULT '',
   technologies TEXT DEFAULT '[]',
+  project_url TEXT DEFAULT '',
   is_featured INTEGER DEFAULT 0,
   is_published INTEGER DEFAULT 1,
   created_at TEXT DEFAULT (datetime('now')),

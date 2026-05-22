@@ -12,6 +12,7 @@ interface PortfolioItem {
   description: string;
   image_url: string;
   is_featured: number;
+  project_url?: string;
 }
 
 interface PortfolioGridProps {

@@ -7,7 +7,7 @@ import { Contact } from "@/components/sections/contact";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MarqueeStrip } from "@/components/marquee-strip";
 import { ClientsCarousel } from "@/components/sections/clients-carousel";
-import { getPublishedTestimonials, getPublishedFAQs, getPublishedTeamMembers, getPublishedClients } from "@/lib/db";
+import { getPublishedTestimonials, getPublishedFAQs, getPublishedTeamMembers, getPublishedClients, getAllSettings } from "@/lib/db";
 
 export const runtime = "edge";
 
@@ -17,12 +17,13 @@ export default async function Home() {
   const teamMembers = await getPublishedTeamMembers();
   const homeTeam = teamMembers.slice(0, 4);
   const clients = await getPublishedClients();
+  const settings = await getAllSettings().catch(() => ({}));
 
   return (
     <div className="flex flex-col bg-canvas">
 
       {/* 1. Hero — full-bleed portfolio mosaic */}
-      <Hero />
+      <Hero settings={settings} />
 
       {/* 2. Marquee strip — like Figma's black ribbon of client logos */}
       <MarqueeStrip />
@@ -63,7 +64,7 @@ export default async function Home() {
 
       {/* 8. Coral color-block — contact */}
       <div id="contact" className="py-4">
-        <Contact />
+        <Contact settings={settings} />
       </div>
 
     </div>

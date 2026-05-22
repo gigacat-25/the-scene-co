@@ -22,10 +22,10 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
   if (!db) return NextResponse.json({ error: "Database unavailable" }, { status: 503 });
   try {
     const { slug: id } = await params;
-    const body = await request.json() as { title?: string; slug?: string; category?: string; description?: string; image_url?: string; client_name?: string; technologies?: string; gallery_urls?: string; is_featured?: number; is_published?: number };
-    const { title, slug, category, description, image_url, client_name, technologies, gallery_urls, is_featured, is_published } = body;
+    const body = await request.json() as { title?: string; slug?: string; category?: string; description?: string; image_url?: string; client_name?: string; technologies?: string; gallery_urls?: string; project_url?: string; is_featured?: number; is_published?: number };
+    const { title, slug, category, description, image_url, client_name, technologies, gallery_urls, project_url, is_featured, is_published } = body;
     const techVal = technologies ? JSON.stringify(technologies) : null;
-    await db.prepare("UPDATE portfolio_items SET title = COALESCE(?, title), slug = COALESCE(?, slug), category = COALESCE(?, category), description = COALESCE(?, description), image_url = COALESCE(?, image_url), client_name = COALESCE(?, client_name), technologies = COALESCE(?, technologies), gallery_urls = COALESCE(?, gallery_urls), is_featured = COALESCE(?, is_featured), is_published = COALESCE(?, is_published), updated_at = datetime('now') WHERE id = ?").bind(...[title, slug, category, description, image_url, client_name, techVal, gallery_urls, is_featured, is_published, id].map(x => x === undefined ? null : x)).run();
+    await db.prepare("UPDATE portfolio_items SET title = COALESCE(?, title), slug = COALESCE(?, slug), category = COALESCE(?, category), description = COALESCE(?, description), image_url = COALESCE(?, image_url), client_name = COALESCE(?, client_name), technologies = COALESCE(?, technologies), gallery_urls = COALESCE(?, gallery_urls), project_url = COALESCE(?, project_url), is_featured = COALESCE(?, is_featured), is_published = COALESCE(?, is_published), updated_at = datetime('now') WHERE id = ?").bind(...[title, slug, category, description, image_url, client_name, techVal, gallery_urls, project_url, is_featured, is_published, id].map(x => x === undefined ? null : x)).run();
     return NextResponse.json({ success: true });
   } catch (err: unknown) {
     return NextResponse.json({ error: (err as Error).message }, { status: 500 });

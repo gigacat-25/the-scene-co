@@ -69,10 +69,17 @@ export default async function PortfolioSlugPage({ params }: { params: Promise<{ 
               ))}
             </div>
           )}
-          <div className="flex gap-4 mt-8">
-            <Button asChild size="lg">
+          <div className="flex flex-wrap gap-4 mt-8">
+            {item.project_url && (
+              <Button asChild size="lg">
+                <a href={item.project_url} target="_blank" rel="noopener noreferrer">
+                  <ExternalLink className="h-4 w-4 mr-2" /> Take me to the website
+                </a>
+              </Button>
+            )}
+            <Button asChild size="lg" variant={item.project_url ? "outline" : "default"}>
               <Link href="/contact">
-                <ExternalLink className="h-4 w-4 mr-2" /> Get a Similar Website
+                {!item.project_url && <ExternalLink className="h-4 w-4 mr-2" />} Get a Similar Website
               </Link>
             </Button>
           </div>

@@ -11,7 +11,7 @@ export default function AdminPortfolioPage() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [form, setForm] = useState({ title: "", slug: "", category: "", description: "", image_url: "", client_name: "", technologies: "" });
+  const [form, setForm] = useState({ title: "", slug: "", category: "", description: "", image_url: "", client_name: "", technologies: "", project_url: "" });
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => { fetchItems(); }, []);
@@ -36,7 +36,7 @@ export default function AdminPortfolioPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, technologies: form.technologies.split(",").map(t => t.trim()).filter(Boolean) }),
       });
-      if (res.ok) { setForm({ title: "", slug: "", category: "", description: "", image_url: "", client_name: "", technologies: "" }); setShowForm(false); setEditingId(null); fetchItems(); }
+      if (res.ok) { setForm({ title: "", slug: "", category: "", description: "", image_url: "", client_name: "", technologies: "", project_url: "" }); setShowForm(false); setEditingId(null); fetchItems(); }
     } finally { setSubmitting(false); }
   }
 
@@ -44,7 +44,7 @@ export default function AdminPortfolioPage() {
     let techs = "";
     try { techs = JSON.parse(item.technologies || "[]").join(", "); } catch {}
     setEditingId(item.id);
-    setForm({ title: item.title, slug: item.slug, category: item.category, description: item.description, image_url: item.image_url, client_name: item.client_name, technologies: techs });
+    setForm({ title: item.title, slug: item.slug, category: item.category, description: item.description, image_url: item.image_url, client_name: item.client_name, technologies: techs, project_url: item.project_url || "" });
     setShowForm(true);
   }
 
@@ -60,7 +60,7 @@ export default function AdminPortfolioPage() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-ink font-bold" style={{ fontSize: 32, fontWeight: 540 }}>Portfolio</h1>
-        <button onClick={() => { setShowForm(!showForm); setEditingId(null); setForm({ title: "", slug: "", category: "", description: "", image_url: "", client_name: "", technologies: "" }); }} className="btn-primary-figma text-sm px-4 py-2 flex items-center">
+        <button onClick={() => { setShowForm(!showForm); setEditingId(null); setForm({ title: "", slug: "", category: "", description: "", image_url: "", client_name: "", technologies: "", project_url: "" }); }} className="btn-primary-figma text-sm px-4 py-2 flex items-center">
           <Plus className="h-4 w-4 mr-2" /> {showForm ? "Cancel" : "Add Item"}
         </button>
       </div>
@@ -77,6 +77,7 @@ export default function AdminPortfolioPage() {
                 <input placeholder="Category *" value={form.category} onChange={e => setForm({ ...form, category: e.target.value })} required className="w-full bg-surface-soft border border-hairline rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-ink" />
                 <input placeholder="Client Name" value={form.client_name} onChange={e => setForm({ ...form, client_name: e.target.value })} className="w-full bg-surface-soft border border-hairline rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-ink" />
               </div>
+              <input placeholder="Project Website URL (e.g. https://...)" value={form.project_url} onChange={e => setForm({ ...form, project_url: e.target.value })} className="w-full bg-surface-soft border border-hairline rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-ink" />
               <input placeholder="Technologies (comma separated)" value={form.technologies} onChange={e => setForm({ ...form, technologies: e.target.value })} className="w-full bg-surface-soft border border-hairline rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-ink" />
               <textarea placeholder="Description *" value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} required className="w-full h-32 bg-surface-soft border border-hairline rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-ink resize-none" />
             </div>
