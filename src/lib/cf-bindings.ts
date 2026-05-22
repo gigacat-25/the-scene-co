@@ -13,9 +13,9 @@ export async function getBindings(): Promise<{
         const { env } = getRequestContext();
         return {
             // @ts-ignore – bindings are injected at CF runtime
-            db: env.the_scene_co_db as D1Database | undefined,
+            db: (env.the_scene_co_db || env["the-scene-co-db"]) as D1Database | undefined,
             // @ts-ignore
-            r2: env.the_scene_co_media as R2Bucket | undefined,
+            r2: (env.the_scene_co_media || env["the-scene-co-media"]) as R2Bucket | undefined,
         };
     } catch {
         // Local next dev – no CF runtime
