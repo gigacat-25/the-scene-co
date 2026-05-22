@@ -22,13 +22,10 @@ export async function POST(request: NextRequest) {
     }
 
     if (!r2) {
-        if (isDev) {
-            const buffer = await file.arrayBuffer();
-            const base64String = Buffer.from(buffer).toString("base64");
-            const dataUrl = `data:${file.type};base64,${base64String}`;
-            return NextResponse.json({ success: true, url: dataUrl }, { status: 201 });
-        }
-        return serviceUnavailableResponse("R2 storage only available on Cloudflare deployment");
+        const buffer = await file.arrayBuffer();
+        const base64String = Buffer.from(buffer).toString("base64");
+        const dataUrl = `data:${file.type};base64,${base64String}`;
+        return NextResponse.json({ success: true, url: dataUrl }, { status: 201 });
     }
 
     // Validate file type
