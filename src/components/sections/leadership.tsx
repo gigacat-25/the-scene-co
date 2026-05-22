@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 
 interface TeamMember {
@@ -13,6 +14,7 @@ interface TeamMember {
 
 interface LeadershipProps {
   teamMembers?: TeamMember[];
+  showViewAll?: boolean;
 }
 
 const defaultTeamMembers: TeamMember[] = [
@@ -31,7 +33,7 @@ const stats = [
   { value: "24 hr", label: "Support Response" },
 ];
 
-export function Leadership({ teamMembers }: LeadershipProps) {
+export function Leadership({ teamMembers, showViewAll }: LeadershipProps) {
   const members = teamMembers && teamMembers.length > 0 ? teamMembers : defaultTeamMembers;
 
   return (
@@ -109,6 +111,18 @@ export function Leadership({ teamMembers }: LeadershipProps) {
             </AnimateOnScroll>
           ))}
         </div>
+
+        {showViewAll && (
+          <div className="mt-12 text-center">
+            <Link
+              href="/team"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-ink text-ink rounded-full hover:bg-ink hover:text-canvas transition-colors duration-200 font-sans text-sm font-semibold"
+            >
+              Meet the Whole Team
+              <span className="text-xs">➔</span>
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

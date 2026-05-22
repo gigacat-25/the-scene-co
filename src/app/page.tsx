@@ -14,6 +14,7 @@ export default async function Home() {
   const testimonials = await getPublishedTestimonials();
   const faqs = await getPublishedFAQs();
   const teamMembers = await getPublishedTeamMembers();
+  const homeTeam = teamMembers.slice(0, 4);
 
   return (
     <div className="flex flex-col bg-canvas">
@@ -47,7 +48,7 @@ export default async function Home() {
 
       {/* 6. White canvas — team & stats */}
       <div id="team">
-        <Leadership teamMembers={teamMembers} />
+        <Leadership teamMembers={homeTeam} showViewAll={teamMembers.length > 4} />
       </div>
 
       {/* 7. Lime color-block — FAQ */}
