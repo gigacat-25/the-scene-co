@@ -12,3 +12,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
   await markLeadRead(parseInt(id));
   return NextResponse.json({ success: true });
 }
+
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  return PATCH(request, { params });
+}
