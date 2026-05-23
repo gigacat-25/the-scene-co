@@ -3,6 +3,7 @@
 import { Instagram, Linkedin, Twitter, Mail, BotMessageSquare, Facebook } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { CopyableEmail } from "../copyable-email";
 
 export function Footer({ settings }: { settings?: Record<string, string> }) {
   const email = settings?.contact_email || "hello@thescene.co.in";
@@ -106,13 +107,7 @@ export function Footer({ settings }: { settings?: Record<string, string> }) {
 
             {/* Email + WhatsApp */}
             <div className="space-y-3 caption-mono">
-              <a
-                href={`mailto:${email}`}
-                className="flex items-start gap-2 text-ink/75 transition-colors hover:text-ink group"
-              >
-                <Mail className="h-4 w-4 text-ink/50 shrink-0 mt-[1px]" />
-                <span className="break-all group-hover:underline leading-snug">{email}</span>
-              </a>
+              <CopyableEmail email={email} variant="footer" />
               <a
                 href={whatsappUrl}
                 target="_blank"
