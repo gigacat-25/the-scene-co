@@ -16,7 +16,7 @@ export function JsonLd({ data }: { data: Record<string, unknown> | Record<string
 
 const SITE_URL = "https://www.thescene.co.in";
 const SITE_NAME = "The Scene Co.";
-const LOGO_URL = `${SITE_URL}/logo.png`;
+const LOGO_URL = `${SITE_URL}/brand-logo.png`;
 
 /** Organisation + WebSite + LocalBusiness — used on the homepage */
 export const organizationSchema = {

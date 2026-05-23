@@ -45,9 +45,9 @@ export const metadata: Metadata = {
 
   // ── Icons ─────────────────────────────────────────────────────────────
   icons: {
-    icon: [{ url: '/logo.png', type: 'image/png' }],
-    apple: [{ url: '/logo.png', type: 'image/png' }],
-    shortcut: '/logo.png',
+    icon: [{ url: '/brand-logo.png', type: 'image/png' }],
+    apple: [{ url: '/brand-logo.png', type: 'image/png' }],
+    shortcut: '/brand-logo.png',
   },
 
   // ── Open Graph ────────────────────────────────────────────────────────
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
       'Premium custom websites, e-commerce stores, and POS systems — full-stack, with built-in CMS and 1 year free hosting. Zero templates.',
     images: [
       {
-        url: '/logo.png',
+        url: '/brand-logo.png',
         width: 1024,
         height: 1024,
         alt: 'The Scene Co. — Websites & Digital Solutions',
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
     title: 'The Scene Co. | Custom Websites, E-Commerce & POS Systems in India',
     description:
       'Premium custom websites, e-commerce stores, and POS systems — full-stack, with built-in CMS and 1 year free hosting. Zero templates.',
-    images: ['/logo.png'],
+    images: ['/brand-logo.png'],
   },
 
   // ── Canonical ─────────────────────────────────────────────────────────

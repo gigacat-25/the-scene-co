@@ -28,15 +28,15 @@ export function Navbar() {
   const [isSheetOpen, setSheetOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full h-[56px] border-b border-hairline bg-canvas/90 backdrop-blur-md flex items-center">
+    <header className="sticky top-0 z-50 w-full h-[80px] border-b border-hairline bg-canvas/90 backdrop-blur-md flex items-center">
       <div className="container mx-auto flex items-center justify-between px-4">
         {/* Left: logo + brand */}
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <Image
-            src="/logo.png"          // file in /public
+            src="/brand-logo.png"          // file in /public
             alt="The Scene Co. logo"
-            width={28}
-            height={28}
+            width={64}
+            height={64}
             className="rounded-md"
             priority
           />
@@ -85,10 +85,10 @@ export function Navbar() {
                 <SheetHeader>
                   <SheetTitle className="flex items-center gap-2">
                     <Image
-                      src="/logo.png"
+                      src="/brand-logo.png"
                       alt="The Scene Co. logo"
-                      width={28}
-                      height={28}
+                      width={64}
+                      height={64}
                       className="rounded-md"
                     />
                     <span className="text-ink font-bold">The Scene Co.</span>

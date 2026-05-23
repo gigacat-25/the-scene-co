@@ -48,7 +48,7 @@ export function Footer({ settings }: { settings?: Record<string, string> }) {
           <div className="md:col-span-2 flex flex-col items-start">
             <Link href="/" className="mb-4 flex items-center gap-3 min-h-0">
               <Image
-                src="/logo.png"
+                src="/brand-logo.png"
                 alt="The Scene Co. logo"
                 width={38}
                 height={38}

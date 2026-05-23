@@ -65,7 +65,7 @@ export default function AboutPage() {
           <AnimateOnScroll animationClass="animate-slide-in-up" hiddenClass="opacity-0">
             <div className="bg-surface-soft rounded-lg overflow-hidden aspect-square flex items-center justify-center p-16">
               <Image
-                src="/logo.png"
+                src="/brand-logo.png"
                 alt="The Scene Co. Logo — Web Development Agency Bangalore"
                 width={240}
                 height={240}
