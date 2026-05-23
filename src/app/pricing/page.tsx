@@ -3,13 +3,31 @@ import { PricingTable } from "@/components/sections/pricing-table";
 import { FAQ } from "@/components/sections/faq";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { MarqueeStrip } from "@/components/marquee-strip";
+import { JsonLd, webPageSchema, faqSchema } from "@/components/json-ld";
 import type { Metadata } from "next";
 
 export const runtime = "edge";
 
 export const metadata: Metadata = {
-  title: "Pricing — The Scene Co.",
-  description: "Transparent pricing for custom websites, e-commerce stores, and POS systems. 1 year free hosting included.",
+  title: "Website Development Pricing in India — Transparent Packages",
+  description:
+    "Transparent pricing for custom website development, e-commerce stores, and POS systems in India. All packages include 1 year free hosting and 1 year free domain. No hidden fees.",
+  keywords: [
+    "website development cost India",
+    "web development pricing Bangalore",
+    "e-commerce website price India",
+    "custom website packages India",
+    "POS system cost India",
+    "website development packages",
+    "affordable web development India",
+  ],
+  alternates: { canonical: "https://thescene.co.in/pricing" },
+  openGraph: {
+    url: "https://thescene.co.in/pricing",
+    title: "Website Development Pricing | The Scene Co.",
+    description:
+      "Transparent pricing for custom websites, e-commerce stores, and POS systems. 1 year free hosting included.",
+  },
 };
 
 export default async function PricingPage() {
@@ -22,10 +40,25 @@ export default async function PricingPage() {
   );
   const faqs = await getPublishedFAQs();
 
+  const pricingPageSchema = webPageSchema({
+    name: "Website Development Pricing — Transparent Packages | The Scene Co.",
+    description:
+      "Transparent pricing for custom websites, e-commerce stores, and POS systems. 1 year free hosting + domain included.",
+    url: "/pricing",
+    breadcrumbs: [{ name: "Pricing", url: "https://thescene.co.in/pricing" }],
+  });
+
+  const pricingFaqSchema =
+    faqs.length > 0
+      ? faqSchema(faqs.map((f) => ({ question: f.question, answer: f.answer })))
+      : null;
+
   return (
     <div className="flex flex-col bg-canvas">
+      <JsonLd data={pricingPageSchema} />
+      {pricingFaqSchema && <JsonLd data={pricingFaqSchema} />}
 
-      {/* Page hero — white canvas */}
+      {/* Page hero */}
       <div className="container mx-auto px-4 sm:px-6 pt-20 pb-16 max-w-6xl">
         <span className="eyebrow-mono text-ink/60 block mb-4">Pricing</span>
         <h1
@@ -43,12 +76,10 @@ export default async function PricingPage() {
 
       <MarqueeStrip />
 
-      {/* Pricing cards — white canvas */}
       <div className="container mx-auto px-4 sm:px-6 py-20 max-w-7xl">
         <PricingTable plans={plansWithFeatures} />
       </div>
 
-      {/* FAQ — lime color-block */}
       <div className="pb-4">
         <FAQ
           faqs={faqs}
@@ -57,7 +88,6 @@ export default async function PricingPage() {
         />
       </div>
 
-      {/* CTA — lilac color-block */}
       <CtaBanner
         title="Need a custom quote?"
         subtitle="Every project is unique. Tell us what you need and we'll give you a detailed proposal with no obligation."

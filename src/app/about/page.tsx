@@ -3,19 +3,46 @@ import Link from "next/link";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { MarqueeStrip } from "@/components/marquee-strip";
 import { CtaBanner } from "@/components/sections/cta-banner";
+import { JsonLd, webPageSchema } from "@/components/json-ld";
+import type { Metadata } from "next";
 
 export const runtime = "edge";
 
-export const metadata = {
-  title: "About — The Scene Co.",
-  description: "We build premium websites, e-commerce stores, and POS systems — custom-designed, full-stack, with 1 year free hosting.",
+export const metadata: Metadata = {
+  title: "About Us — Web Development Agency in Bangalore, India",
+  description:
+    "The Scene Co. is a premium web development agency in Bangalore, India. We build custom websites, e-commerce stores, and POS systems — full-stack, zero templates, with 1 year free hosting.",
+  keywords: [
+    "web development agency Bangalore",
+    "website development company India",
+    "custom website agency India",
+    "full stack developers India",
+    "about The Scene Co",
+    "web agency Bangalore India",
+  ],
+  alternates: { canonical: "https://thescene.co.in/about" },
+  openGraph: {
+    url: "https://thescene.co.in/about",
+    title: "About The Scene Co. | Web Development Agency in Bangalore",
+    description:
+      "Premium web development agency in Bangalore. Custom websites, e-commerce stores, and POS systems — built from scratch.",
+  },
 };
+
+const aboutSchema = webPageSchema({
+  name: "About The Scene Co. — Web Development Agency in Bangalore, India",
+  description:
+    "The Scene Co. is a premium digital agency specialising in custom websites, e-commerce stores, and web-based POS systems — built entirely from scratch.",
+  url: "/about",
+  breadcrumbs: [{ name: "About", url: "https://thescene.co.in/about" }],
+});
 
 export default function AboutPage() {
   return (
     <div className="flex flex-col bg-canvas">
+      <JsonLd data={aboutSchema} />
 
-      {/* Hero — white canvas */}
+      {/* Hero */}
       <div className="container mx-auto px-4 sm:px-6 pt-20 pb-16 max-w-6xl">
         <span className="eyebrow-mono text-ink/60 block mb-4">About</span>
         <h1
@@ -30,16 +57,16 @@ export default function AboutPage() {
 
       <MarqueeStrip />
 
-      {/* Main content — white canvas */}
+      {/* Main content */}
       <div className="container mx-auto px-4 sm:px-6 py-20 max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
-          {/* Left: logo + image */}
+          {/* Left: logo */}
           <AnimateOnScroll animationClass="animate-slide-in-up" hiddenClass="opacity-0">
             <div className="bg-surface-soft rounded-lg overflow-hidden aspect-square flex items-center justify-center p-16">
               <Image
                 src="/logo.png"
-                alt="The Scene Co. Logo"
+                alt="The Scene Co. Logo — Web Development Agency Bangalore"
                 width={240}
                 height={240}
                 className="rounded-xl"
@@ -51,10 +78,7 @@ export default function AboutPage() {
           <AnimateOnScroll animationClass="animate-slide-in-up" hiddenClass="opacity-0" delay="0.15s">
             <div className="space-y-8">
               <div>
-                <h2
-                  className="text-ink mb-4"
-                  style={{ fontSize: 26, fontWeight: 540, lineHeight: 1.35, letterSpacing: "-0.26px" }}
-                >
+                <h2 className="text-ink mb-4" style={{ fontSize: 26, fontWeight: 540, lineHeight: 1.35, letterSpacing: "-0.26px" }}>
                   Who we are
                 </h2>
                 <p className="body-figma text-ink/75 leading-relaxed" style={{ fontSize: "clamp(15px, 2.2vw, 18px)", fontWeight: 320, lineHeight: 1.45 }}>
@@ -65,24 +89,18 @@ export default function AboutPage() {
               <div className="h-px bg-hairline-soft" />
 
               <div>
-                <h2
-                  className="text-ink mb-4"
-                  style={{ fontSize: 26, fontWeight: 540, lineHeight: 1.35, letterSpacing: "-0.26px" }}
-                >
+                <h2 className="text-ink mb-4" style={{ fontSize: 26, fontWeight: 540, lineHeight: 1.35, letterSpacing: "-0.26px" }}>
                   Our philosophy
                 </h2>
                 <p className="body-figma text-ink/75 leading-relaxed" style={{ fontSize: "clamp(15px, 2.2vw, 18px)", fontWeight: 320, lineHeight: 1.45 }}>
-                  We believe every business deserves a digital presence as unique as they are. That's why we never use templates — every project is purpose-built, with a CMS you can actually use and hosting that&apos;s free for the first year.
+                  We believe every business deserves a digital presence as unique as they are. That&apos;s why we never use templates — every project is purpose-built, with a CMS you can actually use and hosting that&apos;s free for the first year.
                 </p>
               </div>
 
               <div className="h-px bg-hairline-soft" />
 
               <div>
-                <h2
-                  className="text-ink mb-4"
-                  style={{ fontSize: 26, fontWeight: 540, lineHeight: 1.35, letterSpacing: "-0.26px" }}
-                >
+                <h2 className="text-ink mb-4" style={{ fontSize: 26, fontWeight: 540, lineHeight: 1.35, letterSpacing: "-0.26px" }}>
                   What we deliver
                 </h2>
                 <ul className="space-y-3">
@@ -115,7 +133,6 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* CTA — navy block */}
       <CtaBanner
         title="Ready to build something great?"
         subtitle="Get a free quote today. We'll get back to you within 24 hours with a detailed proposal."

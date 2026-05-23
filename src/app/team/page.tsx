@@ -1,19 +1,46 @@
 import { getPublishedTeamMembers } from "@/lib/db";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { CtaBanner } from "@/components/sections/cta-banner";
+import { JsonLd, webPageSchema } from "@/components/json-ld";
+import type { Metadata } from "next";
 
 export const runtime = "edge";
 
-export const metadata = {
-  title: "Our Team — The Scene Co.",
-  description: "Meet the team of designers, developers, and engineers behind The Scene Co.",
+export const metadata: Metadata = {
+  title: "Our Team — Designers & Developers Behind The Scene Co.",
+  description:
+    "Meet the passionate designers, developers, and engineers at The Scene Co. — a web development agency in Bangalore building custom websites, e-commerce stores, and POS systems.",
+  keywords: [
+    "web development team India",
+    "software developers Bangalore",
+    "web designers India",
+    "The Scene Co team",
+    "full stack developers Bangalore",
+  ],
+  alternates: { canonical: "https://thescene.co.in/team" },
+  openGraph: {
+    url: "https://thescene.co.in/team",
+    title: "Our Team | The Scene Co.",
+    description:
+      "Meet the designers and developers behind The Scene Co. — building custom websites and digital products from Bangalore.",
+  },
 };
 
 export default async function TeamPage() {
   const teamMembers = await getPublishedTeamMembers();
 
+  const teamSchema = webPageSchema({
+    name: "Our Team — Designers & Developers | The Scene Co.",
+    description:
+      "Meet the team of designers, developers, and engineers behind The Scene Co. — a premium web development agency in Bangalore.",
+    url: "/team",
+    breadcrumbs: [{ name: "Team", url: "https://thescene.co.in/team" }],
+  });
+
   return (
     <div className="flex flex-col bg-canvas">
+      <JsonLd data={teamSchema} />
+
       {/* Hero Header */}
       <div className="container mx-auto px-4 sm:px-6 pt-20 pb-16 max-w-6xl">
         <span className="eyebrow-mono text-ink/60 block mb-4">OUR TEAM</span>
@@ -53,7 +80,7 @@ export default async function TeamPage() {
                     {member.image_url ? (
                       <img
                         src={member.image_url}
-                        alt={member.name}
+                        alt={`${member.name} — ${member.role} at The Scene Co.`}
                         className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
                       />
                     ) : (
@@ -81,7 +108,6 @@ export default async function TeamPage() {
         )}
       </div>
 
-      {/* CTA Banner */}
       <CtaBanner
         title="Want to build with us?"
         subtitle="Get a free quote today. Our team is ready to design and engineer your premium digital product."
