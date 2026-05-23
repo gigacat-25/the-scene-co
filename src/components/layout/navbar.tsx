@@ -31,16 +31,16 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full h-[56px] border-b border-hairline bg-canvas/90 backdrop-blur-md flex items-center">
       <div className="container mx-auto flex items-center justify-between px-4">
         {/* Left: logo + brand */}
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2 shrink-0">
           <Image
-            src="/logo.jpeg"          // file in /public
+            src="/logo.png"          // file in /public
             alt="The Scene Co. logo"
             width={28}
             height={28}
             className="rounded-md"
             priority
           />
-          <span className="text-xl font-bold font-sans text-ink tracking-tight">
+          <span className="text-xl font-bold font-sans text-ink tracking-tight whitespace-nowrap">
             The Scene Co.
           </span>
         </Link>
@@ -60,12 +60,14 @@ export function Navbar() {
 
         {/* Right side: CTA + mobile menu */}
         <div className="flex items-center gap-3">
-          <Link href="/contact" className="hidden md:inline-flex btn-secondary-figma text-sm">
-            Contact
-          </Link>
-          <Link href="/contact" className="hidden md:inline-flex btn-primary-figma text-sm">
-            Get a Quote
-          </Link>
+          <div className="hidden md:inline-flex items-center gap-3">
+            <Link href="/contact" className="btn-secondary-figma text-sm">
+              Contact
+            </Link>
+            <Link href="/contact" className="btn-primary-figma text-sm">
+              Get a Quote
+            </Link>
+          </div>
 
           {/* Mobile menu */}
           <div className="md:hidden">
@@ -83,7 +85,7 @@ export function Navbar() {
                 <SheetHeader>
                   <SheetTitle className="flex items-center gap-2">
                     <Image
-                      src="/logo.jpeg"
+                      src="/logo.png"
                       alt="The Scene Co. logo"
                       width={28}
                       height={28}

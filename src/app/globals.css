@@ -66,6 +66,30 @@
     font-feature-settings: "kern";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Mobile essentials */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Remove tap flash on iOS/Android */
+  a, button, [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* Ensure all interactive elements meet 44px min tap target */
+  a, button {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* But don't force min-height on inline text links */
+  p a, li a, .caption-mono a {
+    min-height: unset;
+    display: inline;
   }
 }
 

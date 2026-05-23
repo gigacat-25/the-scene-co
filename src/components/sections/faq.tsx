@@ -79,7 +79,7 @@ export function FAQ({ faqs, title, subtitle }: FAQProps) {
                       onClick={() => setOpenIndex(openIndex === i ? null : i)}
                       className="w-full flex items-start justify-between gap-4 py-5 text-left"
                     >
-                      <span className="text-ink font-[480]" style={{ fontSize: 18, lineHeight: 1.45 }}>
+                      <span className="text-ink font-[480]" style={{ fontSize: "clamp(15px, 2.2vw, 18px)", lineHeight: 1.45 }}>
                         {faq.question}
                       </span>
                       <span className="shrink-0 mt-0.5">
@@ -91,7 +91,7 @@ export function FAQ({ faqs, title, subtitle }: FAQProps) {
                       </span>
                     </button>
                     {openIndex === i && (
-                      <p className="pb-5 text-ink/75" style={{ fontSize: 18, fontWeight: 320, lineHeight: 1.45, letterSpacing: "-0.26px" }}>
+                      <p className="pb-5 text-ink/75" style={{ fontSize: "clamp(14px, 2.2vw, 18px)", fontWeight: 320, lineHeight: 1.45, letterSpacing: "-0.26px" }}>
                         {faq.answer}
                       </p>
                     )}

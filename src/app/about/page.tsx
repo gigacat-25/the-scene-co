@@ -38,7 +38,7 @@ export default function AboutPage() {
           <AnimateOnScroll animationClass="animate-slide-in-up" hiddenClass="opacity-0">
             <div className="bg-surface-soft rounded-lg overflow-hidden aspect-square flex items-center justify-center p-16">
               <Image
-                src="/logo.jpeg"
+                src="/logo.png"
                 alt="The Scene Co. Logo"
                 width={240}
                 height={240}
@@ -57,7 +57,7 @@ export default function AboutPage() {
                 >
                   Who we are
                 </h2>
-                <p className="body-figma text-ink/75 leading-relaxed" style={{ fontSize: 18, fontWeight: 320, lineHeight: 1.45 }}>
+                <p className="body-figma text-ink/75 leading-relaxed" style={{ fontSize: "clamp(15px, 2.2vw, 18px)", fontWeight: 320, lineHeight: 1.45 }}>
                   The Scene Co. is a premium digital agency specialising in custom websites, e-commerce stores, and web-based POS systems — built entirely from scratch.
                 </p>
               </div>
@@ -71,7 +71,7 @@ export default function AboutPage() {
                 >
                   Our philosophy
                 </h2>
-                <p className="body-figma text-ink/75 leading-relaxed" style={{ fontSize: 18, fontWeight: 320, lineHeight: 1.45 }}>
+                <p className="body-figma text-ink/75 leading-relaxed" style={{ fontSize: "clamp(15px, 2.2vw, 18px)", fontWeight: 320, lineHeight: 1.45 }}>
                   We believe every business deserves a digital presence as unique as they are. That's why we never use templates — every project is purpose-built, with a CMS you can actually use and hosting that&apos;s free for the first year.
                 </p>
               </div>
@@ -102,11 +102,11 @@ export default function AboutPage() {
                 </ul>
               </div>
 
-              <div className="flex gap-3 pt-4">
-                <Link href="/contact" className="btn-primary-figma">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3 pt-4">
+                <Link href="/contact" className="btn-primary-figma text-center">
                   Start a Project
                 </Link>
-                <Link href="/portfolio" className="btn-secondary-figma">
+                <Link href="/portfolio" className="btn-secondary-figma text-center">
                   See Our Work
                 </Link>
               </div>

@@ -45,8 +45,8 @@ function ImageCell({
   }, []);
 
   return (
-    <div 
-      className={`relative overflow-hidden rounded-lg transition-all duration-700 hover:scale-[1.04] hover:shadow-xl hover:z-20 ${className}`} 
+    <div
+      className={`relative overflow-hidden rounded-lg transition-all duration-700 hover:scale-[1.04] hover:shadow-xl hover:z-20 ${className}`}
       style={{ perspective: "1000px" }}
     >
       {/* Current image */}
@@ -140,138 +140,156 @@ export function Hero({ settings }: { settings?: Record<string, string> }) {
   }, []);
 
   return (
-    <section
-      className="relative w-full overflow-hidden"
-      style={{ minHeight: "85vh", background: "#0b0a14" }}
-    >
-      {/* Brand spotlight ambient glows */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1] opacity-40 mix-blend-screen">
-        <div className="absolute -top-40 left-1/4 w-[50vw] h-[80vh] rounded-full bg-indigo-600/20 blur-[130px] animate-pulse" style={{ animationDuration: '8s' }} />
-        <div className="absolute -top-40 right-1/4 w-[50vw] h-[80vh] rounded-full bg-purple-600/20 blur-[130px] animate-pulse" style={{ animationDuration: '12s' }} />
-      </div>
-
-      <div className="absolute inset-0 bg-radial-gradient pointer-events-none opacity-65 z-[2]" style={{
-        background: "radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.12) 0%, rgba(99, 102, 241, 0.04) 50%, transparent 100%)"
-      }} />
-
-      {/* ── Mobile: single full-bleed image ── */}
-      <div className="absolute inset-0 md:hidden">
-        <ImageCell imageIndex={0} className="w-full h-full opacity-65" />
-      </div>
-
-      {/* ── Desktop: Mosaic grid ── */}
-      <div
-        className="absolute inset-0 hidden md:flex gap-2 p-2 z-[1]"
-        style={{ opacity: isPaused ? 0.6 : 0.85, transition: "opacity 0.4s" }}
-      >
-        {/* Column 1 — narrow, two stacked cells */}
-        <div className="flex flex-col gap-2 w-[13%] shrink-0">
-          <ImageCell imageIndex={0} className="flex-[3]" />
-          <ImageCell imageIndex={5} className="flex-[2]" />
+    <>
+      {/* ═══════════════════════════════════════════
+          MOBILE HERO  (hidden on md+)
+          Layout: full-bleed image on top,
+                  white rounded panel on bottom
+      ═══════════════════════════════════════════ */}
+      <section className="md:hidden w-full flex flex-col bg-[#0b0a14]">
+        {/* Image — takes up top portion, no dark overlay */}
+        <div className="relative w-full overflow-hidden" style={{ height: "56vw", minHeight: 220, maxHeight: 380 }}>
+          <ImageCell imageIndex={0} className="absolute inset-0 w-full h-full" />
+          {/* Soft fade at bottom so white panel blends in */}
+          <div
+            className="absolute inset-x-0 bottom-0 pointer-events-none"
+            style={{ height: 64, background: "linear-gradient(to top, #ffffff, transparent)" }}
+          />
         </div>
 
-        {/* Column 2 — medium, two stacked cells */}
-        <div className="flex flex-col gap-2 w-[20%] shrink-0">
-          <ImageCell imageIndex={1} className="flex-[2]" />
-          {/* Color block below */}
-          <div className="flex-[1] rounded-lg flex items-center justify-center p-4 transition-all duration-500 hover:scale-[1.04] hover:rotate-[0.5deg] hover:shadow-lg cursor-default" style={{ background: "#dceeb1" }}>
-            <div className="text-center">
-              <div className="caption-mono text-ink/50 mb-1 text-xs">SERVICES</div>
-              <div className="font-bold text-ink text-sm">Websites</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Column 3 — wide, tall single + color block */}
-        <div className="flex flex-col gap-2 w-[18%] shrink-0">
-          <ImageCell imageIndex={2} className="flex-[3]" />
-          <div className="flex-[1] rounded-lg flex items-center justify-center p-4 transition-all duration-500 hover:scale-[1.04] hover:rotate-[-0.5deg] hover:shadow-lg cursor-default" style={{ background: "#c5b0f4" }}>
-            <div className="text-center">
-              <div className="caption-mono text-ink/50 mb-1 text-xs">GALLERY</div>
-              <div className="font-bold text-ink text-sm">Our Work</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Column 4 — space for floating card (1 tall cell, muted) */}
-        <div className="flex flex-col gap-2 w-[22%] shrink-0">
-          <ImageCell imageIndex={3} className="flex-1 opacity-40 hover:opacity-100 transition-opacity duration-500" />
-        </div>
-
-        {/* Column 5 — two stacked cells */}
-        <div className="flex flex-col gap-2 flex-1 shrink-0">
-          <ImageCell imageIndex={4} className="flex-[2]" />
-          <div className="flex-[1] rounded-lg flex items-center justify-center p-4 transition-all duration-500 hover:scale-[1.04] hover:rotate-[0.5deg] hover:shadow-lg cursor-default" style={{ background: "#1f1d3d" }}>
-            <div className="text-center">
-              <div className="caption-mono text-white/50 mb-1 text-xs">FULL STACK</div>
-              <div className="font-bold text-white text-sm">End-to-End</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/55 pointer-events-none z-[2]" />
-
-      {/* ── Floating card ── */}
-      <div className="relative z-10 flex items-center justify-center min-h-[85vh] px-4 py-12">
+        {/* White content panel — slides up over image edge */}
         <div
-          className="bg-white rounded-[32px] p-8 sm:p-12 w-full max-w-4xl shadow-[0_30px_90px_rgba(0,0,0,0.25)] border border-neutral-100/90 flex flex-col md:flex-row md:items-end justify-between gap-8 min-h-[220px] relative overflow-hidden transition-all duration-300 hover:scale-[1.01]"
+          className="relative w-full bg-white px-6 pt-8 pb-10 flex flex-col gap-5"
+          style={{ borderRadius: "24px 24px 0 0", marginTop: -24, boxShadow: "0 -8px 40px rgba(0,0,0,0.12)" }}
         >
-          {/* Main heading left side */}
-          <div className="flex-1 flex flex-col justify-center min-h-[120px]">
-            <h1
-              className="text-black font-sans leading-[1.05] tracking-[-1.5px] font-semibold text-left select-none text-balance"
-              style={{
-                fontSize: "clamp(32px, 5vw, 60px)",
-              }}
-            >
-              {displayText}
-              <span className="animate-blink font-light text-[#5551ff]">|</span>
-            </h1>
+          <h1
+            className="text-black font-sans leading-[1.08] tracking-[-1.5px] font-semibold text-left select-none"
+            style={{ fontSize: "clamp(28px, 8vw, 40px)" }}
+          >
+            {displayText}
+            <span className="animate-blink font-light text-[#5551ff]">|</span>
+          </h1>
+          <Link
+            href={settings?.hero_cta_link || "/contact"}
+            className="block w-full text-center text-white font-semibold active:scale-95 transition-all duration-200"
+            style={{
+              background: "#5551ff",
+              fontSize: 17,
+              fontWeight: 600,
+              padding: "15px 24px",
+              borderRadius: 16,
+              boxShadow: "0 4px 16px rgba(85,81,255,0.35)",
+            }}
+          >
+            {settings?.hero_cta_text || "Get started"}
+          </Link>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          DESKTOP HERO  (hidden below md)
+          Layout: full-bleed mosaic + floating card
+      ═══════════════════════════════════════════ */}
+      <section
+        className="relative w-full overflow-hidden hidden md:block"
+        style={{ minHeight: "85vh", background: "#0b0a14" }}
+      >
+        {/* Ambient glows */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1] opacity-40 mix-blend-screen">
+          <div className="absolute -top-40 left-1/4 w-[50vw] h-[80vh] rounded-full bg-indigo-600/20 blur-[130px] animate-pulse" style={{ animationDuration: "8s" }} />
+          <div className="absolute -top-40 right-1/4 w-[50vw] h-[80vh] rounded-full bg-purple-600/20 blur-[130px] animate-pulse" style={{ animationDuration: "12s" }} />
+        </div>
+
+        <div className="absolute inset-0 pointer-events-none opacity-65 z-[2]" style={{
+          background: "radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.12) 0%, rgba(99, 102, 241, 0.04) 50%, transparent 100%)"
+        }} />
+
+        {/* Mosaic grid */}
+        <div
+          className="absolute inset-0 flex gap-2 p-2 z-[1]"
+          style={{ opacity: isPaused ? 0.6 : 0.85, transition: "opacity 0.4s" }}
+        >
+          <div className="flex flex-col gap-2 w-[13%] shrink-0">
+            <ImageCell imageIndex={0} className="flex-[3]" />
+            <ImageCell imageIndex={5} className="flex-[2]" />
           </div>
-          
-          {/* Button right side */}
-          <div className="flex shrink-0 items-end">
-            <Link 
-              href={settings?.hero_cta_link || "/contact"} 
-              className="bg-[#5551ff] hover:bg-[#403ce6] text-white text-base sm:text-lg font-semibold px-8 py-4 rounded-2xl transition-all duration-300 shadow-[0_4px_14px_rgba(85,81,255,0.3)] hover:shadow-[0_6px_20px_rgba(85,81,255,0.4)] active:scale-95 text-center min-w-[160px]"
-            >
-              {settings?.hero_cta_text || "Get started"}
-            </Link>
+          <div className="flex flex-col gap-2 w-[20%] shrink-0">
+            <ImageCell imageIndex={1} className="flex-[2]" />
+            <div className="flex-[1] rounded-lg flex items-center justify-center p-4 transition-all duration-500 hover:scale-[1.04] hover:rotate-[0.5deg] hover:shadow-lg cursor-default" style={{ background: "#dceeb1" }}>
+              <div className="text-center">
+                <div className="caption-mono text-ink/50 mb-1 text-xs">SERVICES</div>
+                <div className="font-bold text-ink text-sm">Websites</div>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col gap-2 w-[18%] shrink-0">
+            <ImageCell imageIndex={2} className="flex-[3]" />
+            <div className="flex-[1] rounded-lg flex items-center justify-center p-4 transition-all duration-500 hover:scale-[1.04] hover:rotate-[-0.5deg] hover:shadow-lg cursor-default" style={{ background: "#c5b0f4" }}>
+              <div className="text-center">
+                <div className="caption-mono text-ink/50 mb-1 text-xs">GALLERY</div>
+                <div className="font-bold text-ink text-sm">Our Work</div>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col gap-2 w-[22%] shrink-0">
+            <ImageCell imageIndex={3} className="flex-1 opacity-40 hover:opacity-100 transition-opacity duration-500" />
+          </div>
+          <div className="flex flex-col gap-2 flex-1 shrink-0">
+            <ImageCell imageIndex={4} className="flex-[2]" />
+            <div className="flex-[1] rounded-lg flex items-center justify-center p-4 transition-all duration-500 hover:scale-[1.04] hover:rotate-[0.5deg] hover:shadow-lg cursor-default" style={{ background: "#1f1d3d" }}>
+              <div className="text-center">
+                <div className="caption-mono text-white/50 mb-1 text-xs">FULL STACK</div>
+                <div className="font-bold text-white text-sm">End-to-End</div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* ── Controls ── */}
-      <div className="absolute bottom-6 right-6 z-20 hidden md:flex items-center gap-3">
-        <button
-          className="w-10 h-10 rounded-full border border-white/20 bg-black/35 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/50 transition-colors"
-          aria-label="Previous"
-        >
-          <ChevronLeft className="h-5 w-5" />
-        </button>
-        <button
-          onClick={() => setIsPaused(!isPaused)}
-          className="w-10 h-10 rounded-full border border-white/20 bg-black/35 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/50 transition-colors"
-          aria-label={isPaused ? "Resume" : "Pause"}
-        >
-          {isPaused ? <Play className="h-4 w-4 fill-white" /> : <Pause className="h-4 w-4 fill-white" />}
-        </button>
-        <button
-          className="w-10 h-10 rounded-full border border-white/20 bg-black/35 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/50 transition-colors"
-          aria-label="Next"
-        >
-          <ChevronRight className="h-5 w-5" />
-        </button>
-      </div>
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/55 pointer-events-none z-[2]" />
 
-      {/* ── Hint label ── */}
-      {isPaused && (
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 caption-mono text-white/60 bg-black/40 px-4 py-1.5 rounded-full">
-          Paused
+        {/* Floating card */}
+        <div className="relative z-10 flex items-center justify-center min-h-[85vh] px-4 py-12">
+          <div className="bg-white rounded-[32px] p-8 lg:p-12 w-full max-w-4xl shadow-[0_30px_90px_rgba(0,0,0,0.25)] border border-neutral-100/90 flex flex-row items-end justify-between gap-8 min-h-[220px] transition-all duration-300 hover:scale-[1.01]">
+            <div className="flex-1 flex flex-col justify-center min-h-[120px]">
+              <h1
+                className="text-black font-sans leading-[1.05] tracking-[-1.5px] font-semibold text-left select-none break-words"
+                style={{ fontSize: "clamp(32px, 5vw, 60px)" }}
+              >
+                {displayText}
+                <span className="animate-blink font-light text-[#5551ff]">|</span>
+              </h1>
+            </div>
+            <div className="flex shrink-0 items-end">
+              <Link
+                href={settings?.hero_cta_link || "/contact"}
+                className="bg-[#5551ff] hover:bg-[#403ce6] text-white text-lg font-semibold px-8 py-4 rounded-2xl transition-all duration-300 shadow-[0_4px_14px_rgba(85,81,255,0.3)] hover:shadow-[0_6px_20px_rgba(85,81,255,0.4)] active:scale-95 text-center min-w-[180px]"
+              >
+                {settings?.hero_cta_text || "Get started"}
+              </Link>
+            </div>
+          </div>
         </div>
-      )}
-    </section>
+
+        {/* Controls */}
+        <div className="absolute bottom-6 right-6 z-20 flex items-center gap-3">
+          <button className="w-10 h-10 rounded-full border border-white/20 bg-black/35 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/50 transition-colors" aria-label="Previous">
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button onClick={() => setIsPaused(!isPaused)} className="w-10 h-10 rounded-full border border-white/20 bg-black/35 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/50 transition-colors" aria-label={isPaused ? "Resume" : "Pause"}>
+            {isPaused ? <Play className="h-4 w-4 fill-white" /> : <Pause className="h-4 w-4 fill-white" />}
+          </button>
+          <button className="w-10 h-10 rounded-full border border-white/20 bg-black/35 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/50 transition-colors" aria-label="Next">
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        </div>
+
+        {isPaused && (
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 caption-mono text-white/60 bg-black/40 px-4 py-1.5 rounded-full">
+            Paused
+          </div>
+        )}
+      </section>
+    </>
   );
 }

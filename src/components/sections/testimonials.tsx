@@ -92,7 +92,7 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
                         <img src={testimonial.avatar_url} className="w-8 h-8 rounded-full border border-white/20 object-cover" alt="" />
                       )}
                     </div>
-                    <blockquote className="text-white/80 leading-relaxed mb-6" style={{ fontSize: 18, fontWeight: 320 }}>
+                    <blockquote className="text-white/80 leading-relaxed mb-6" style={{ fontSize: "clamp(15px, 2.2vw, 18px)", fontWeight: 320 }}>
                       &ldquo;{testimonial.quote || testimonial.review}&rdquo;
                     </blockquote>
                   </div>
