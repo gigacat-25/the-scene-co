@@ -11,7 +11,7 @@ export async function getMailEnv() {
     clientId: env.GOOGLE_CLIENT_ID,
     clientSecret: env.GOOGLE_CLIENT_SECRET,
     refreshToken: env.GOOGLE_REFRESH_TOKEN,
-    adminEmail: env.ADMIN_EMAIL || "thejaswinps@gmail.com",
+    adminEmail: env.ADMIN_EMAIL || "thescene.co26@gmail.com",
   };
 }
 

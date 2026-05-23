@@ -23,7 +23,7 @@ export async function getBindings(): Promise<{
     }
 }
 
-const ADMIN_EMAIL = "thejaswinps@gmail.com";
+const ADMIN_EMAIL = "thescene.co26@gmail.com";
 
 export function isAuthenticated(request: Request): boolean {
     // Check for Clerk session token in the Authorization header (set by Clerk's fetch interceptor)
