@@ -65,8 +65,8 @@ export async function POST(request: NextRequest) {
             <span style="font-weight: 700; color: #000000; letter-spacing: 1px; text-transform: uppercase;">THE SCENE CO.</span>
             <p style="margin: 8px 0 12px 0; line-height: 1.5;">You received this automated notification because you submitted a request at thescene.co.in.</p>
             <div style="margin: 12px 0;">
-              <a href="https://thescene.co.in" style="color: #666666; text-decoration: underline; margin: 0 8px;">Website</a>
-              <a href="https://thescene.co.in/privacy" style="color: #666666; text-decoration: underline; margin: 0 8px;">Privacy Policy</a>
+              <a href="https://www.thescene.co.in" style="color: #666666; text-decoration: underline; margin: 0 8px;">Website</a>
+              <a href="https://www.thescene.co.in/privacy" style="color: #666666; text-decoration: underline; margin: 0 8px;">Privacy Policy</a>
             </div>
             <p style="margin: 0;">&copy; 2026 The Scene Co. Ltd. All rights reserved.</p>
           </div>
@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
           </div>
 
           <div style="text-align: center; margin: 32px 0;">
-            <a href="https://thescene.co.in/admin/leads" style="display: inline-block; background-color: #000000; color: #ffffff; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-size: 14px; font-weight: 600;">
+            <a href="https://www.thescene.co.in/admin/leads" style="display: inline-block; background-color: #000000; color: #ffffff; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-size: 14px; font-weight: 600;">
               Open Admin Dashboard
             </a>
           </div>

@@ -14,7 +14,7 @@ export function JsonLd({ data }: { data: Record<string, unknown> | Record<string
 
 /* ─── Reusable schema builders ─────────────────────────────────────── */
 
-const SITE_URL = "https://thescene.co.in";
+const SITE_URL = "https://www.thescene.co.in";
 const SITE_NAME = "The Scene Co.";
 const LOGO_URL = `${SITE_URL}/logo.png`;
 

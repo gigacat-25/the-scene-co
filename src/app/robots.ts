@@ -27,7 +27,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: "/",
       },
     ],
-    sitemap: "https://thescene.co.in/sitemap.xml",
-    host: "https://thescene.co.in",
+    sitemap: "https://www.thescene.co.in/sitemap.xml",
+    host: "https://www.thescene.co.in",
   };
 }

@@ -21,9 +21,9 @@ export const metadata: Metadata = {
     "website development packages",
     "affordable web development India",
   ],
-  alternates: { canonical: "https://thescene.co.in/pricing" },
+  alternates: { canonical: "https://www.thescene.co.in/pricing" },
   openGraph: {
-    url: "https://thescene.co.in/pricing",
+    url: "https://www.thescene.co.in/pricing",
     title: "Website Development Pricing | The Scene Co.",
     description:
       "Transparent pricing for custom websites, e-commerce stores, and POS systems. 1 year free hosting included.",
@@ -45,7 +45,7 @@ export default async function PricingPage() {
     description:
       "Transparent pricing for custom websites, e-commerce stores, and POS systems. 1 year free hosting + domain included.",
     url: "/pricing",
-    breadcrumbs: [{ name: "Pricing", url: "https://thescene.co.in/pricing" }],
+    breadcrumbs: [{ name: "Pricing", url: "https://www.thescene.co.in/pricing" }],
   });
 
   const pricingFaqSchema =

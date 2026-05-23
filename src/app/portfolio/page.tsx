@@ -19,9 +19,9 @@ export const metadata: Metadata = {
     "POS system projects India",
     "website case studies India",
   ],
-  alternates: { canonical: "https://thescene.co.in/portfolio" },
+  alternates: { canonical: "https://www.thescene.co.in/portfolio" },
   openGraph: {
-    url: "https://thescene.co.in/portfolio",
+    url: "https://www.thescene.co.in/portfolio",
     title: "Portfolio | The Scene Co.",
     description:
       "Custom websites, e-commerce stores, and POS systems built for real businesses across India — zero templates.",
@@ -37,7 +37,7 @@ export default async function PortfolioPage() {
     description:
       "Custom websites, e-commerce stores, and POS systems built from scratch for businesses across India. No templates.",
     url: "/portfolio",
-    breadcrumbs: [{ name: "Portfolio", url: "https://thescene.co.in/portfolio" }],
+    breadcrumbs: [{ name: "Portfolio", url: "https://www.thescene.co.in/portfolio" }],
   });
 
   return (

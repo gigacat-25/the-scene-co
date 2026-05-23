@@ -17,9 +17,9 @@ export const metadata: Metadata = {
     "The Scene Co team",
     "full stack developers Bangalore",
   ],
-  alternates: { canonical: "https://thescene.co.in/team" },
+  alternates: { canonical: "https://www.thescene.co.in/team" },
   openGraph: {
-    url: "https://thescene.co.in/team",
+    url: "https://www.thescene.co.in/team",
     title: "Our Team | The Scene Co.",
     description:
       "Meet the designers and developers behind The Scene Co. — building custom websites and digital products from Bangalore.",
@@ -34,7 +34,7 @@ export default async function TeamPage() {
     description:
       "Meet the team of designers, developers, and engineers behind The Scene Co. — a premium web development agency in Bangalore.",
     url: "/team",
-    breadcrumbs: [{ name: "Team", url: "https://thescene.co.in/team" }],
+    breadcrumbs: [{ name: "Team", url: "https://www.thescene.co.in/team" }],
   });
 
   return (

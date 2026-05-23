@@ -18,9 +18,9 @@ export const metadata: Metadata = {
     "Next.js tutorial Bangalore",
     "The Scene Co blog",
   ],
-  alternates: { canonical: "https://thescene.co.in/blog" },
+  alternates: { canonical: "https://www.thescene.co.in/blog" },
   openGraph: {
-    url: "https://thescene.co.in/blog",
+    url: "https://www.thescene.co.in/blog",
     title: "Blog | The Scene Co.",
     description:
       "Insights, guides, and tutorials on custom web development, POS applications, and e-commerce from The Scene Co.",
@@ -35,7 +35,7 @@ export default async function BlogPage() {
     description:
       "Insights, guides, and updates on custom web development, billing POS applications, and e-commerce from The Scene Co.",
     url: "/blog",
-    breadcrumbs: [{ name: "Blog", url: "https://thescene.co.in/blog" }],
+    breadcrumbs: [{ name: "Blog", url: "https://www.thescene.co.in/blog" }],
   });
 
   return (

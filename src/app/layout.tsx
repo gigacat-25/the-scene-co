@@ -8,7 +8,7 @@ import { JsonLd, organizationSchema } from '@/components/json-ld';
 
 export const runtime = "edge";
 
-const SITE_URL = "https://thescene.co.in";
+const SITE_URL = "https://www.thescene.co.in";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const post = await getBlogPostBySlug(slug);
   if (!post) return { title: "Not Found" };
   
-  const url = `https://thescene.co.in/blog/${slug}`;
+  const url = `https://www.thescene.co.in/blog/${slug}`;
   return {
     title: post.title,
     description: post.excerpt,

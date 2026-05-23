@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     "full stack web development India",
     "Razorpay integration India",
   ],
-  alternates: { canonical: "https://thescene.co.in/services" },
+  alternates: { canonical: "https://www.thescene.co.in/services" },
   openGraph: {
-    url: "https://thescene.co.in/services",
+    url: "https://www.thescene.co.in/services",
     title: "Web Development Services | The Scene Co.",
     description:
       "Custom websites, e-commerce stores, POS systems, and SaaS products — built from scratch with full-stack expertise.",
@@ -34,7 +34,7 @@ const servicesPageSchema = webPageSchema({
   description:
     "Full-stack web development: custom Next.js websites, e-commerce stores, POS systems, and SaaS dashboards. No templates.",
   url: "/services",
-  breadcrumbs: [{ name: "Services", url: "https://thescene.co.in/services" }],
+  breadcrumbs: [{ name: "Services", url: "https://www.thescene.co.in/services" }],
 });
 
 const servicesJsonLd = [

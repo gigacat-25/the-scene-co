@@ -19,9 +19,9 @@ export const metadata: Metadata = {
     "web development inquiry Bangalore",
     "custom website quote India",
   ],
-  alternates: { canonical: "https://thescene.co.in/contact" },
+  alternates: { canonical: "https://www.thescene.co.in/contact" },
   openGraph: {
-    url: "https://thescene.co.in/contact",
+    url: "https://www.thescene.co.in/contact",
     title: "Contact The Scene Co. | Free Website Quote",
     description:
       "Get in touch for a free consultation and quote. We respond within 24 hours. Based in Bangalore, India.",
@@ -46,7 +46,7 @@ export default async function ContactPage() {
     description:
       "Contact us for a free consultation and quote for your custom website, e-commerce store, or POS system. We respond within 24 hours.",
     url: "/contact",
-    breadcrumbs: [{ name: "Contact", url: "https://thescene.co.in/contact" }],
+    breadcrumbs: [{ name: "Contact", url: "https://www.thescene.co.in/contact" }],
   });
 
   return (

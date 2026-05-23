@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     "about The Scene Co",
     "web agency Bangalore India",
   ],
-  alternates: { canonical: "https://thescene.co.in/about" },
+  alternates: { canonical: "https://www.thescene.co.in/about" },
   openGraph: {
-    url: "https://thescene.co.in/about",
+    url: "https://www.thescene.co.in/about",
     title: "About The Scene Co. | Web Development Agency in Bangalore",
     description:
       "Premium web development agency in Bangalore. Custom websites, e-commerce stores, and POS systems — built from scratch.",
@@ -34,7 +34,7 @@ const aboutSchema = webPageSchema({
   description:
     "The Scene Co. is a premium digital agency specialising in custom websites, e-commerce stores, and web-based POS systems — built entirely from scratch.",
   url: "/about",
-  breadcrumbs: [{ name: "About", url: "https://thescene.co.in/about" }],
+  breadcrumbs: [{ name: "About", url: "https://www.thescene.co.in/about" }],
 });
 
 export default function AboutPage() {

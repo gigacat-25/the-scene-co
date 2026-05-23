@@ -23,9 +23,9 @@ export const metadata: Metadata = {
   title: "Custom Website, E-Commerce & POS Development in India | The Scene Co.",
   description:
     "The Scene Co. builds premium custom websites, e-commerce stores, and POS systems in India — full-stack, zero templates, with built-in CMS and 1 year free hosting. Based in Bangalore.",
-  alternates: { canonical: "https://thescene.co.in" },
+  alternates: { canonical: "https://www.thescene.co.in" },
   openGraph: {
-    url: "https://thescene.co.in",
+    url: "https://www.thescene.co.in",
     title: "Custom Website, E-Commerce & POS Development in India | The Scene Co.",
     description:
       "Premium custom websites, e-commerce stores, and POS systems — full-stack, zero templates, 1 year free hosting.",
