@@ -228,3 +228,51 @@ export function serviceSchema({
     serviceType: "Web Development",
   };
 }
+
+/** BlogPost / BlogPosting Schema */
+export function blogPostSchema({
+  title,
+  description,
+  url,
+  imageUrl,
+  datePublished,
+  dateModified,
+  authorName,
+}: {
+  title: string;
+  description: string;
+  url: string;
+  imageUrl?: string;
+  datePublished: string;
+  dateModified?: string;
+  authorName?: string;
+}) {
+  const fullUrl = `${SITE_URL}${url}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": fullUrl,
+    },
+    "headline": title,
+    "description": description,
+    "image": imageUrl || LOGO_URL,
+    "datePublished": datePublished,
+    "dateModified": dateModified || datePublished,
+    "author": {
+      "@type": "Organization",
+      "name": authorName || SITE_NAME,
+      "url": SITE_URL,
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": SITE_NAME,
+      "logo": {
+        "@type": "ImageObject",
+        "url": LOGO_URL,
+      },
+    },
+  };
+}
+

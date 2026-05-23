@@ -186,6 +186,67 @@ const fallbackClients = [
   { id: 4, name: 'Company D', logo_url: '', order_index: 4, is_published: 1 }
 ];
 
+const fallbackBlogPosts = [
+  {
+    id: 1,
+    title: 'Why Custom Website Development Beats Template Builders in 2026',
+    slug: 'why-custom-websites-beat-templates',
+    excerpt: 'Wix, Webflow, and WordPress templates are easy starting points, but they come with heavy performance penalties, platform lock-in, and recurring fees. Here is why high-growth businesses are switching to custom code.',
+    content: `When building a business website, the technology stack you choose dictates your growth limit. DIY template builders like Wix, Squarespace, and Webflow offer an easy starting point, but they come with heavy performance penalties, platform lock-in, and monthly fees. 
+
+As a premium **custom website development agency in Bangalore**, we build digital solutions designed to rank, convert, and scale. Here is why high-growth businesses are switching to custom code.
+
+## 1. The Real Cost: Subscriptions vs. True Ownership
+Template builders charge recurring fees (often ₹800–₹4,000 per month). If you stop paying, your website disappears. 
+*   **The Template Trap**: You are renting a website. You do not own the source code, making migration to another host nearly impossible.
+*   **Custom Advantage**: You own your database and code. With a one-time build cost, you can host your site anywhere—including Cloudflare's fast edge networks which we include free for the first year.
+
+## 2. Speed and Core Web Vitals (The SEO Weapon)
+Google ranks fast websites higher. Template builders load massive, bloated libraries to make drag-and-drop interfaces work. This slows your mobile performance.
+*   **Bloat-Free Code**: Custom Next.js sites load only the code they need.
+*   **Core Web Vitals**: Faster page loads mean lower bounce rates and higher conversion rates.
+
+## 3. SEO Flexibility Without Plugins
+Off-the-shelf platforms restrict metadata control, sitemap indexing, and structured schemas.
+*   By hiring a dedicated **custom website development agency**, you get tailored JSON-LD schema (Organization, LocalBusiness, Service, and FAQs) coded directly into every layout. This lets search engines crawl and categorize your services correctly.`,
+    cover_image_url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
+    author: 'The Scene Co.',
+    tags: '["websites", "custom development", "SEO", "Bangalore"]',
+    is_published: 1,
+    published_at: '2026-01-15',
+    created_at: '2026-01-15'
+  },
+  {
+    id: 2,
+    title: 'How to Choose the Right POS System for Your Business',
+    slug: 'how-to-choose-pos-system',
+    excerpt: 'Restaurant, retail, or e-commerce — here\'s what to look for in a POS system that actually grows your business.',
+    content: `Choosing a POS system is one of the most important decisions for any retail or restaurant business. The right system can increase efficiency by 30% and reduce errors by 90%. Here's what to look for:
+
+## Cloud-Based vs Traditional
+
+Cloud-based POS systems work on any browser, require no expensive hardware, and give you real-time data from anywhere. Traditional systems lock you into specific hardware and software.
+
+## Must-Have Features
+
+- Real-time inventory tracking
+- Multi-user access with role-based permissions
+- Sales analytics and reporting
+- Integration with your website
+- Payment gateway support (UPI, cards, wallets)
+
+## Why Custom POS Beats Off-the-Shelf
+
+Off-the-shelf POS systems charge ₹5,000–₹25,000 per month and force you to use their hardware. A custom POS is a one-time investment that fits your exact workflow.`,
+    cover_image_url: 'https://images.unsplash.com/photo-1556740758-90de940de450?auto=format&fit=crop&w=800&q=80',
+    author: 'The Scene Co.',
+    tags: '["POS", "business", "guide"]',
+    is_published: 1,
+    published_at: '2026-02-01',
+    created_at: '2026-02-01'
+  }
+];
+
 // ─── Database Operations ───────────────────────────────────────────────────
 
 export async function getAllSettings(): Promise<Record<string, string>> {
@@ -288,21 +349,21 @@ export async function getPricingFeatures(planId: number): Promise<any[]> {
 
 export async function getPublishedBlogPosts(): Promise<any[]> {
   const db = await getDb();
-  if (!db) return [];
+  if (!db) return fallbackBlogPosts;
   const { results } = await db.prepare("SELECT id, title, slug, excerpt, cover_image_url, author, tags, published_at, created_at FROM blog_posts WHERE is_published = 1 ORDER BY published_at DESC").all();
   return results || [];
 }
 
 export async function getAllBlogPosts(): Promise<any[]> {
   const db = await getDb();
-  if (!db) return [];
+  if (!db) return fallbackBlogPosts;
   const { results } = await db.prepare("SELECT id, title, slug, excerpt, cover_image_url, author, tags, published_at, created_at, is_published FROM blog_posts ORDER BY created_at DESC").all();
   return results || [];
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<any | null> {
   const db = await getDb();
-  if (!db) return null;
+  if (!db) return fallbackBlogPosts.find(p => p.slug === slug) || null;
   return await db.prepare("SELECT * FROM blog_posts WHERE slug = ? AND is_published = 1").bind(slug).first();
 }
 

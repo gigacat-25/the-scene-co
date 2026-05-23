@@ -2,20 +2,45 @@ import { getPublishedBlogPosts } from "@/lib/db";
 import Link from "next/link";
 import { formatDate } from "date-fns";
 import { MarqueeStrip } from "@/components/marquee-strip";
+import { JsonLd, webPageSchema } from "@/components/json-ld";
 import type { Metadata } from "next";
 
 export const runtime = "edge";
 
 export const metadata: Metadata = {
-  title: "Blog — The Scene Co.",
-  description: "Insights on web development, POS systems, e-commerce, and building digital products.",
+  title: "Blog — Web Development, E-Commerce & POS Insights",
+  description:
+    "Insights, guides, and updates on custom web development, Next.js setups, billing POS applications, and e-commerce growth in India. Zero templates.",
+  keywords: [
+    "web development blog India",
+    "custom POS tips",
+    "e-commerce strategies India",
+    "Next.js tutorial Bangalore",
+    "The Scene Co blog",
+  ],
+  alternates: { canonical: "https://thescene.co.in/blog" },
+  openGraph: {
+    url: "https://thescene.co.in/blog",
+    title: "Blog | The Scene Co.",
+    description:
+      "Insights, guides, and tutorials on custom web development, POS applications, and e-commerce from The Scene Co.",
+  },
 };
 
 export default async function BlogPage() {
   const posts = await getPublishedBlogPosts();
 
+  const blogPageSchema = webPageSchema({
+    name: "Blog — Web Development, E-Commerce & POS Insights | The Scene Co.",
+    description:
+      "Insights, guides, and updates on custom web development, billing POS applications, and e-commerce from The Scene Co.",
+    url: "/blog",
+    breadcrumbs: [{ name: "Blog", url: "https://thescene.co.in/blog" }],
+  });
+
   return (
     <div className="flex flex-col bg-canvas">
+      <JsonLd data={blogPageSchema} />
 
       {/* Hero — white canvas */}
       <div className="container mx-auto px-4 sm:px-6 pt-20 pb-16 max-w-6xl">
