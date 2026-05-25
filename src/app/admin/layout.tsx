@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 // Only this email is allowed access
-const ADMIN_EMAIL = "thescene.co26@gmail.com";
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "thescene.co26@gmail.com";
 
 const navItems = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
