@@ -263,6 +263,33 @@ export async function getAllSettings(): Promise<Record<string, string>> {
   return settings;
 }
 
+export async function getPublicSettings(): Promise<Record<string, string>> {
+  const settings = await getAllSettings();
+  const publicKeys = [
+    "site_name",
+    "site_tagline",
+    "hero_title",
+    "hero_subtitle",
+    "hero_cta_text",
+    "hero_cta_link",
+    "contact_email",
+    "contact_phone",
+    "contact_address",
+    "whatsapp_number",
+    "social_twitter",
+    "social_instagram",
+    "social_linkedin",
+    "social_github"
+  ];
+  const publicSettings: Record<string, string> = {};
+  for (const key of publicKeys) {
+    if (settings[key] !== undefined) {
+      publicSettings[key] = settings[key];
+    }
+  }
+  return publicSettings;
+}
+
 export async function getPublishedPages(): Promise<any[]> {
   const db = await getDb();
   if (!db) return [];

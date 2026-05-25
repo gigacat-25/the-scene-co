@@ -3,7 +3,7 @@ import { MarqueeStrip } from "@/components/marquee-strip";
 import { Mail, Phone, MapPin, MessageCircle, CheckCircle2 } from "lucide-react";
 import { JsonLd, webPageSchema } from "@/components/json-ld";
 import { CopyableEmail } from "@/components/copyable-email";
-import { getAllSettings } from "@/lib/db";
+import { getPublicSettings } from "@/lib/db";
 import type { Metadata } from "next";
 
 export const runtime = "edge";
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactPage() {
-  const settings: Record<string, string> = await getAllSettings().catch(() => ({}));
+  const settings: Record<string, string> = await getPublicSettings().catch(() => ({}));
   const email = settings.contact_email || "hello@thescene.co.in";
   const phone = settings.contact_phone || "080 3150720 / +91 98457 14699";
 

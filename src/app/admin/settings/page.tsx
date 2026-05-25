@@ -63,12 +63,12 @@ export default function AdminSettingsPage() {
       { key: "social_github", label: "GitHub" },
     ]},
     { title: "AI Configuration (Groq)", fields: [
-      { key: "groq_api_key", label: "Groq API Key" },
+      { key: "groq_api_key", label: "Groq API Key", type: "password" },
     ]},
     { title: "Google OAuth2 Email Configuration", fields: [
       { key: "google_client_id", label: "Google Client ID" },
-      { key: "google_client_secret", label: "Google Client Secret" },
-      { key: "google_refresh_token", label: "Google Refresh Token" },
+      { key: "google_client_secret", label: "Google Client Secret", type: "password" },
+      { key: "google_refresh_token", label: "Google Refresh Token", type: "password" },
       { key: "admin_email", label: "Admin Notification Email" },
     ]},
   ];
@@ -91,6 +91,7 @@ export default function AdminSettingsPage() {
                 <div key={field.key}>
                   <label className="caption-mono text-ink/60 text-xs mb-1.5 block uppercase">{field.label}</label>
                   <input
+                    type={field.type || "text"}
                     value={settings[field.key] || ""}
                     onChange={e => update(field.key, e.target.value)}
                     className="w-full bg-surface-soft border border-hairline rounded-md px-3 py-2 text-sm text-ink outline-none focus:border-ink transition-colors"

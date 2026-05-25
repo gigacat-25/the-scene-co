@@ -13,7 +13,7 @@ import {
   getPublishedFAQs,
   getPublishedTeamMembers,
   getPublishedClients,
-  getAllSettings,
+  getPublicSettings,
 } from "@/lib/db";
 import type { Metadata } from "next";
 
@@ -38,7 +38,7 @@ export default async function Home() {
   const teamMembers = await getPublishedTeamMembers();
   const homeTeam = teamMembers.slice(0, 4);
   const clients = await getPublishedClients();
-  const settings = await getAllSettings().catch(() => ({}));
+  const settings = await getPublicSettings().catch(() => ({}));
 
   const homePageSchema = webPageSchema({
     name: "The Scene Co. — Custom Websites, E-Commerce & POS Systems in India",

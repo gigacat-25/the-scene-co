@@ -4,7 +4,8 @@ import { getBindings, isAuthenticated } from "@/lib/cf-bindings";
 
 export const runtime = "edge";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  if (!isAuthenticated(request)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   try {
     const settings = await getAllSettings();
     return NextResponse.json({ settings });

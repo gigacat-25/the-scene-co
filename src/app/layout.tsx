@@ -116,14 +116,14 @@ export const viewport = {
   maximumScale: 5,
 };
 
-import { getAllSettings } from '@/lib/db';
+import { getPublicSettings } from '@/lib/db';
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const settings: Record<string, string> = await getAllSettings().catch(() => ({}));
+  const settings: Record<string, string> = await getPublicSettings().catch(() => ({}));
 
   return (
     <ClerkProvider>
