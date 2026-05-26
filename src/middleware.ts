@@ -16,6 +16,7 @@ export default clerkMiddleware(async (auth, request) => {
   const pathname = request.nextUrl.pathname;
   const isApiRoute = pathname.startsWith("/api/");
   const isPublicLeadSubmit = pathname === "/api/leads" && request.method === "POST";
+  const isPublicMedia = pathname.startsWith("/api/media/") && request.method === "GET";
 
   // Require Clerk authentication for admin pages
   if (isAdminRoute(request)) {
@@ -25,7 +26,7 @@ export default clerkMiddleware(async (auth, request) => {
   }
 
   // Require Clerk authentication for non-public API endpoints
-  if (isApiRoute && !isPublicLeadSubmit) {
+  if (isApiRoute && !isPublicLeadSubmit && !isPublicMedia) {
     const session = await auth();
     if (!session.userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

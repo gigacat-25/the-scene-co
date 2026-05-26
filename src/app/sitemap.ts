@@ -1,11 +1,14 @@
 import { MetadataRoute } from "next";
+import { getPublishedBlogPosts } from "@/lib/db";
 
 const SITE_URL = "https://www.thescene.co.in";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export const runtime = "edge";
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
-  return [
+  const routes: MetadataRoute.Sitemap = [
     {
       url: SITE_URL,
       lastModified: now,
@@ -29,6 +32,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.85,
+    },
+    {
+      url: `${SITE_URL}/blog`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
     },
     {
       url: `${SITE_URL}/about`,
@@ -67,4 +76,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
   ];
+
+  try {
+    const posts = await getPublishedBlogPosts();
+    posts.forEach((post) => {
+      routes.push({
+        url: `${SITE_URL}/blog/${post.slug}`,
+        lastModified: new Date(post.published_at || post.created_at),
+        changeFrequency: "monthly",
+        priority: 0.8,
+      });
+    });
+  } catch (error) {
+    console.error("Error generating sitemap dynamic blog routes:", error);
+  }
+
+  return routes;
 }
+

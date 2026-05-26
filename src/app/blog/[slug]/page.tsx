@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { JsonLd, blogPostSchema, faqSchema } from "@/components/json-ld";
 import type { Metadata } from "next";
+import { MarkdownRenderer } from "@/components/markdown-renderer";
 
 export const runtime = "edge";
 
@@ -73,7 +74,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <JsonLd data={articleJsonLd} />
       {postFaqsJsonLd && <JsonLd data={postFaqsJsonLd} />}
 
-      <Link href="/blog" className="inline-flex items-center gap-2 text-muted-foreground hover:text-white mb-8 transition-colors">
+      <Link href="/blog" className="inline-flex items-center gap-2 text-muted-foreground hover:text-ink mb-8 transition-colors">
         <ArrowLeft className="h-4 w-4" /> Back to Blog
       </Link>
 
@@ -86,7 +87,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <span>{post.author}</span>
         </div>
 
-        <h1 className="font-headline text-4xl md:text-5xl font-bold text-white mb-6">{post.title}</h1>
+        <h1 className="font-headline text-4xl md:text-5xl font-bold text-ink mb-6">{post.title}</h1>
 
         {post.cover_image_url && (
           <div className="relative w-full aspect-video rounded-xl overflow-hidden mb-8">
@@ -94,22 +95,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </div>
         )}
 
-        <div className="prose prose-invert prose-lg max-w-none">
-          {post.content.split("\n").map((paragraph: string, i: number) => {
-            if (paragraph.startsWith("## ")) {
-              return <h2 key={i} className="text-2xl font-bold text-white mt-8 mb-4">{paragraph.replace("## ", "")}</h2>;
-            }
-            if (paragraph.startsWith("- ")) {
-              return <li key={i} className="text-muted-foreground ml-4">{paragraph.replace("- ", "")}</li>;
-            }
-            if (paragraph.match(/^\d+\.\s/)) {
-              return <li key={i} className="text-muted-foreground ml-4">{paragraph}</li>;
-            }
-            if (paragraph.trim()) {
-              return <p key={i} className="text-muted-foreground leading-relaxed mb-4">{paragraph}</p>;
-            }
-            return null;
-          })}
+        <div className="prose prose-lg max-w-none text-ink">
+          <MarkdownRenderer content={post.content} />
         </div>
 
         {tags.length > 0 && (
