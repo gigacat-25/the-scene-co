@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { MarqueeStrip } from "@/components/marquee-strip";
@@ -63,13 +62,14 @@ export default function AboutPage() {
 
           {/* Left: logo */}
           <AnimateOnScroll animationClass="animate-slide-in-up" hiddenClass="opacity-0">
-            <div className="bg-surface-soft rounded-lg overflow-hidden aspect-square flex items-center justify-center p-16">
-              <Image
-                src="/brand-logo.png"
-                alt="The Scene Co. Logo — Web Development Agency Bangalore"
-                width={240}
-                height={240}
-                className="rounded-xl"
+            <div className="bg-surface-soft rounded-lg overflow-hidden aspect-square flex items-center justify-center p-8 sm:p-12">
+              <video
+                src="/brand-logo-video.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="rounded-xl w-full h-full object-contain"
               />
             </div>
           </AnimateOnScroll>

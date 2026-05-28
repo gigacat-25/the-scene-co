@@ -29,6 +29,10 @@ export async function POST(request: NextRequest) {
     }
 
     // 2. Prepare instructions and prompts
+    const host = request.headers.get("host") || "www.thescene.co.in";
+    const protocol = host.includes("localhost") || host.includes("127.0.0.1") || host.includes("192.168.") ? "http" : "https";
+    const origin = `${protocol}://${host}`;
+
     let systemInstruction = "";
     let userPrompt = "";
 
@@ -38,7 +42,7 @@ Create a polished HTML email with elegant inline CSS. The layout must be clean a
 
 Structure Constraints:
 1. Outer & inner container: background-color: #ffffff, font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif, max-width: 600px, margin: 0 auto, padding: 40px 20px, color: #1f1f1f.
-2. Header: Centered text "THE SCENE CO." in bold caps, font-size: 20px, letter-spacing: 2px, margin-bottom: 24px.
+2. Header: Centered brand logo image using <img src="${origin}/brand-logo.gif" alt="The Scene Co." style="width: 140px; height: auto; display: block; margin: 0 auto 24px auto;" />.
 3. Main Title: Large bold centered heading (e.g., "Project Quotation from The Scene Co." or "Custom Project Proposal"), font-size: 28px, font-weight: 700, color: #111111, margin-bottom: 24px.
 4. Salutation & Body: Left-aligned paragraphs, font-size: 15px, line-height: 1.6, color: #333333, margin-bottom: 16px.
 5. Quotation Table: A clean, minimal table showing details. Width: 100%, border-collapse: collapse, margin: 24px 0, font-size: 14px. Column headers in #666 with font-weight: 500. Row borders 1px solid #e6e6e6. Total row font-weight: 700.
@@ -62,7 +66,7 @@ Create a polished HTML email with elegant inline CSS. The layout must be clean a
 
 Structure Constraints:
 1. Outer & inner container: background-color: #ffffff, font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif, max-width: 600px, margin: 0 auto, padding: 40px 20px, color: #1f1f1f.
-2. Header: Centered text "THE SCENE CO." in bold caps, font-size: 20px, letter-spacing: 2px, margin-bottom: 24px.
+2. Header: Centered brand logo image using <img src="${origin}/brand-logo.gif" alt="The Scene Co." style="width: 140px; height: auto; display: block; margin: 0 auto 24px auto;" />.
 3. Main Title: Large bold centered heading summarizing the email topic, font-size: 28px, font-weight: 700, color: #111111, margin-bottom: 24px.
 4. Salutation & Body: Left-aligned paragraphs, font-size: 15px, line-height: 1.6, color: #333333, margin-bottom: 16px.
 5. CTA Button: Centered inside a block <div style="text-align: center; margin: 32px 0;"><a href="https://www.thescene.co.in" style="background-color: #000000; color: #ffffff; padding: 14px 28px; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block;">Get in touch</a></div>. Never place buttons inline inside a paragraph or sentence. Simple text links can be inline.
