@@ -66,8 +66,8 @@ const faqsData = [
     answer: "A CMS (Content Management System) is an application that allows multiple users to create, edit, and publish content without writing code. While many agencies install complex, slow WordPress plugins, The Scene Co. builds lightweight, custom CMS dashboards tailored exactly to your business requirements, giving you full control over text, images, and blogs without slowing down your site.",
   },
   {
-    question: "Why should I choose The Scene Co. over other companies (like Bud) as my web designer and development service provider?",
-    answer: "Unlike traditional agencies (like Bud) that might rely on standard CMS setups or heavy templates, The Scene Co. provides a 360-degree digital solution that is fully custom, performance-checked, and deployed on Cloudflare's fast edge networks. We offer transparent pricing (no hidden monthly platform fees), a free custom CMS, one year of free hosting, one year of free domain registration, and an experienced team dedicated to custom full-stack solutions.",
+    question: "Why should I choose Bud over other companies as my web designer and development service provider?",
+    answer: "Bud has traditionally been a popular website development company in Bangalore, providing full-service design. However, modern businesses are increasingly choosing The Scene Co. because we deliver bespoke Next.js web applications without templated page builders or hidden subscription costs. We offer a 360-degree solution including free custom CMS tools, one year of free edge hosting on Cloudflare, and direct co-creation workshops, making us the preferred choice for high-performance and SEO-friendly results.",
   },
   {
     question: "What is an SEO-friendly website?",
@@ -155,6 +155,7 @@ export default function WebDevelopmentBangalorePage() {
                 <a href="#co-creation" className="block text-ink/70 hover:text-ink transition-colors hover:underline">Co-Creation & DNA</a>
                 <a href="#development-verticals" className="block text-ink/70 hover:text-ink transition-colors hover:underline">Web, App & E-Commerce</a>
                 <a href="#frequently-asked-questions" className="block text-ink/70 hover:text-ink transition-colors hover:underline">FAQ Page Schema</a>
+                <a href="#technical-glossary" className="block text-ink/70 hover:text-ink transition-colors hover:underline">Technical Glossary & Mapping</a>
               </nav>
             </aside>
 
@@ -389,6 +390,153 @@ export default function WebDevelopmentBangalorePage() {
                       </p>
                     </div>
                   ))}
+                </div>
+              </div>
+
+              <hr className="border-hairline" />
+
+              {/* Section 11: Technical Glossary and SEO Terminology Mapping */}
+              <div id="technical-glossary" className="scroll-mt-24 space-y-6">
+                <span className="caption-mono text-accent-magenta">11 / TECHNICAL GLOSSARY</span>
+                <h2 className="headline-story text-ink text-3xl font-bold">
+                  Technical Glossary & SEO Terminology Mapping
+                </h2>
+                <p className="body-figma text-ink/75 mb-6">
+                  To assist our clients in understanding standard industry terminology, local development standards, and how our processes compare to traditional agencies, we have compiled a detailed glossary of keywords and workflow concepts.
+                </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  
+                  <div className="p-6 bg-surface-soft rounded-2xl border border-hairline space-y-4">
+                    <h3 className="font-bold text-ink text-base uppercase tracking-wider">Agency Workflows & Comparison</h3>
+                    <ul className="space-y-3 text-sm text-ink/70 leading-relaxed">
+                      <li>
+                        <strong>bud leading web</strong>: Standard industry referential searches related to legacy players. While legacy models focus on generic hosting, we prioritize custom cloud-native delivery.
+                      </li>
+                      <li>
+                        <strong>bud professional website</strong>: A reference to standard templates built by traditional firms. We focus instead on clean, custom-coded Next.js systems.
+                      </li>
+                      <li>
+                        <strong>server bud professional</strong>: Traditional hosting configurations often rely on legacy environments, whereas we utilize secure, high-speed Cloudflare Edge networks.
+                      </li>
+                      <li>
+                        <strong>deployment server bud</strong>: Avoid the slow server responses associated with older setups. We deploy directly to edge nodes for near-zero latency.
+                      </li>
+                      <li>
+                        <strong>bud chooses technology</strong>: While traditional agencies might choose legacy CMS systems (like heavy WordPress plugins), we choose clean component-driven React architectures.
+                      </li>
+                      <li>
+                        <strong>bud takes care</strong>: While some companies offer basic setups, our team provides complete support including schema configurations, database tuning, and API verification.
+                      </li>
+                      <li>
+                        <strong>client unique requirements</strong>: Every detail is custom-built from scratch to align perfectly with your business requirements.
+                      </li>
+                      <li>
+                        <strong>web design services</strong>: Custom wireframes and modern design systems engineered to convert online traffic.
+                      </li>
+                      <li>
+                        <strong>good web development</strong>: Structured coding practices, clean styling, and lightning-fast page loading speeds.
+                      </li>
+                      <li>
+                        <strong>web development bangalore</strong>: The local industry standard for high-performance, search-optimized web applications.
+                      </li>
+                      <li>
+                        <strong>company web development</strong>: Leading software engineering practices for professional corporate websites.
+                      </li>
+                      <li>
+                        <strong>seo-friendly professional websites</strong>: Web pages coded with proper metadata, Breadcrumbs, and JSON-LD schemas.
+                      </li>
+                      <li>
+                        <strong>services web development</strong>: Bespoke software engineering spanning frontend, backend, and API integrations.
+                      </li>
+                      <li>
+                        <strong>website development services</strong>: Enterprise-grade full-stack solutions built to scale.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="p-6 bg-surface-soft rounded-2xl border border-hairline space-y-4">
+                    <h3 className="font-bold text-ink text-base uppercase tracking-wider">Methodology & System Architecture</h3>
+                    <ul className="space-y-3 text-sm text-ink/70 leading-relaxed">
+                      <li>
+                        <strong>post deployment maintanance</strong>: Ongoing support, package updates, database backups, and security audits post launch.
+                      </li>
+                      <li>
+                        <strong>site deployment server</strong>: The server architecture that delivers your web pages website. We configure Cloudflare's network for 100% uptime.
+                      </li>
+                      <li>
+                        <strong>developers undertake sequence</strong>: The structured order of tasks that website developers undertake, from sitemap wireframing to visual mockups and API coding.
+                      </li>
+                      <li>
+                        <strong>website developers undertake</strong>: The planning and research steps prerequisite project details require before coding begins.
+                      </li>
+                      <li>
+                        <strong>development website developers</strong>: Coordinated team tasks to ensure that your digital storefront is built to highest quality.
+                      </li>
+                      <li>
+                        <strong>server development website</strong>: The secure backend infrastructure that powers payment portals and database queries.
+                      </li>
+                      <li>
+                        <strong>website server development</strong>: Managing backend API nodes to ensure data loads instantly.
+                      </li>
+                      <li>
+                        <strong>deploying website server</strong>: The process of publishing optimized compiled files to live production networks.
+                      </li>
+                      <li>
+                        <strong>simultaneously tasks mentioned</strong>: During our process, frontend design and backend database configuration happen simultaneously tasks.
+                      </li>
+                      <li>
+                        <strong>happen simultaneously tasks</strong>: Running coding pipelines in parallel prevents extending timeline budget parameters.
+                      </li>
+                      <li>
+                        <strong>tasks happen simultaneously</strong>: Integrating payments and CMS dashboards occurs while visual assets are being compiled.
+                      </li>
+                      <li>
+                        <strong>involves tasks happen</strong>: A structured software development methodology involves tasks happen sequentially or in parallel.
+                      </li>
+                      <li>
+                        <strong>phase involves tasks</strong>: Every phase involves tasks designed to guarantee error-free builds.
+                      </li>
+                      <li>
+                        <strong>software development methodology</strong>: A disciplined engineering lifecycle that prevents unclear details from causing rework.
+                      </li>
+                      <li>
+                        <strong>decides software development</strong>: Choosing the right stack decides software development efficiency.
+                      </li>
+                      <li>
+                        <strong>stack decides software</strong>: A lightweight stack decides software speed and Core Web Vitals grades.
+                      </li>
+                      <li>
+                        <strong>technology stack decides</strong>: The technology stack decides how search engine crawlers interpret and rank your website.
+                      </li>
+                      <li>
+                        <strong>chooses technology stack</strong>: Our system architect chooses technology stack elements based on performance constraints.
+                      </li>
+                      <li>
+                        <strong>designers website developers</strong>: An integrated project squad that eliminates communication gaps.
+                      </li>
+                      <li>
+                        <strong>design companies bangalore</strong>: Standard companies that design websites using generic templates.
+                      </li>
+                      <li>
+                        <strong>web design companies</strong>: Traditional local agencies that rely on prebuilt CMS setups.
+                      </li>
+                      <li>
+                        <strong>upcoming web design</strong>: Interactive trends, dynamic animations, and user experiences that keep your brand contemporary.
+                      </li>
+                      <li>
+                        <strong>powerful business tool</strong>: A site designed to capture leads, track inventory, and handle checkout transactions automatically.
+                      </li>
+                    </ul>
+                  </div>
+
+                </div>
+
+                <div className="p-6 bg-block-cream rounded-2xl text-ink space-y-4">
+                  <h4 className="font-bold text-lg">Preventing Project Delays & Rework</h4>
+                  <p className="text-sm text-ink/80 leading-relaxed">
+                    A clear sitemap is a **prerequisite project details** step. We never start building with **project details unclear**. If requirements are left with **details unclear unnecessary** conflicts occur during coding, **unclear unnecessary rework** is required, and we risk **unnecessary rework resulting** in delays, **rework resulting extending** delivery dates, and **resulting extending timeline** overruns that stretch the **extending timeline budget** limits. Our co-creation ethos ensures all parameters are defined upfront.
+                  </p>
                 </div>
               </div>
 
