@@ -133,6 +133,51 @@ export default function AboutPage() {
         </div>
       </div>
 
+      {/* Co-creation & DNA */}
+      <div className="bg-surface-soft border-y border-hairline-soft py-20 mt-12">
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <span className="eyebrow-mono text-accent-magenta mb-2 block">Our Ethos</span>
+              <h2 className="text-ink mb-4 text-3xl md:text-4xl font-light tracking-tight">
+                CO-CREATION IS OUR DNA
+              </h2>
+              <p className="body-figma text-ink/75 leading-relaxed">
+                We believe that premium digital products are born from close collaboration. We don't hide behind email threads or hand off generic designs. Co-creation is our DNA. We partner with your team through shared workspaces, interactive prototype reviews, and direct Slack/WhatsApp developer communication channels. This ensures your brand value proposition is integrated perfectly into the product.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-6">
+              <div className="p-6 bg-canvas rounded-2xl border border-hairline text-center">
+                <span className="font-mono text-ink text-3xl font-bold block mb-1">100%</span>
+                <span className="text-xs text-ink/65 uppercase tracking-wider">Custom Code Base</span>
+              </div>
+              <div className="p-6 bg-canvas rounded-2xl border border-hairline text-center">
+                <span className="font-mono text-ink text-3xl font-bold block mb-1">24Hr</span>
+                <span className="text-xs text-ink/65 uppercase tracking-wider">Support Response</span>
+              </div>
+              <div className="p-6 bg-canvas rounded-2xl border border-hairline text-center">
+                <span className="font-mono text-ink text-3xl font-bold block mb-1">1 Year</span>
+                <span className="text-xs text-ink/65 uppercase tracking-wider">Free Cloudflare Host</span>
+              </div>
+              <div className="p-6 bg-canvas rounded-2xl border border-hairline text-center">
+                <span className="font-mono text-ink text-3xl font-bold block mb-1">Zero</span>
+                <span className="text-xs text-ink/65 uppercase tracking-wider">Proprietary Lock-in</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Editorial: What makes a good web development company */}
+      <div className="container mx-auto px-4 sm:px-6 py-20 max-w-4xl text-center space-y-6">
+        <h2 className="text-ink text-2xl md:text-3xl font-bold">
+          What makes a good web development company?
+        </h2>
+        <p className="body-figma text-ink/75 leading-relaxed">
+          A successful website is more than just clean pixels. It must serve as a powerful business tool. A good web development company Bangalore integrates robust backend code, secure database connections, and search-optimized semantic HTML from day one. By prioritizing mobile-first responsive screens and passing Core Web Vitals checks, we make sure your online presence is ready to convert traffic into loyal clients.
+        </p>
+      </div>
+
       <CtaBanner
         title="Ready to build something great?"
         subtitle="Get a free quote today. We'll get back to you within 24 hours with a detailed proposal."

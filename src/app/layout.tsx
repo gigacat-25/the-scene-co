@@ -22,6 +22,12 @@ export const metadata: Metadata = {
 
   // ── Keywords ──────────────────────────────────────────────────────────
   keywords: [
+    'web development company Bangalore',
+    'website development company Bangalore',
+    'web design companies Bangalore',
+    'website developers Bangalore',
+    'web development agencies Bangalore',
+    'best website design services in Bangalore',
     'custom website development India',
     'web development agency Bangalore',
     'e-commerce store development',
@@ -36,6 +42,9 @@ export const metadata: Metadata = {
     'web agency Bangalore',
     'The Scene Co',
     'thescene.co.in',
+    'professional website development',
+    'SEO-friendly website development',
+    'e-commerce website development Bangalore',
   ],
 
   // ── Authors & Creator ─────────────────────────────────────────────────

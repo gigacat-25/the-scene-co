@@ -146,6 +146,46 @@ export const organizationSchema = {
         ],
       },
     },
+    {
+      "@type": "ProfessionalService",
+      "@id": `${SITE_URL}/#professionalservice`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: LOGO_URL,
+      image: LOGO_URL,
+      description:
+        "Leading professional web development company in Bangalore, India. High-quality custom web design, e-commerce, and software development services.",
+      priceRange: "₹₹₹",
+      telephone: "+91-98457-14699",
+      email: "hello@thescene.co.in",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Bangalore",
+        addressRegion: "Karnataka",
+        postalCode: "560001",
+        addressCountry: "IN",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: 12.9716,
+        longitude: 77.5946,
+      },
+    },
+    {
+      "@type": "Corporation",
+      "@id": `${SITE_URL}/#corporation`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: LOGO_URL,
+      description:
+        "The Scene Co. is a leading custom software and web development company based in Bangalore, India, delivering premium digital experiences.",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Bangalore",
+        addressRegion: "Karnataka",
+        addressCountry: "IN",
+      },
+    },
   ],
 };
 
