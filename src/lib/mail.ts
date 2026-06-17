@@ -19,10 +19,12 @@ export async function sendGmail({
   to,
   subject,
   htmlBody,
+  attachments = [],
 }: {
   to: string;
   subject: string;
   htmlBody: string;
+  attachments?: { filename: string; mimeType: string; content: string }[];
 }): Promise<{ success: boolean; error?: string }> {
   try {
     const config = await getMailEnv();
@@ -60,17 +62,47 @@ export async function sendGmail({
     const utf8Subject = `=?utf-8?B?${btoa(toBinaryString(subject))}?=`;
     const base64Body = btoa(toBinaryString(htmlBody));
 
-    const emailLines = [
-      `To: ${to}`,
-      `Subject: ${utf8Subject}`,
-      `MIME-Version: 1.0`,
-      `Content-Type: text/html; charset=utf-8`,
-      `Content-Transfer-Encoding: base64`,
-      ``,
-      base64Body,
-    ];
+    let rawEmail = "";
+    if (attachments && attachments.length > 0) {
+      const boundary = "AntigravityBoundary" + Math.random().toString(36).substring(2);
+      const emailLines = [
+        `To: ${to}`,
+        `Subject: ${utf8Subject}`,
+        `MIME-Version: 1.0`,
+        `Content-Type: multipart/mixed; boundary="${boundary}"`,
+        ``,
+        `--${boundary}`,
+        `Content-Type: text/html; charset=utf-8`,
+        `Content-Transfer-Encoding: base64`,
+        ``,
+        base64Body,
+      ];
 
-    const rawEmail = emailLines.join("\r\n");
+      for (const att of attachments) {
+        emailLines.push(
+          `--${boundary}`,
+          `Content-Type: ${att.mimeType || "application/octet-stream"}; name="${att.filename}"`,
+          `Content-Disposition: attachment; filename="${att.filename}"`,
+          `Content-Transfer-Encoding: base64`,
+          ``,
+          att.content
+        );
+      }
+      emailLines.push(`--${boundary}--`);
+      rawEmail = emailLines.join("\r\n");
+    } else {
+      const emailLines = [
+        `To: ${to}`,
+        `Subject: ${utf8Subject}`,
+        `MIME-Version: 1.0`,
+        `Content-Type: text/html; charset=utf-8`,
+        `Content-Transfer-Encoding: base64`,
+        ``,
+        base64Body,
+      ];
+      rawEmail = emailLines.join("\r\n");
+    }
+
     const base64Safe = btoa(toBinaryString(rawEmail))
       .replace(/\+/g, "-")
       .replace(/\//g, "_")

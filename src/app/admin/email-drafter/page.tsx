@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Loader2, Plus, Trash2, Send, Sparkles, Eye, Code, FileText, Mail } from "lucide-react";
+import { Loader2, Plus, Trash2, Send, Sparkles, Eye, Code, FileText, Mail, Paperclip } from "lucide-react";
 
 export const runtime = "edge";
 
@@ -9,6 +9,13 @@ interface InvoiceItem {
   name: string;
   qty: number;
   rate: number;
+}
+
+interface Attachment {
+  name: string;
+  type: string;
+  base64: string;
+  size: number;
 }
 
 export default function AdminEmailDrafterPage() {
@@ -21,6 +28,7 @@ export default function AdminEmailDrafterPage() {
   const [invoiceItems, setInvoiceItems] = useState<InvoiceItem[]>([
     { name: "Custom Website Development", qty: 1, rate: 35000 },
   ]);
+  const [attachments, setAttachments] = useState<Attachment[]>([]);
 
   // Generated states
   const [generatedSubject, setGeneratedSubject] = useState("");
@@ -30,6 +38,42 @@ export default function AdminEmailDrafterPage() {
   // Status states
   const [generating, setGenerating] = useState(false);
   const [sending, setSending] = useState(false);
+
+  function formatBytes(bytes: number, decimals = 2) {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ["Bytes", "KB", "MB", "GB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+  }
+
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (!e.target.files) return;
+    const files = Array.from(e.target.files);
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        const base64Data = base64String.split(",")[1] || "";
+        setAttachments(prev => [
+          ...prev,
+          {
+            name: file.name,
+            type: file.type,
+            base64: base64Data,
+            size: file.size,
+          },
+        ]);
+      };
+      reader.readAsDataURL(file);
+    });
+    e.target.value = "";
+  }
+
+  function removeAttachment(index: number) {
+    setAttachments(prev => prev.filter((_, i) => i !== index));
+  }
 
   const totalAmount = invoiceItems.reduce((acc, item) => acc + item.qty * item.rate, 0);
 
@@ -101,6 +145,11 @@ export default function AdminEmailDrafterPage() {
           to: recipientEmail,
           subject: generatedSubject,
           htmlBody: generatedHtml,
+          attachments: attachments.map(att => ({
+            filename: att.name,
+            mimeType: att.type,
+            content: att.base64,
+          })),
         }),
       });
 
@@ -340,6 +389,51 @@ export default function AdminEmailDrafterPage() {
                       title="Email Preview"
                       className="w-full h-full border-none min-h-[340px]"
                     />
+                  </div>
+                )}
+              </div>
+
+              {/* Attachments Section */}
+              <div className="space-y-2.5 border-t border-hairline pt-4">
+                <div className="flex items-center justify-between">
+                  <label className="caption-mono text-ink/60 text-xs uppercase block">Attachments</label>
+                  <label className="cursor-pointer text-xs font-semibold text-ink hover:underline flex items-center gap-1">
+                    <Paperclip className="h-3.5 w-3.5" />
+                    Attach Files
+                    <input
+                      type="file"
+                      multiple
+                      onChange={handleFileChange}
+                      className="hidden"
+                    />
+                  </label>
+                </div>
+
+                {attachments.length > 0 ? (
+                  <div className="space-y-1.5 max-h-[150px] overflow-y-auto pr-1">
+                    {attachments.map((file, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center justify-between bg-surface-soft border border-hairline rounded px-2.5 py-1.5 text-xs text-ink"
+                      >
+                        <div className="flex items-center gap-2 truncate mr-2">
+                          <Paperclip className="h-3.5 w-3.5 text-ink/40 flex-shrink-0" />
+                          <span className="truncate font-medium">{file.name}</span>
+                          <span className="text-ink/40 text-[10px]">({formatBytes(file.size)})</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => removeAttachment(idx)}
+                          className="p-1 text-red-500 hover:bg-red-50 rounded"
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="border border-dashed border-hairline rounded-md p-4 text-center text-xs text-ink/40 bg-surface-soft/30">
+                    No files attached yet.
                   </div>
                 )}
               </div>

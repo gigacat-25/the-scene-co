@@ -10,17 +10,18 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const { to, subject, htmlBody } = (await request.json()) as {
+    const { to, subject, htmlBody, attachments } = (await request.json()) as {
       to: string;
       subject: string;
       htmlBody: string;
+      attachments?: { filename: string; mimeType: string; content: string }[];
     };
 
     if (!to || !subject || !htmlBody) {
       return NextResponse.json({ error: "to, subject, and htmlBody are required" }, { status: 400 });
     }
 
-    const res = await sendGmail({ to, subject, htmlBody });
+    const res = await sendGmail({ to, subject, htmlBody, attachments });
     if (!res.success) {
       return NextResponse.json({ error: res.error || "Failed to send email" }, { status: 500 });
     }
