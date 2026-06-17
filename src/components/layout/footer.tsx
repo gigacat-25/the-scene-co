@@ -26,7 +26,8 @@ export function Footer({ settings }: { settings?: Record<string, string> }) {
   const navLinks = [
     { href: "/",          label: "Home"      },
     { href: "/services",  label: "Services"  },
-    { href: "/pricing",   label: "Pricing"   },
+    { href: "/case-studies", label: "Case Studies" },
+    { href: "/blog",      label: "Blog"      },
     { href: "/portfolio", label: "Portfolio" },
     { href: "/team",      label: "Team"      },
     { href: "/about",     label: "About"     },

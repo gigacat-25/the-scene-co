@@ -8,10 +8,11 @@ import Link from "next/link";
 export const runtime = "edge";
 
 export const metadata: Metadata = {
-  title: "Web Development Services — Custom Websites, E-Commerce & POS Systems",
+  title: "Best Web Development Services in Bangalore | Custom Websites, E-Commerce & POS",
   description:
-    "Full-stack web development services: custom Next.js websites, e-commerce stores with Razorpay & UPI, web-based POS systems, SaaS dashboards, and built-in CMS. No templates. Based in Bangalore, India.",
+    "Top web development services in Bangalore — custom Next.js websites, e-commerce stores with Razorpay & UPI, web-based POS systems, SaaS dashboards, and built-in CMS. No templates. Based in Bangalore, India.",
   keywords: [
+    "best web development services Bangalore",
     "web development services India",
     "custom website development Bangalore",
     "e-commerce development India",
@@ -20,13 +21,14 @@ export const metadata: Metadata = {
     "SaaS development India",
     "full stack web development India",
     "Razorpay integration India",
+    "mobile app development Bangalore",
   ],
   alternates: { canonical: "https://www.thescene.co.in/services" },
   openGraph: {
     url: "https://www.thescene.co.in/services",
-    title: "Web Development Services | The Scene Co.",
+    title: "Best Web Development Services in Bangalore | The Scene Co.",
     description:
-      "Custom websites, e-commerce stores, POS systems, and SaaS products — built from scratch with full-stack expertise.",
+      "Custom websites, e-commerce stores, POS systems, and SaaS products — built from scratch with full-stack expertise. Top web development services in Bangalore.",
   },
 };
 
@@ -80,9 +82,9 @@ export default function ServicesPage() {
           className="text-ink mb-6"
           style={{ fontSize: "clamp(36px, 5vw, 86px)", fontWeight: 340, lineHeight: 1.0, letterSpacing: "-1.72px" }}
         >
-          What we build
+          Best Web Development
           <br />
-          <span style={{ fontWeight: 700 }}>from scratch.</span>
+          <span style={{ fontWeight: 700 }}>Services in Bangalore.</span>
         </h1>
         <p className="body-lg-figma text-ink/70 max-w-2xl">
           Full-stack development — frontend, backend, CMS, and deployment. No templates, no compromises.
@@ -212,8 +214,8 @@ export default function ServicesPage() {
         subtitle="Tell us what you need and we'll deliver it — on time, on budget, with full support for the first year."
         ctaText="Start a Project"
         ctaLink="/contact"
-        secondaryText="View Pricing"
-        secondaryLink="/pricing"
+        secondaryText="View Our Work"
+        secondaryLink="/portfolio"
         colorBlock="coral"
       />
     </div>

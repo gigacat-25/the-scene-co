@@ -60,7 +60,6 @@ export default async function AdminDashboardPage() {
           <Link href="/admin/testimonials" className="p-4 rounded-lg bg-surface-soft border border-transparent hover:border-hairline text-ink/70 hover:text-ink text-sm transition-colors text-center font-medium">+ Add Testimonial</Link>
           <Link href="/admin/faqs" className="p-4 rounded-lg bg-surface-soft border border-transparent hover:border-hairline text-ink/70 hover:text-ink text-sm transition-colors text-center font-medium">+ Add FAQ</Link>
           <Link href="/admin/settings" className="p-4 rounded-lg bg-surface-soft border border-transparent hover:border-hairline text-ink/70 hover:text-ink text-sm transition-colors text-center font-medium">Edit Site Settings</Link>
-          <Link href="/admin/pricing" className="p-4 rounded-lg bg-surface-soft border border-transparent hover:border-hairline text-ink/70 hover:text-ink text-sm transition-colors text-center font-medium">Edit Pricing</Link>
         </div>
       </div>
     </div>

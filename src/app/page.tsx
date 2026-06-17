@@ -20,10 +20,11 @@ import type { Metadata } from "next";
 export const runtime = "edge";
 
 export const metadata: Metadata = {
-  title: "Web Development Company in Bangalore | The Scene Co.",
+  title: "Best Web Development Company in Bangalore | Custom Websites & E-Commerce",
   description:
-    "Looking for the leading web development company in Bangalore? The Scene Co. builds custom websites, e-commerce stores, and POS systems in India — full-stack, zero templates, built-in CMS, and 1 year free hosting.",
+    "Looking for the best web development company in Bangalore? The Scene Co. builds custom websites, e-commerce stores, and POS systems in India — full-stack, zero templates, built-in CMS, and 1 year free hosting. Serving businesses across India.",
   keywords: [
+    "best web development company in Bangalore",
     "web development company Bangalore",
     "web design company Bangalore",
     "website designers Bangalore",
@@ -31,13 +32,16 @@ export const metadata: Metadata = {
     "leading web development company Bangalore",
     "custom website development Bangalore",
     "best website design services in Bangalore",
+    "e-commerce website development Bangalore",
+    "POS system development Bangalore",
+    "mobile app development Bangalore",
   ],
   alternates: { canonical: "https://www.thescene.co.in" },
   openGraph: {
     url: "https://www.thescene.co.in",
-    title: "Web Development Company in Bangalore | The Scene Co.",
+    title: "Best Web Development Company in Bangalore | The Scene Co.",
     description:
-      "Premium custom websites, e-commerce stores, and POS systems — full-stack, zero templates, 1 year free hosting. Leading web development company in Bangalore.",
+      "Custom websites, e-commerce stores, and POS systems — full-stack, zero templates, 1 year free hosting. The best web development company in Bangalore.",
   },
 };
 

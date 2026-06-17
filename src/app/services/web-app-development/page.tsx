@@ -9,28 +9,30 @@ import { Layers, Database, Shield, Cpu, Activity, LayoutGrid } from "lucide-reac
 export const runtime = "edge";
 
 export const metadata: Metadata = {
-  title: "Web App Development Company Bangalore | SaaS & Dashboards",
+  title: "Best Web App Development Company in Bangalore, India | SaaS & Custom Dashboards",
   description:
-    "We design and build custom web applications, SaaS dashboards, and database portals. Full-stack development with Next.js, Node.js, and Cloudflare. Premium web app developers in Bangalore.",
+    "Top web app development company in Bangalore. We design and build custom SaaS platforms, dashboards, and database portals with full-stack Next.js, Node.js, and Cloudflare. Serving businesses across India.",
   keywords: [
+    "best web app development company Bangalore",
     "web app development company Bangalore",
     "SaaS app developers Bangalore",
     "custom dashboard development Bangalore",
     "Next.js web application agency",
     "software development company Bangalore",
-    "full-stack web application builders",
+    "full stack web application Bangalore",
+    "SaaS development company India",
   ],
   alternates: { canonical: "https://www.thescene.co.in/services/web-app-development" },
   openGraph: {
     url: "https://www.thescene.co.in/services/web-app-development",
-    title: "Web App Development Company in Bangalore | The Scene Co.",
+    title: "Best Web App Development Company in Bangalore, India | The Scene Co.",
     description:
-      "Bespoke SaaS products, customer portals, and web application dashboards built with robust, modern technology stacks.",
+      "Top SaaS products, customer portals, and web application dashboards in Bangalore. Built with robust, modern technology stacks.",
   },
 };
 
 const pageSchema = webPageSchema({
-  name: "Web App Development Services in Bangalore | The Scene Co.",
+  name: "Web App Development Services in Bangalore, India | The Scene Co.",
   description:
     "Custom web application and software development services. We build high-speed Next.js dashboards, SaaS platforms, and APIs.",
   url: "/services/web-app-development",
@@ -82,9 +84,9 @@ export default function WebAppDevelopmentServicePage() {
             &larr; All Services
           </Link>
           <h1 className="display-lg text-ink mb-6 mt-2">
-            Web App
+            Best Web App
             <br />
-            <span className="font-bold">Development.</span>
+            <span className="font-bold">Development in Bangalore, India.</span>
           </h1>
           <p className="body-lg-figma text-ink/75 max-w-2xl mb-8">
             Code your brand's presence, the right way. We engineer custom-built SaaS platforms, customer dashboards, and web database portals with Next.js and serverless cloud architectures.

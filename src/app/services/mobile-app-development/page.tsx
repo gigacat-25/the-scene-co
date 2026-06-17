@@ -9,28 +9,30 @@ import { Smartphone, Laptop, Zap, Check, ShieldCheck, ArrowUpRight } from "lucid
 export const runtime = "edge";
 
 export const metadata: Metadata = {
-  title: "Mobile App Development Company Bangalore | iOS & Android Apps",
+  title: "Best Mobile App Development Company in Bangalore, India | iOS & Android Apps",
   description:
-    "Looking for a leading mobile app development company in Bangalore? We build premium iOS and Android applications using React Native and Flutter. Get high-performance cross-platform apps.",
+    "Top mobile app development company in Bangalore. We build premium iOS and Android applications using React Native and Flutter. High-performance cross-platform apps with custom backends. Serving businesses across India.",
   keywords: [
+    "best mobile app development company Bangalore",
     "mobile app development company Bangalore",
     "mobile app developers Bangalore",
     "React Native developers Bangalore",
     "Flutter app development Bangalore",
     "iOS app development India",
     "Android app development India",
+    "cross platform app development Bangalore",
   ],
   alternates: { canonical: "https://www.thescene.co.in/services/mobile-app-development" },
   openGraph: {
     url: "https://www.thescene.co.in/services/mobile-app-development",
-    title: "Mobile App Development Company in Bangalore | The Scene Co.",
+    title: "Best Mobile App Development Company in Bangalore, India | The Scene Co.",
     description:
-      "Bespoke iOS and Android mobile app development. We build cross-platform mobile solutions with high performance.",
+      "Top iOS and Android mobile app development company in Bangalore. Cross-platform mobile solutions with high performance, secure APIs, and full app store publishing.",
   },
 };
 
 const pageSchema = webPageSchema({
-  name: "Mobile App Development Services in Bangalore | The Scene Co.",
+  name: "Mobile App Development Services in Bangalore, India | The Scene Co.",
   description:
     "Premium cross-platform mobile app development services. We build secure iOS and Android apps using React Native & Flutter.",
   url: "/services/mobile-app-development",
@@ -78,9 +80,9 @@ export default function MobileAppDevelopmentServicePage() {
             &larr; All Services
           </Link>
           <h1 className="display-lg text-ink mb-6 mt-2">
-            Mobile App
+            Best Mobile App
             <br />
-            <span className="font-bold">Development.</span>
+            <span className="font-bold">Development in Bangalore, India.</span>
           </h1>
           <p className="body-lg-figma text-ink/75 max-w-2xl mb-8">
             Extend your brand presence directly to mobile devices. We engineer high-performance cross-platform apps for iOS and Android, using React Native or Flutter.

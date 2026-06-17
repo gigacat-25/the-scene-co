@@ -71,8 +71,8 @@ export default async function PortfolioPage() {
         subtitle="Get a free consultation and detailed quote for your project — no commitment required."
         ctaText="Get a Free Quote"
         ctaLink="/contact"
-        secondaryText="View Pricing"
-        secondaryLink="/pricing"
+        secondaryText="Explore Services"
+        secondaryLink="/services"
         colorBlock="mint"
       />
     </div>

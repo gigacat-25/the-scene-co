@@ -52,11 +52,60 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.85,
     },
     {
-      url: `${SITE_URL}/pricing`,
+      url: `${SITE_URL}/services/digital-marketing`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    {
+      url: `${SITE_URL}/services/branding-design`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    {
+      url: `${SITE_URL}/services/seo`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    {
+      url: `${SITE_URL}/services/social-media-marketing`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    {
+      url: `${SITE_URL}/services/ui-ux-design`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    {
+      url: `${SITE_URL}/case-studies`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    {
+      url: `${SITE_URL}/case-studies/ecommerce-fashion-speed-optimization`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/case-studies/logistics-saas-dashboard-design`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/case-studies/healthcare-website-seo-bangalore`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+
     {
       url: `${SITE_URL}/portfolio`,
       lastModified: now,

@@ -18,7 +18,6 @@ const navItems = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/portfolio", label: "Portfolio", icon: Image },
   { href: "/admin/testimonials", label: "Testimonials", icon: MessageSquare },
-  { href: "/admin/pricing", label: "Pricing", icon: DollarSign },
   { href: "/admin/team", label: "Team", icon: Users },
   { href: "/admin/clients", label: "Clients", icon: Briefcase },
   { href: "/admin/faqs", label: "FAQs", icon: HelpCircle },

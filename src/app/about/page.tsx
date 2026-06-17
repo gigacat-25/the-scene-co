@@ -8,23 +8,25 @@ import type { Metadata } from "next";
 export const runtime = "edge";
 
 export const metadata: Metadata = {
-  title: "About Us — Web Development Agency in Bangalore, India",
+  title: "Best Web Development Agency in Bangalore, India | About The Scene Co.",
   description:
-    "The Scene Co. is a premium web development agency in Bangalore, India. We build custom websites, e-commerce stores, and POS systems — full-stack, zero templates, with 1 year free hosting.",
+    "The Scene Co. is the best web development agency in Bangalore, India. We build custom websites, e-commerce stores, and POS systems — full-stack, zero templates, with 1 year free hosting. Powering 100+ businesses across India.",
   keywords: [
+    "best web development agency Bangalore",
     "web development agency Bangalore",
     "website development company India",
     "custom website agency India",
     "full stack developers India",
     "about The Scene Co",
     "web agency Bangalore India",
+    "top web development company India",
   ],
   alternates: { canonical: "https://www.thescene.co.in/about" },
   openGraph: {
     url: "https://www.thescene.co.in/about",
-    title: "About The Scene Co. | Web Development Agency in Bangalore",
+    title: "Best Web Development Agency in Bangalore | About The Scene Co.",
     description:
-      "Premium web development agency in Bangalore. Custom websites, e-commerce stores, and POS systems — built from scratch.",
+      "The best web development agency in Bangalore. Custom websites, e-commerce stores, and POS systems — built from scratch. Zero templates. 1 year free hosting.",
   },
 };
 
@@ -48,9 +50,9 @@ export default function AboutPage() {
           className="text-ink mb-8"
           style={{ fontSize: "clamp(36px, 5vw, 86px)", fontWeight: 340, lineHeight: 1.0, letterSpacing: "-1.72px" }}
         >
-          We are The
+          Best Web Development
           <br />
-          <span style={{ fontWeight: 700 }}>Scene Co.</span>
+          <span style={{ fontWeight: 700 }}>Agency in Bangalore.</span>
         </h1>
       </div>
 

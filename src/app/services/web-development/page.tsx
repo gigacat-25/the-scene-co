@@ -9,23 +9,30 @@ import { Check, ArrowRight, Laptop, Server, Database, Code, Globe, Shield } from
 export const runtime = "edge";
 
 export const metadata: Metadata = {
-  title: "Custom Website Development Services Bangalore | The Scene Co.",
+  title: "Best Web Development Company in Bangalore, India | Website Design Services",
   description:
-    "Get responsive, SEO-friendly custom websites built with Next.js and Cloudflare. Professional website developers in Bangalore. No templates, free CMS, 1 year free hosting.",
+    "Top web development company in Bangalore, India. We build custom, responsive websites from scratch — zero templates. Next.js, SEO-optimised, free CMS, 1 year free hosting. Trusted by 100+ businesses across India.",
   keywords: [
+    "best web development company in Bangalore",
+    "best web development company in India",
+    "web development company Bangalore",
+    "website development company India",
     "custom website development Bangalore",
+    "professional web designers Bangalore",
+    "website design company Bangalore",
     "web development services India",
     "website developers Bangalore",
-    "professional web designers Bangalore",
-    "Next.js developers Bangalore",
-    "static website development Bangalore",
+    "Next.js developers India",
+    "best website designers Bangalore",
+    "SEO friendly website development India",
+    "affordable web development Bangalore",
   ],
   alternates: { canonical: "https://www.thescene.co.in/services/web-development" },
   openGraph: {
     url: "https://www.thescene.co.in/services/web-development",
-    title: "Custom Website Development Services in Bangalore | The Scene Co.",
+    title: "Best Web Development Company in Bangalore, India | Website Design Services",
     description:
-      "Bespoke websites built from scratch. High speed, responsive layout, structured SEO framework, and custom CMS.",
+      "Custom websites from scratch. Next.js, SEO-optimised, free CMS. Top web development company in Bangalore and across India. No templates, ever.",
   },
 };
 
@@ -101,9 +108,9 @@ export default function WebDevelopmentServicePage() {
             &larr; All Services
           </Link>
           <h1 className="display-lg text-ink mb-6 mt-2">
-            Custom Website
+            Best Custom Website
             <br />
-            <span className="font-bold">Development.</span>
+            <span className="font-bold">Development in Bangalore.</span>
           </h1>
           <p className="body-lg-figma text-ink/75 max-w-2xl mb-8">
             Code your brand's presence, the right way. We design and build professional, mobile-compatible websites from scratch. No slow templates, no generic platforms.

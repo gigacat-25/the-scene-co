@@ -9,28 +9,30 @@ import { ShoppingBag, CreditCard, ShieldCheck, BarChart, Truck, Database } from 
 export const runtime = "edge";
 
 export const metadata: Metadata = {
-  title: "E-Commerce Website Development Bangalore | Online Store Design",
+  title: "Best E-Commerce Website Development Company in Bangalore, India | Online Store Design",
   description:
-    "Launch your online store with a custom Next.js e-commerce website. Integrated payment gateways (Razorpay, Stripe, UPI), real-time inventory management, and built-in CMS.",
+    "Top e-commerce website development company in Bangalore. Launch your online store with custom Next.js e-commerce. Integrated Razorpay, Stripe & UPI, real-time inventory management, and built-in CMS. Serving all of India.",
   keywords: [
+    "best e-commerce website development company Bangalore",
     "e-commerce website development Bangalore",
     "online store development Bangalore",
     "Razorpay integration India",
-    "custom e-commerce builders India",
+    "custom e-commerce website India",
     "Next.js e-commerce agency",
-    "online shopping site developer",
+    "online shopping site developer Bangalore",
+    "e-commerce development company India",
   ],
   alternates: { canonical: "https://www.thescene.co.in/services/ecommerce-development" },
   openGraph: {
     url: "https://www.thescene.co.in/services/ecommerce-development",
-    title: "E-Commerce Website Development in Bangalore | The Scene Co.",
+    title: "Best E-Commerce Website Development Company in Bangalore, India | The Scene Co.",
     description:
-      "Bespoke e-commerce stores with secure local checkouts, lightning-fast product pages, and dynamic inventory synchronization.",
+      "Top e-commerce stores with secure local checkouts (Razorpay, Stripe, UPI), lightning-fast product pages, and dynamic inventory synchronization. Best e-commerce developer in Bangalore.",
   },
 };
 
 const pageSchema = webPageSchema({
-  name: "E-Commerce Website Development Bangalore | The Scene Co.",
+  name: "E-Commerce Website Development Bangalore, India | The Scene Co.",
   description:
     "Custom online store development services with Razorpay, Stripe, and UPI integration. Fast shopping experiences built with Next.js.",
   url: "/services/ecommerce-development",
@@ -82,9 +84,9 @@ export default function EcommerceDevelopmentServicePage() {
             &larr; All Services
           </Link>
           <h1 className="display-lg text-ink mb-6 mt-2">
-            E-Commerce Store
+            Best E-Commerce Website
             <br />
-            <span className="font-bold">Development.</span>
+            <span className="font-bold">Development in Bangalore, India.</span>
           </h1>
           <p className="body-lg-figma text-ink/75 max-w-2xl mb-8">
             Build a high-converting online shop with lightning-fast page loading speeds, custom checkouts, and clean product catalogs. Deployed on Cloudflare for 100% server availability.

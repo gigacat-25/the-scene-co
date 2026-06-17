@@ -166,7 +166,7 @@ export function Hero({ settings }: { settings?: Record<string, string> }) {
             className="text-black font-sans leading-[1.08] tracking-[-1.5px] font-semibold text-left select-none"
             style={{ fontSize: "clamp(28px, 8vw, 40px)" }}
           >
-            <span className="sr-only">Web Development Company in Bangalore | The Scene Co.</span>
+            <span className="sr-only">Best Web Development Company in Bangalore | Custom Websites & E-Commerce | The Scene Co.</span>
             {displayText}
             <span className="animate-blink font-light text-[#5551ff]">|</span>
           </h1>
@@ -257,7 +257,7 @@ export function Hero({ settings }: { settings?: Record<string, string> }) {
                 className="text-black font-sans leading-[1.05] tracking-[-1.5px] font-semibold text-left select-none break-words"
                 style={{ fontSize: "clamp(32px, 5vw, 60px)" }}
               >
-                <span className="sr-only">Web Development Company in Bangalore | The Scene Co.</span>
+                <span className="sr-only">Best Web Development Company in Bangalore | Custom Websites & E-Commerce | The Scene Co.</span>
                 {displayText}
                 <span className="animate-blink font-light text-[#5551ff]">|</span>
               </h1>

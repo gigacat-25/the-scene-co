@@ -17,10 +17,10 @@ import {
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
-  { href: "/pricing", label: "Pricing" },
   { href: "/portfolio", label: "Portfolio" },
+  { href: "/case-studies", label: "Case Studies" },
+  { href: "/blog", label: "Blog" },
   { href: "/team", label: "Team" },
-  { href: "/clients", label: "Clients" },
   { href: "/about", label: "About" },
 ];
 
