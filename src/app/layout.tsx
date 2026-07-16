@@ -5,6 +5,8 @@ import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/toaster';
 import { ClerkProvider } from '@clerk/nextjs';
 import { JsonLd, organizationSchema } from '@/components/json-ld';
+import { CustomCursor } from '@/components/ui/CustomCursor';
+import { CrtPowerOn } from '@/components/ui/CrtPowerOn';
 
 export const runtime = "edge";
 
@@ -131,6 +133,7 @@ export const viewport = {
 };
 
 import { getPublicSettings } from '@/lib/db';
+import { headers } from 'next/headers';
 
 export default async function RootLayout({
   children,
@@ -138,6 +141,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const settings: Record<string, string> = await getPublicSettings().catch(() => ({}));
+  const headersList = await headers();
+  const isAdmin = headersList.get('x-is-admin') === 'true';
 
   return (
     <ClerkProvider>
@@ -155,12 +160,18 @@ export default async function RootLayout({
           <meta name="geo.position" content="12.9716;77.5946" />
           <meta name="ICBM" content="12.9716, 77.5946" />
         </head>
-        <body className="font-body antialiased bg-canvas text-ink overflow-x-hidden flex flex-col min-h-screen">
+        <body className="font-body antialiased bg-[#050505] text-[#F5F2EE] overflow-x-hidden flex flex-col min-h-screen relative">
+          {/* Film Grain Effect Overlay */}
+          <div className="film-grain-overlay" />
+          
+          <CrtPowerOn />
+          <CustomCursor />
+
           {/* Site-wide JSON-LD: Organization + WebSite + LocalBusiness */}
           <JsonLd data={organizationSchema} />
-          <Navbar />
-          <main className="flex-grow">{children}</main>
-          <Footer settings={settings} />
+          {!isAdmin && <Navbar />}
+          <main className="flex-grow relative z-10">{children}</main>
+          {!isAdmin && <Footer settings={settings} />}
           <Toaster />
         </body>
       </html>

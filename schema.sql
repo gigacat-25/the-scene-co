@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS faqs;
 DROP TABLE IF EXISTS pages;
 DROP TABLE IF EXISTS team_members;
 DROP TABLE IF EXISTS admin_config;
+DROP TABLE IF EXISTS clients;
 
 -- ─── Admin Config ──────────────────────────────────────────────────────────────
 CREATE TABLE admin_config (

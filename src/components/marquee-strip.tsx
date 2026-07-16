@@ -1,29 +1,29 @@
 "use client";
 
 const items = [
-  "Custom Websites",
-  "E-Commerce Stores",
-  "POS Systems",
-  "SaaS Dashboards",
-  "Mobile-First Design",
-  "Built-in CMS",
-  "1 Year Free Hosting",
-  "Cloudflare Edge",
-  "Zero Templates",
-  "Razorpay & Stripe",
+  "EXPERIENCE PRODUCTION",
+  "CINEMATOGRAPHIC WEBSITES",
+  "E-COMMERCE ENGINE RACKS",
+  "BROADCAST POS STACKS",
+  "ZERO-TEMPLATE CODE",
+  "ANALOG SWITCHER TRANSITIONS",
+  "VHS NOISE GENERATORS",
+  "CRT OVERLAYS ACTIVE",
+  "STUDIO CAM 01 ONLINE",
+  "BENGALURU NODE LIVE",
 ];
 
 export function MarqueeStrip() {
   return (
     <div
-      className="w-full overflow-hidden bg-inverse-canvas text-inverse-ink"
-      style={{ height: 36 }}
+      className="w-full overflow-hidden bg-[#050505] border-y border-[#7B6A60]/30 flex items-center"
+      style={{ height: 38 }}
       aria-hidden="true"
     >
       <div
         className="flex items-center h-full gap-0 whitespace-nowrap"
         style={{
-          animation: "marquee 28s linear infinite",
+          animation: "marquee 35s linear infinite",
           width: "max-content",
         }}
       >
@@ -31,10 +31,10 @@ export function MarqueeStrip() {
         {[...items, ...items].map((item, i) => (
           <span
             key={i}
-            className="caption-mono text-inverse-ink/80 px-6 inline-flex items-center gap-2"
+            className="font-mono text-[10px] tracking-[0.2em] text-[#D86B2A] px-8 inline-flex items-center gap-3"
           >
             <span
-              className="inline-block w-1.5 h-1.5 rounded-full bg-inverse-ink/40"
+              className="inline-block w-1.5 h-1.5 rounded-full bg-[#D86B2A] animate-ping"
               aria-hidden="true"
             />
             {item}

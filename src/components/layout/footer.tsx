@@ -1,155 +1,144 @@
 "use client";
 
-import { Instagram, Linkedin, Twitter, Mail, BotMessageSquare, Facebook } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
-import { CopyableEmail } from "../copyable-email";
+import { useState, useEffect } from "react";
 
 export function Footer({ settings }: { settings?: Record<string, string> }) {
   const email = settings?.contact_email || "hello@thescene.co.in";
-  const instagram = settings?.social_instagram || "https://www.instagram.com/thescene.co.in/";
-  const twitter = settings?.social_twitter || "#";
-  const linkedin = settings?.social_linkedin || "#";
-
-  const rawWa = settings?.whatsapp_number || "9845714699";
-  const waClean = rawWa.replace(/\D/g, "");
-  const waLink = waClean.length === 10 ? `91${waClean}` : waClean;
-  const whatsappUrl = `https://wa.me/${waLink}`;
-
-  const socials = [
-    { href: linkedin,  label: "LinkedIn",   Icon: Linkedin  },
-    { href: instagram, label: "Instagram",  Icon: Instagram, external: true },
-    { href: twitter,   label: "Twitter",    Icon: Twitter   },
-    { href: "#",       label: "Facebook",   Icon: Facebook  },
-  ];
-
-  const navLinks = [
-    { href: "/",          label: "Home"      },
-    { href: "/services",  label: "Services"  },
-    { href: "/case-studies", label: "Case Studies" },
-    { href: "/blog",      label: "Blog"      },
-    { href: "/portfolio", label: "Portfolio" },
-    { href: "/team",      label: "Team"      },
-    { href: "/about",     label: "About"     },
-    { href: "/contact",   label: "Contact"   },
-  ];
+  
+  // Animate static time/frame codes in footer
+  const [frameTime, setFrameTime] = useState("00:00:00:00");
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, "0");
+      const m = String(now.getMinutes()).padStart(2, "0");
+      const s = String(now.getSeconds()).padStart(2, "0");
+      const f = String(Math.floor(Math.random() * 25)).padStart(2, "0");
+      setFrameTime(`${h}:${m}:${s}:${f}`);
+    }, 40); // 25fps update
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <footer className="bg-canvas border-t border-hairline-soft pt-14 pb-10 px-5 sm:px-6">
-      <div className="container mx-auto max-w-6xl">
+    <footer className="relative bg-[#050505] border-t border-[#7B6A60]/30 pt-16 pb-12 px-6 overflow-hidden select-none z-10">
+      {/* HUD grid line in background */}
+      <div className="absolute inset-0 tech-grid opacity-10 pointer-events-none" />
 
-        {/*
-         * LAYOUT
-         * Mobile  : single column — brand → nav → connect
-         * Tablet+ : 2 col  (brand | links+connect)
-         * Desktop : 4 col grid
-         */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
+      {/* Shutdown Lines decoration */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#D86B2A]/40 to-transparent" />
 
-          {/* ── Brand + tagline ── */}
-          <div className="md:col-span-2 flex flex-col items-start">
-            <Link href="/" className="mb-4 flex items-center gap-3 min-h-0">
-              <Image
-                src="/brand-logo.png"
-                alt="The Scene Co. logo"
-                width={38}
-                height={38}
-                className="rounded-md shrink-0"
-              />
-              <span className="text-xl font-bold font-sans text-ink tracking-tight whitespace-nowrap">
-                The Scene Co.
+      <div className="container mx-auto max-w-7xl relative z-10">
+        
+        {/* Main Monospace Technical Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 border-b border-[#7B6A60]/20 pb-16">
+          
+          {/* Column 1: Brand & Services 1 */}
+          <div className="flex flex-col items-start gap-4">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="font-mono text-base tracking-[0.25em] text-[#F5F2EE] font-black uppercase">
+                THE SCENE
               </span>
-            </Link>
-            <p className="body-sm-figma text-ink/65 leading-relaxed max-w-sm">
-              We build premium custom websites, e-commerce stores, and POS systems —
-              full-stack, with built-in CMS and 1 year free hosting. Zero templates.
-            </p>
-          </div>
-
-          {/* ── Navigate ── */}
-          <div>
-            <h3 className="mb-4 caption-mono text-ink/50 font-bold tracking-widest">
-              Navigate
-            </h3>
-            <ul className="space-y-3 caption-mono">
-              {navLinks.map(({ href, label }) => (
-                <li key={href}>
-                  <Link
-                    href={href}
-                    className="text-ink/75 transition-colors hover:text-ink hover:underline"
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
+              <span className="text-[8px] font-mono bg-[#D86B2A]/10 border border-[#D86B2A]/30 text-[#D86B2A] px-1.5 py-0.5 rounded-sm">
+                v2026.01
+              </span>
+            </div>
+            
+            <ul className="flex flex-col gap-2 font-mono text-xs text-[#7B6A60] uppercase">
+              <li className="text-[#F5F2EE] font-bold">CREATIVE TECHNOLOGY</li>
+              <li>SOFTWARE DEVELOPMENT</li>
+              <li>DIGITAL MARKETING</li>
+              <li>EVENT PRODUCTION</li>
             </ul>
           </div>
 
-          {/* ── Connect ── */}
-          <div>
-            <h3 className="mb-4 caption-mono text-ink/50 font-bold tracking-widest">
-              Connect
-            </h3>
+          {/* Column 2: Services 2 */}
+          <div className="flex flex-col gap-4">
+            <h4 className="font-mono text-xs text-[#FFB36B] tracking-[0.2em] font-bold uppercase">
+              // SYSTEMS
+            </h4>
+            <ul className="flex flex-col gap-2 font-mono text-xs text-[#7B6A60] uppercase">
+              <li>WEBSITE DEVELOPMENT</li>
+              <li>BRANDING</li>
+              <li>SEO</li>
+              <li>WEB APPLICATIONS</li>
+              <li>AI SOLUTIONS</li>
+            </ul>
+          </div>
 
-            {/* Social icons — flex-wrap so they never overflow */}
-            <div className="mb-5 flex flex-wrap gap-2">
-              {socials.map(({ href, label, Icon, external }) => (
-                <a
-                  key={label}
-                  href={href}
-                  className="btn-icon-circular"
-                  aria-label={label}
-                  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                >
-                  <Icon className="h-4 w-4" />
+          {/* Column 3: Contact details & Location */}
+          <div className="flex flex-col gap-4">
+            <h4 className="font-mono text-xs text-[#FFB36B] tracking-[0.2em] font-bold uppercase">
+              // COMMS
+            </h4>
+            <div className="flex flex-col gap-3 font-mono text-xs text-[#7B6A60] uppercase">
+              <div>
+                <span className="block text-[8px] text-[#7B6A60]/50 mb-0.5">LOCATION</span>
+                <span className="text-[#F5F2EE] tracking-wider">BENGALURU, INDIA</span>
+              </div>
+              <div>
+                <span className="block text-[8px] text-[#7B6A60]/50 mb-0.5">SMTP_LINK</span>
+                <a href={`mailto:${email}`} className="text-[#F5F2EE] hover:text-[#D86B2A] underline tracking-wider">
+                  {email}
                 </a>
-              ))}
+              </div>
+              <div>
+                <span className="block text-[8px] text-[#7B6A60]/50 mb-0.5">WEB_LINK</span>
+                <a href="https://www.thescene.co.in" target="_blank" rel="noopener noreferrer" className="text-[#F5F2EE] hover:text-[#D86B2A] underline tracking-wider">
+                  WWW.THESCENE.CO.IN
+                </a>
+              </div>
             </div>
+          </div>
 
-            {/* Email + WhatsApp */}
-            <div className="space-y-3 caption-mono">
-              <CopyableEmail email={email} variant="footer" />
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-ink/75 transition-colors hover:text-ink hover:underline"
-              >
-                <BotMessageSquare className="h-4 w-4 text-ink/50 shrink-0" />
-                <span>WhatsApp Us</span>
-              </a>
-            </div>
+          {/* Column 4: Social arrays */}
+          <div className="flex flex-col gap-4">
+            <h4 className="font-mono text-xs text-[#FFB36B] tracking-[0.2em] font-bold uppercase">
+              // FOLLOW_US
+            </h4>
+            <ul className="flex flex-col gap-2 font-mono text-xs text-[#7B6A60] uppercase">
+              <li>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#D86B2A] transition-colors">
+                  [INSTAGRAM]
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#D86B2A] transition-colors">
+                  [LINKEDIN]
+                </a>
+              </li>
+              <li>
+                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#D86B2A] transition-colors">
+                  [YOUTUBE]
+                </a>
+              </li>
+              <li className="mt-2 text-[8px] tracking-widest text-[#7B6A60]/50">
+                TC: {frameTime}
+              </li>
+            </ul>
           </div>
         </div>
 
-        {/* ── Bottom bar ── */}
-        <div className="mt-12 pt-6 border-t border-hairline-soft caption-mono text-ink/45">
-          {/* Mobile: stack vertically; Desktop: single row */}
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <p className="leading-relaxed">
-              © {new Date().getFullYear()} The Scene Co. All rights reserved.
-              <span className="hidden sm:inline"> · </span>
-              <br className="sm:hidden" />
-              Designed &amp; Developed by{" "}
-              <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-ink transition-colors underline"
-              >
-                Developer
-              </a>
-            </p>
-            <div className="flex gap-5 shrink-0">
-              <Link href="/privacy" className="transition-colors hover:text-ink hover:underline">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="transition-colors hover:text-ink hover:underline">
-                Terms of Service
-              </Link>
-            </div>
+        {/* Footer Bottom (Shutdown specs) */}
+        <div className="mt-10 flex flex-col md:flex-row items-center justify-between gap-6 font-mono text-[10px] text-[#7B6A60] uppercase tracking-widest">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <span>© 2026 THE SCENE. ALL SYSTEMS LOGGED.</span>
+            <span className="hidden md:inline">|</span>
+            <span>SERVER: <span className="text-[#D86B2A]">ONLINE</span></span>
+            <span className="hidden md:inline">|</span>
+            <span>NODE: <span className="text-[#FFB36B]">IND_BLR</span></span>
+          </div>
+
+          <div className="flex gap-6 shrink-0">
+            <Link href="/privacy" className="hover:text-white transition-colors">
+              [PRIVACY]
+            </Link>
+            <Link href="/terms" className="hover:text-white transition-colors">
+              [TERMS]
+            </Link>
           </div>
         </div>
+
       </div>
     </footer>
   );

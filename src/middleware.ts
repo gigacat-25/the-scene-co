@@ -6,12 +6,30 @@ const isLoginPage = createRouteMatcher(["/admin/login(.*)"]);
 const isForbiddenPage = createRouteMatcher(["/admin/forbidden(.*)"]);
 
 export default clerkMiddleware(async (auth, request) => {
+  const requestHeaders = new Headers(request.headers);
+  const isAdmin = request.nextUrl.pathname.startsWith("/admin");
+  if (isAdmin) {
+    requestHeaders.set("x-is-admin", "true");
+  }
+
   // Let the login and forbidden pages through always
-  if (isLoginPage(request) || isForbiddenPage(request)) return NextResponse.next();
+  if (isLoginPage(request) || isForbiddenPage(request)) {
+    return NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      }
+    });
+  }
 
   // Allow local development to bypass authentication checks
   const isDev = process.env.NODE_ENV === "development";
-  if (isDev) return NextResponse.next();
+  if (isDev) {
+    return NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      }
+    });
+  }
 
   const pathname = request.nextUrl.pathname;
   const isApiRoute = pathname.startsWith("/api/");
@@ -33,7 +51,11 @@ export default clerkMiddleware(async (auth, request) => {
     }
   }
 
-  return NextResponse.next();
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    }
+  });
 });
 
 export const config = {

@@ -1,297 +1,204 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { Pause, Play, ChevronLeft, ChevronRight } from "lucide-react";
-
-// Pool of images — each cell will cycle through these
-const imagePool = [
-  { src: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=600&q=80", alt: "Custom Website Design" },
-  { src: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=600&q=80", alt: "E-Commerce Store" },
-  { src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80", alt: "Analytics Dashboard" },
-  { src: "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?auto=format&fit=crop&w=600&q=80", alt: "POS System" },
-  { src: "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=600&q=80", alt: "Mobile App" },
-  { src: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=600&q=80", alt: "Business Meeting" },
-  { src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80", alt: "Web Development" },
-  { src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80", alt: "Data Analytics" },
-  { src: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=600&q=80", alt: "Online Shopping" },
-  { src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80", alt: "Professional" },
-  { src: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80", alt: "Team Work" },
-  { src: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80", alt: "Design Process" },
-];
-
-function ImageCell({
-  imageIndex,
-  className,
-}: {
-  imageIndex: number;
-  className?: string;
-}) {
-  const [current, setCurrent] = useState(imageIndex % imagePool.length);
-  const [next, setNext] = useState((imageIndex + 1) % imagePool.length);
-  const [flipping, setFlipping] = useState(false);
-
-  useEffect(() => {
-    const delay = 3000 + Math.random() * 3000;
-    const timer = setInterval(() => {
-      setFlipping(true);
-      setTimeout(() => {
-        setCurrent((c) => (c + 1) % imagePool.length);
-        setNext((n) => (n + 1) % imagePool.length);
-        setFlipping(false);
-      }, 600);
-    }, delay);
-    return () => clearInterval(timer);
-  }, []);
-
-  return (
-    <div
-      className={`relative overflow-hidden rounded-lg transition-all duration-700 hover:scale-[1.04] hover:shadow-xl hover:z-20 ${className}`}
-      style={{ perspective: "1000px" }}
-    >
-      {/* Current image */}
-      <img
-        src={imagePool[current].src}
-        alt={imagePool[current].alt}
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{
-          transition: "opacity 0.6s ease, transform 0.6s ease",
-          opacity: flipping ? 0 : 1,
-          transform: flipping ? "scale(1.06)" : "scale(1)",
-        }}
-      />
-      {/* Next image */}
-      <img
-        src={imagePool[next].src}
-        alt={imagePool[next].alt}
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{
-          transition: "opacity 0.6s ease, transform 0.6s ease",
-          opacity: flipping ? 1 : 0,
-          transform: flipping ? "scale(1)" : "scale(0.97)",
-        }}
-      />
-    </div>
-  );
-}
 
 export function Hero({ settings }: { settings?: Record<string, string> }) {
-  const [isPaused, setIsPaused] = useState(false);
-  const [displayText, setDisplayText] = useState("Build ");
-  const [phraseIndex, setPhraseIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [typingSpeed, setTypingSpeed] = useState(100);
+  const [timecode, setTimecode] = useState("00:00:00:00");
 
-  const phrases = [
-    "websites, zero templates.",
-    "e-commerce stores.",
-    "custom POS systems.",
-    "anything possible."
-  ];
-
-  // Typing effect loop
+  // Timecode generator
   useEffect(() => {
-    let timer: NodeJS.Timeout;
-    const currentPhrase = phrases[phraseIndex];
-    const fullText = "Build " + currentPhrase;
-
-    if (isDeleting) {
-      setTypingSpeed(40);
-      timer = setTimeout(() => {
-        setDisplayText(fullText.substring(0, displayText.length - 1));
-      }, typingSpeed);
-    } else {
-      setTypingSpeed(100);
-      timer = setTimeout(() => {
-        setDisplayText(fullText.substring(0, displayText.length + 1));
-      }, typingSpeed);
-    }
-
-    const minLength = "Build ".length;
-
-    if (!isDeleting && displayText === fullText) {
-      timer = setTimeout(() => setIsDeleting(true), 2500);
-    } else if (isDeleting && displayText.length === minLength) {
-      setIsDeleting(false);
-      setPhraseIndex((prev) => (prev + 1) % phrases.length);
-    }
-
-    return () => clearTimeout(timer);
-  }, [displayText, isDeleting, phraseIndex]);
-
-  // Inject blinking cursor keyframes
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const styleId = "hero-blink-cursor-style";
-      if (!document.getElementById(styleId)) {
-        const style = document.createElement("style");
-        style.id = styleId;
-        style.innerHTML = `
-          @keyframes blink {
-            50% { opacity: 0; }
-          }
-          .animate-blink {
-            animation: blink 1s step-start infinite;
-          }
-        `;
-        document.head.appendChild(style);
-      }
-    }
+    const interval = setInterval(() => {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, "0");
+      const m = String(now.getMinutes()).padStart(2, "0");
+      const s = String(now.getSeconds()).padStart(2, "0");
+      const f = String(Math.floor(Math.random() * 25)).padStart(2, "0");
+      setTimecode(`${h}:${m}:${s}:${f}`);
+    }, 40); // 25fps timecode
+    return () => clearInterval(interval);
   }, []);
 
   return (
-    <>
-      {/* ═══════════════════════════════════════════
-          MOBILE HERO  (hidden on md+)
-          Layout: full-bleed image on top,
-                  white rounded panel on bottom
-      ═══════════════════════════════════════════ */}
-      <section className="md:hidden w-full flex flex-col bg-[#0b0a14]">
-        {/* Image — takes up top portion, no dark overlay */}
-        <div className="relative w-full overflow-hidden" style={{ height: "56vw", minHeight: 220, maxHeight: 380 }}>
-          <ImageCell imageIndex={0} className="absolute inset-0 w-full h-full" />
-          {/* Soft fade at bottom so white panel blends in */}
-          <div
-            className="absolute inset-x-0 bottom-0 pointer-events-none"
-            style={{ height: 64, background: "linear-gradient(to top, #ffffff, transparent)" }}
-          />
-        </div>
+    <section className="relative w-full min-h-screen bg-[#050505] flex items-center pt-24 pb-16 px-4 md:px-8 overflow-hidden select-none border-b border-[#7B6A60]/20">
+      
+      {/* HUD grid lines */}
+      <div className="absolute inset-0 tech-grid opacity-[0.12] pointer-events-none" />
+      <div className="absolute inset-0 bg-radial-spotlight opacity-[0.25] pointer-events-none" />
 
-        {/* White content panel — slides up over image edge */}
-        <div
-          className="relative w-full bg-white px-6 pt-8 pb-10 flex flex-col gap-5"
-          style={{ borderRadius: "24px 24px 0 0", marginTop: -24, boxShadow: "0 -8px 40px rgba(0,0,0,0.12)" }}
-        >
-          <h1
-            className="text-black font-sans leading-[1.08] tracking-[-1.5px] font-semibold text-left select-none"
-            style={{ fontSize: "clamp(28px, 8vw, 40px)" }}
-          >
-            <span className="sr-only">Best Web Development Company in Bangalore | Custom Websites & E-Commerce | The Scene Co.</span>
-            {displayText}
-            <span className="animate-blink font-light text-[#5551ff]">|</span>
+      {/* Moving slow orange light glow */}
+      <motion.div
+        className="absolute w-[60vw] h-[60vw] rounded-full bg-[#D86B2A]/10 blur-[130px] pointer-events-none z-[1] right-0 top-1/4"
+        animate={{
+          x: ["10%", "-10%", "5%", "-5%", "10%"],
+          y: ["-5%", "5%", "10%", "-10%", "-5%"],
+        }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      <div className="container mx-auto max-w-7xl relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        {/* LEFT COLUMN: BRAND TEXT & CTA */}
+        <div className="lg:col-span-7 flex flex-col items-start gap-6 text-left">
+          
+          {/* Tagline / Top Tag */}
+          <div className="flex items-center gap-2 border border-[#7B6A60]/30 px-3 py-1 bg-[#080808]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#D86B2A] animate-pulse" />
+            <span className="font-mono text-[9px] text-[#FFB36B] tracking-[0.15em] uppercase font-bold">
+              CREATIVE TECHNOLOGY • SOFTWARE • DIGITAL MARKETING • EVENTS
+            </span>
+          </div>
+
+          {/* Heading */}
+          <h1 className="font-sans text-5xl sm:text-7xl md:text-8xl font-black text-[#F5F2EE] tracking-[0.05em] leading-[0.95] uppercase">
+            BUILDING
+            <br />
+            DIGITAL
+            <br />
+            EXPERIENCES
+            <br />
+            THAT GROW
+            <br />
+            <span className="text-[#D86B2A]">BUSINESSES.</span>
           </h1>
-          <Link
-            href={settings?.hero_cta_link || "/contact"}
-            className="block w-full text-center text-white font-semibold active:scale-95 transition-all duration-200"
-            style={{
-              background: "#5551ff",
-              fontSize: 17,
-              fontWeight: 600,
-              padding: "15px 24px",
-              borderRadius: 16,
-              boxShadow: "0 4px 16px rgba(85,81,255,0.35)",
-            }}
-          >
-            {settings?.hero_cta_text || "Get started"}
-          </Link>
-        </div>
-      </section>
 
-      {/* ═══════════════════════════════════════════
-          DESKTOP HERO  (hidden below md)
-          Layout: full-bleed mosaic + floating card
-      ═══════════════════════════════════════════ */}
-      <section
-        className="relative w-full overflow-hidden hidden md:block"
-        style={{ minHeight: "85vh", background: "#0b0a14" }}
-      >
-        {/* Ambient glows */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1] opacity-40 mix-blend-screen">
-          <div className="absolute -top-40 left-1/4 w-[50vw] h-[80vh] rounded-full bg-indigo-600/20 blur-[130px] animate-pulse" style={{ animationDuration: "8s" }} />
-          <div className="absolute -top-40 right-1/4 w-[50vw] h-[80vh] rounded-full bg-purple-600/20 blur-[130px] animate-pulse" style={{ animationDuration: "12s" }} />
-        </div>
+          {/* Description / Sub Heading */}
+          <p className="max-w-xl font-mono text-xs md:text-sm text-[#7B6A60] tracking-wide leading-relaxed uppercase">
+            FROM BEAUTIFUL WEBSITES AND POWERFUL SOFTWARE TO DIGITAL MARKETING, AI AUTOMATION AND UNFORGETTABLE EVENTS. WE CREATE COMPLETE BUSINESS ECOSYSTEMS DESIGNED FOR GROWTH.
+          </p>
 
-        <div className="absolute inset-0 pointer-events-none opacity-65 z-[2]" style={{
-          background: "radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.12) 0%, rgba(99, 102, 241, 0.04) 50%, transparent 100%)"
-        }} />
+          {/* Buttons */}
+          <div className="flex flex-wrap gap-4 mt-2">
+            <Link
+              href="/contact"
+              className="group relative border border-[#D86B2A] bg-[#D86B2A] text-[#050505] hover:bg-transparent hover:text-[#D86B2A] font-mono text-[11px] tracking-[0.2em] px-6 py-4 uppercase font-bold transition-all duration-300 min-w-[180px] text-center"
+            >
+              {/* Corner ticks */}
+              <span className="absolute -top-[1.5px] -left-[1.5px] w-[4px] h-[4px] bg-[#050505] group-hover:bg-[#D86B2A]" />
+              <span className="absolute -top-[1.5px] -right-[1.5px] w-[4px] h-[4px] bg-[#050505] group-hover:bg-[#D86B2A]" />
+              <span className="absolute -bottom-[1.5px] -left-[1.5px] w-[4px] h-[4px] bg-[#050505] group-hover:bg-[#D86B2A]" />
+              <span className="absolute -bottom-[1.5px] -right-[1.5px] w-[4px] h-[4px] bg-[#050505] group-hover:bg-[#D86B2A]" />
+              START YOUR PROJECT →
+            </Link>
 
-        {/* Mosaic grid */}
-        <div
-          className="absolute inset-0 flex gap-2 p-2 z-[1]"
-          style={{ opacity: isPaused ? 0.6 : 0.85, transition: "opacity 0.4s" }}
-        >
-          <div className="flex flex-col gap-2 w-[13%] shrink-0">
-            <ImageCell imageIndex={0} className="flex-[3]" />
-            <ImageCell imageIndex={5} className="flex-[2]" />
+            <Link
+              href="/portfolio"
+              className="group relative border border-[#7B6A60]/40 text-[#7B6A60] hover:text-[#D86B2A] hover:border-[#D86B2A] font-mono text-[11px] tracking-[0.2em] px-6 py-4 uppercase font-bold transition-all duration-300 min-w-[180px] text-center"
+            >
+              VIEW OUR WORK →
+            </Link>
           </div>
-          <div className="flex flex-col gap-2 w-[20%] shrink-0">
-            <ImageCell imageIndex={1} className="flex-[2]" />
-            <div className="flex-[1] rounded-lg flex items-center justify-center p-4 transition-all duration-500 hover:scale-[1.04] hover:rotate-[0.5deg] hover:shadow-lg cursor-default" style={{ background: "#dceeb1" }}>
-              <div className="text-center">
-                <div className="caption-mono text-ink/50 mb-1 text-xs">SERVICES</div>
-                <div className="font-bold text-ink text-sm">Websites</div>
+
+          {/* Happy clients indicator */}
+          <div className="flex items-center gap-4 mt-6 border-t border-[#7B6A60]/10 pt-6 w-full">
+            {/* Visual patch indicator */}
+            <div className="flex -space-x-2.5">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="w-8 h-8 rounded-full border border-[#050505] bg-[#7B6A60]/30 flex items-center justify-center font-mono text-[9px] text-[#F5F2EE] font-bold">
+                  U0{i}
+                </div>
+              ))}
+              <div className="w-8 h-8 rounded-full border border-[#050505] bg-[#D86B2A]/20 flex items-center justify-center font-mono text-[10px] text-[#D86B2A] font-black">
+                +
               </div>
             </div>
+
+            <div>
+              <span className="block font-mono text-xs text-[#F5F2EE] font-bold tracking-wider">
+                200+ HAPPY BRAND CLIENTS
+              </span>
+              <span className="font-mono text-[9px] text-[#7B6A60] tracking-widest uppercase">
+                SIGNAL RATINGS: ★★★★★ [4.9/5]
+              </span>
+            </div>
           </div>
-          <div className="flex flex-col gap-2 w-[18%] shrink-0">
-            <ImageCell imageIndex={2} className="flex-[3]" />
-            <div className="flex-[1] rounded-lg flex items-center justify-center p-4 transition-all duration-500 hover:scale-[1.04] hover:rotate-[-0.5deg] hover:shadow-lg cursor-default" style={{ background: "#c5b0f4" }}>
-              <div className="text-center">
-                <div className="caption-mono text-ink/50 mb-1 text-xs">GALLERY</div>
-                <div className="font-bold text-ink text-sm">Our Work</div>
+
+        </div>
+
+        {/* RIGHT COLUMN: CSS 3D LAPTOP WITH CRT SCREEN */}
+        <div className="lg:col-span-5 flex items-center justify-center relative mt-8 lg:mt-0">
+          
+          {/* Laptop 3D Glow ambient */}
+          <div className="absolute w-[110%] h-[110%] bg-[#D86B2A]/5 blur-[60px] rounded-full pointer-events-none" />
+
+          {/* Interactive Laptop device */}
+          <div className="relative w-full max-w-[460px] aspect-[1.6] bg-[#111111] border border-[#7B6A60]/40 p-2 shadow-2xl flex flex-col justify-between">
+            {/* Corner HUD markers on laptop screen border */}
+            <span className="absolute top-1 left-1 w-2 h-2 border-t border-l border-[#7B6A60]/50" />
+            <span className="absolute top-1 right-1 w-2 h-2 border-t border-r border-[#7B6A60]/50" />
+
+            {/* Screen bezel */}
+            <div className="w-full h-[93%] bg-[#080808] border border-[#7B6A60]/20 p-2 relative overflow-hidden flex flex-col justify-between">
+              
+              {/* Screen overlay lines */}
+              <div className="absolute inset-0 scanline-overlay pointer-events-none opacity-20 z-20" />
+              <div className="absolute inset-0 bg-[#050505] opacity-5 z-10 pointer-events-none" />
+
+              {/* CRT monitor dashboard content */}
+              <div className="relative z-10 w-full h-full flex flex-col justify-between font-mono text-[8px] text-[#7B6A60] uppercase p-1">
+                
+                {/* Screen Header */}
+                <div className="flex justify-between items-center border-b border-[#7B6A60]/20 pb-1.5 mb-1.5">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 bg-[#D86B2A] rounded-full animate-ping" />
+                    <span className="text-[#D86B2A] font-bold">MON_01 // SYSTEM_DASHBOARD</span>
+                  </div>
+                  <span>TC {timecode}</span>
+                </div>
+
+                {/* Main Screen graphic feed */}
+                <div className="flex-grow grid grid-cols-3 gap-2 py-1 items-stretch">
+                  
+                  {/* Left panel: Signal specs */}
+                  <div className="border border-[#7B6A60]/20 bg-[#050505] p-1.5 flex flex-col justify-between text-[7px] leading-relaxed">
+                    <div>
+                      <span className="text-[#FFB36B] font-bold block mb-0.5">[SYS_INGEST]</span>
+                      <span>SRC: SCENE_MAIN<br />RESL: 1080P<br />RATE: 60FPS</span>
+                    </div>
+                    <div>
+                      <span className="text-[#D86B2A] font-bold block mb-0.5">[SYS_RACK]</span>
+                      <span>NODE: ACTIVE<br />DB_CONN: SECURE</span>
+                    </div>
+                  </div>
+
+                  {/* Center panel: System status dashboard list */}
+                  <div className="col-span-2 border border-[#7B6A60]/20 bg-[#050505] p-2 flex flex-col items-stretch justify-center relative overflow-hidden text-[7px] leading-normal font-bold">
+                    <div className="absolute inset-0 tech-grid opacity-5" />
+                    
+                    <div className="z-10 w-full flex flex-col font-mono text-[#D86B2A]">
+                      <div className="flex justify-between"><span>WEBSITE</span><span className="text-[#FFB36B]">........ ONLINE</span></div>
+                      <div className="flex justify-between"><span>SOFTWARE</span><span className="text-[#FFB36B]">....... ACTIVE</span></div>
+                      <div className="flex justify-between"><span>MARKETING</span><span className="text-[#FFB36B]">...... RUNNING</span></div>
+                      <div className="flex justify-between"><span>SEO</span><span className="text-[#FFB36B]">............ OPTIMIZED</span></div>
+                      <div className="flex justify-between"><span>EVENTS</span><span className="text-[#FFB36B]">......... LIVE</span></div>
+                      <div className="flex justify-between"><span>HOSTING</span><span className="text-[#FFB36B]">........ SECURE</span></div>
+                      <div className="flex justify-between"><span>AI</span><span className="text-[#FFB36B]">............. CONNECTED</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Screen Footer */}
+                <div className="flex justify-between items-center border-t border-[#7B6A60]/20 pt-1.5 mt-1.5 text-[7px]">
+                  <span>VTR_MODEL // VHS_SYS_2026</span>
+                  <span className="text-[#D86B2A] font-bold">[ONLINE]</span>
+                </div>
               </div>
+
+            </div>
+
+            {/* Keyboard base tray */}
+            <div className="absolute -bottom-3.5 left-[-4%] right-[-4%] h-3.5 bg-[#0a0a0a] border border-[#7B6A60]/40 border-t-[#222] shadow-2xl flex flex-col justify-between">
+              {/* Keyboard backlit strip */}
+              <div className="w-full h-[1px] bg-[#D86B2A]/40" />
+              {/* Trackpad */}
+              <div className="w-12 h-1.5 bg-[#151515] border border-[#7B6A60]/30 mx-auto rounded-sm mb-0.5" />
             </div>
           </div>
-          <div className="flex flex-col gap-2 w-[22%] shrink-0">
-            <ImageCell imageIndex={3} className="flex-1 opacity-40 hover:opacity-100 transition-opacity duration-500" />
-          </div>
-          <div className="flex flex-col gap-2 flex-1 shrink-0">
-            <ImageCell imageIndex={4} className="flex-[2]" />
-            <div className="flex-[1] rounded-lg flex items-center justify-center p-4 transition-all duration-500 hover:scale-[1.04] hover:rotate-[0.5deg] hover:shadow-lg cursor-default" style={{ background: "#1f1d3d" }}>
-              <div className="text-center">
-                <div className="caption-mono text-white/50 mb-1 text-xs">FULL STACK</div>
-                <div className="font-bold text-white text-sm">End-to-End</div>
-              </div>
-            </div>
-          </div>
+
         </div>
 
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/55 pointer-events-none z-[2]" />
-
-        {/* Floating card */}
-        <div className="relative z-10 flex items-center justify-center min-h-[85vh] px-4 py-12">
-          <div className="bg-white rounded-[32px] p-8 lg:p-12 w-full max-w-4xl shadow-[0_30px_90px_rgba(0,0,0,0.25)] border border-neutral-100/90 flex flex-row items-end justify-between gap-8 min-h-[220px] transition-all duration-300 hover:scale-[1.01]">
-            <div className="flex-1 flex flex-col justify-center min-h-[120px]">
-              <h1
-                className="text-black font-sans leading-[1.05] tracking-[-1.5px] font-semibold text-left select-none break-words"
-                style={{ fontSize: "clamp(32px, 5vw, 60px)" }}
-              >
-                <span className="sr-only">Best Web Development Company in Bangalore | Custom Websites & E-Commerce | The Scene Co.</span>
-                {displayText}
-                <span className="animate-blink font-light text-[#5551ff]">|</span>
-              </h1>
-            </div>
-            <div className="flex shrink-0 items-end">
-              <Link
-                href={settings?.hero_cta_link || "/contact"}
-                className="bg-[#5551ff] hover:bg-[#403ce6] text-white text-lg font-semibold px-8 py-4 rounded-2xl transition-all duration-300 shadow-[0_4px_14px_rgba(85,81,255,0.3)] hover:shadow-[0_6px_20px_rgba(85,81,255,0.4)] active:scale-95 text-center min-w-[180px]"
-              >
-                {settings?.hero_cta_text || "Get started"}
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Controls */}
-        <div className="absolute bottom-6 right-6 z-20 flex items-center gap-3">
-          <button className="w-10 h-10 rounded-full border border-white/20 bg-black/35 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/50 transition-colors" aria-label="Previous">
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button onClick={() => setIsPaused(!isPaused)} className="w-10 h-10 rounded-full border border-white/20 bg-black/35 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/50 transition-colors" aria-label={isPaused ? "Resume" : "Pause"}>
-            {isPaused ? <Play className="h-4 w-4 fill-white" /> : <Pause className="h-4 w-4 fill-white" />}
-          </button>
-          <button className="w-10 h-10 rounded-full border border-white/20 bg-black/35 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/50 transition-colors" aria-label="Next">
-            <ChevronRight className="h-5 w-5" />
-          </button>
-        </div>
-
-        {isPaused && (
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 caption-mono text-white/60 bg-black/40 px-4 py-1.5 rounded-full">
-            Paused
-          </div>
-        )}
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
