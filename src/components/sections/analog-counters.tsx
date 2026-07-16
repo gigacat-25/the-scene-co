@@ -14,13 +14,13 @@ function RollingDigit({ digit, trigger }: CounterDigitProps) {
 
   useEffect(() => {
     if (!trigger) return;
-    
+
     const parsed = parseInt(digit);
     if (isNaN(parsed)) return;
 
     let current = 0;
-    const steps = 10 + Math.floor(Math.random() * 8);
-    const intervalTime = 40 + Math.random() * 40;
+    const steps = 12 + Math.floor(Math.random() * 8);
+    const intervalTime = 35 + Math.random() * 30;
 
     const timer = setInterval(() => {
       current++;
@@ -38,22 +38,32 @@ function RollingDigit({ digit, trigger }: CounterDigitProps) {
 
   if (!isNumber) {
     return (
-      <span className="font-mono text-xl md:text-2xl font-black text-[#D86B2A]">
+      <span className="font-mono text-xl md:text-2xl font-black text-[#7A4DFF]">
         {digit}
       </span>
     );
   }
 
   return (
-    <div className="relative w-5 h-8 overflow-hidden inline-flex items-center justify-center bg-[#0b0a09] border border-[#7B6A60]/30 rounded-sm">
-      <span className="absolute left-0 right-0 top-1/2 h-[1px] bg-[#D86B2A]/20 z-10" />
+    <div
+      className="relative overflow-hidden inline-flex items-center justify-center rounded"
+      style={{ width: 22, height: 32, background: "#13143A", border: "1px solid rgba(122,77,255,0.25)" }}
+    >
+      <span
+        className="absolute left-0 right-0 top-1/2 z-10 pointer-events-none"
+        style={{ height: 1, background: "rgba(122,77,255,0.18)" }}
+      />
       <motion.div
-        className="absolute flex flex-col font-mono text-base md:text-lg font-black text-[#F5F2EE]"
+        className="absolute flex flex-col font-mono font-black"
+        style={{ color: "#F7F7FB", fontSize: 15, lineHeight: "32px", top: 0 }}
         animate={{ y: -val * 32 }}
-        transition={{ type: "spring", stiffness: 120, damping: 14 }}
+        transition={{ type: "spring", stiffness: 130, damping: 16 }}
       >
         {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-          <div key={num} className="w-5 h-8 flex items-center justify-center select-none">
+          <div
+            key={num}
+            style={{ width: 22, height: 32, display: "flex", alignItems: "center", justifyContent: "center" }}
+          >
             {num}
           </div>
         ))}
@@ -66,33 +76,45 @@ interface StatItemProps {
   icon: any;
   value: string;
   label: string;
-  register: string;
 }
 
-function StatItem({ icon: Icon, value, label, register }: StatItemProps) {
+function StatItem({ icon: Icon, value, label }: StatItemProps) {
   const itemRef = useRef(null);
-  const isInView = useInView(itemRef, { once: true, margin: "-50px" });
+  const isInView = useInView(itemRef, { once: true, margin: "-40px" });
   const digits = value.split("");
 
   return (
-    <div 
+    <div
       ref={itemRef}
-      className="flex items-center gap-4 py-4 px-6 relative flex-1 min-w-[200px] justify-center md:justify-start"
+      className="flex items-center gap-4 py-5 px-6 relative flex-1 min-w-[180px] justify-center md:justify-start"
     >
-      {/* Icon with glowing orange box */}
-      <div className="w-10 h-10 border border-[#7B6A60]/30 flex items-center justify-center bg-[#080808] text-[#D86B2A] shrink-0">
+      {/* Icon box */}
+      <div
+        className="w-10 h-10 flex items-center justify-center shrink-0 rounded"
+        style={{
+          background: "rgba(101,66,218,0.12)",
+          border: "1px solid rgba(122,77,255,0.30)",
+          color: "#7A4DFF",
+        }}
+      >
         <Icon className="h-4 w-4" />
       </div>
 
       {/* Counter & Label */}
-      <div className="flex flex-col items-start gap-1">
-        {/* Rolling dials inline */}
-        <div className="flex items-center gap-0.5 bg-[#050505] p-0.5 border border-[#7B6A60]/10 rounded-sm">
+      <div className="flex flex-col items-start gap-1.5">
+        {/* Rolling dials */}
+        <div
+          className="flex items-center gap-0.5 p-0.5 rounded"
+          style={{ background: "rgba(19,20,58,0.8)", border: "1px solid rgba(122,77,255,0.12)" }}
+        >
           {digits.map((digit, i) => (
             <RollingDigit key={i} digit={digit} trigger={isInView} />
           ))}
         </div>
-        <span className="font-mono text-[9px] text-[#7B6A60] tracking-widest uppercase">
+        <span
+          className="font-mono tracking-widest uppercase"
+          style={{ fontSize: 9, color: "#ADA0C8", letterSpacing: "0.12em" }}
+        >
           {label}
         </span>
       </div>
@@ -102,42 +124,29 @@ function StatItem({ icon: Icon, value, label, register }: StatItemProps) {
 
 export function AnalogCounters() {
   return (
-    <section className="w-full py-6 bg-[#080808] border-y border-[#7B6A60]/30 relative select-none">
-      <div className="absolute inset-0 tech-grid opacity-[0.05] pointer-events-none" />
-      
+    <section
+      className="w-full py-4 relative select-none"
+      style={{
+        background: "#13143A",
+        borderTop: "1px solid rgba(122,77,255,0.20)",
+        borderBottom: "1px solid rgba(122,77,255,0.20)",
+      }}
+    >
       <div className="container mx-auto px-4 md:px-8 max-w-7xl relative z-10">
-        {/* Horizontal Flex Strip (5 items) */}
-        <div className="flex flex-wrap items-center justify-between gap-y-4 divide-y md:divide-y-0 md:divide-x divide-[#7B6A60]/20">
-          <StatItem 
-            icon={Sparkles} 
-            value="250+" 
-            label="PROJECTS DELIVERED" 
-            register="REG_01" 
-          />
-          <StatItem 
-            icon={Users} 
-            value="150+" 
-            label="BUSINESSES SERVED" 
-            register="REG_02" 
-          />
-          <StatItem 
-            icon={Calendar} 
-            value="100+" 
-            label="EVENTS MANAGED" 
-            register="REG_03" 
-          />
-          <StatItem 
-            icon={Smile} 
-            value="98%" 
-            label="CLIENT SATISFACTION" 
-            register="REG_04" 
-          />
-          <StatItem 
-            icon={ShieldCheck} 
-            value="24/7" 
-            label="SUPPORT AVAILABILITY" 
-            register="REG_05" 
-          />
+        <div
+          className="flex flex-wrap items-center justify-between gap-y-2"
+          style={{ borderColor: "rgba(122,77,255,0.15)" }}
+        >
+          {/* Dividers between items */}
+          <div className="flex flex-wrap items-center justify-between w-full divide-y md:divide-y-0 md:divide-x"
+            style={{ "--tw-divide-opacity": 1, borderColor: "rgba(122,77,255,0.15)" } as any}
+          >
+            <StatItem icon={Sparkles} value="50+"  label="PROJECTS DELIVERED"  />
+            <StatItem icon={Users}    value="25+"  label="CLIENTS SERVED"       />
+            <StatItem icon={Calendar} value="3+"   label="YEARS EXPERIENCE"     />
+            <StatItem icon={Smile}    value="98%"  label="CLIENT SATISFACTION"  />
+            <StatItem icon={ShieldCheck} value="24/7" label="SUPPORT AVAILABLE" />
+          </div>
         </div>
       </div>
     </section>

@@ -84,7 +84,7 @@ export default async function Home() {
       <ClientsCarousel clients={clients} />
 
       {/* 7. Stats highlight cards: 50+ Projects, 1yr Hosting, 100% Custom, 24hr Support */}
-      <section className="w-full py-16 bg-[#080808]">
+      <section className="w-full py-16" style={{ background: "#13143A" }}>
         <div className="container mx-auto px-4 md:px-8 max-w-6xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
@@ -95,13 +95,26 @@ export default async function Home() {
             ].map((stat, i) => (
               <div
                 key={i}
-                className="relative flex flex-col items-center justify-center text-center p-8 border border-[#7B6A60]/20 bg-[#0b0a09] rounded-sm overflow-hidden group hover:border-[#D86B2A]/40 transition-all duration-300"
+                className="relative flex flex-col items-center justify-center text-center p-8 rounded overflow-hidden group transition-all duration-300"
+                style={{
+                  background: "rgba(101,66,218,0.08)",
+                  border: "1px solid rgba(122,77,255,0.22)",
+                }}
               >
-                <div className="absolute inset-0 bg-gradient-to-b from-[#D86B2A]/0 to-[#D86B2A]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="font-mono text-3xl md:text-4xl font-black text-[#D86B2A] mb-2 relative z-10">
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: "linear-gradient(135deg, rgba(101,66,218,0.15) 0%, rgba(122,77,255,0.08) 100%)" }}
+                />
+                <span
+                  className="font-mono font-black mb-2 relative z-10"
+                  style={{ fontSize: "clamp(28px,4vw,42px)", color: "#7A4DFF" }}
+                >
                   {stat.number}
                 </span>
-                <span className="font-mono text-[10px] md:text-xs text-[#7B6A60] tracking-widest uppercase relative z-10">
+                <span
+                  className="font-mono tracking-widest uppercase relative z-10"
+                  style={{ fontSize: 10, color: "#ADA0C8" }}
+                >
                   {stat.label}
                 </span>
               </div>
