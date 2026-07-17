@@ -133,34 +133,38 @@ export const viewport = {
 };
 
 import { getPublicSettings } from '@/lib/db';
+import { headers } from 'next/headers';
 
 /**
- * LayoutShell — async Server Component that fetches public settings and
- * renders the Navbar / Footer / Toaster shell for all public routes.
+ * LayoutShell — async Server Component that fetches settings and renders the
+ * Navbar / Footer / Toaster shell for public routes.
  *
- * The admin layout (app/admin/layout.tsx) uses `fixed inset-0 z-[100]` to
- * overlay the entire viewport, so the Navbar/Footer rendered here are
- * visually hidden on admin pages without needing a conditional check here.
+ * The `x-is-admin` header is injected by middleware for all /admin/* paths,
+ * allowing us to suppress the public Navbar/Footer on admin pages (the admin
+ * layout renders its own full-viewport sidebar shell instead).
  *
- * NOTE: app/not-found.tsx has been intentionally removed. @cloudflare/next-on-pages
- * v1.x cannot process the /_not-found internal route when it exists — Next.js 15
- * always generates it with Node.js runtime in the Vercel output, which the tool
- * rejects. Without not-found.tsx, the /_not-found route is not generated.
+ * IMPORTANT: headers() is safe here now that app/not-found.tsx is deleted.
+ * Previously, having headers() in the root layout chain caused Next.js 15 to
+ * classify /_not-found with Node.js runtime, breaking @cloudflare/next-on-pages.
+ * Without not-found.tsx, that internal route is never generated.
  */
 async function LayoutShell({ children }: { children: React.ReactNode }) {
   const settings: Record<string, string> = await getPublicSettings().catch(() => ({}));
+  const headersList = await headers();
+  const isAdmin = headersList.get('x-is-admin') === 'true';
 
   return (
     <>
       {/* Site-wide JSON-LD: Organization + WebSite + LocalBusiness */}
       <JsonLd data={organizationSchema} />
-      <Navbar />
+      {!isAdmin && <Navbar />}
       <main className="flex-grow relative z-10">{children}</main>
-      <Footer settings={settings} />
+      {!isAdmin && <Footer settings={settings} />}
       <Toaster />
     </>
   );
 }
+
 
 
 /** Root layout — must remain SYNCHRONOUS for edge runtime compatibility. */
