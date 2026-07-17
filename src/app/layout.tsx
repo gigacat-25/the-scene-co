@@ -133,37 +133,31 @@ export const viewport = {
 };
 
 import { getPublicSettings } from '@/lib/db';
-import { headers } from 'next/headers';
 
 /**
  * LayoutShell — async Server Component that fetches settings and renders the
  * Navbar / Footer / Toaster shell for public routes.
  *
- * The `x-is-admin` header is injected by middleware for all /admin/* paths,
- * allowing us to suppress the public Navbar/Footer on admin pages (the admin
- * layout renders its own full-viewport sidebar shell instead).
- *
- * IMPORTANT: headers() is safe here now that app/not-found.tsx is deleted.
- * Previously, having headers() in the root layout chain caused Next.js 15 to
- * classify /_not-found with Node.js runtime, breaking @cloudflare/next-on-pages.
- * Without not-found.tsx, that internal route is never generated.
+ * Admin pages (app/admin/layout.tsx) and login (app/admin/login/page.tsx)
+ * overlay the full viewport with z-[9999], visually covering the Navbar/Footer.
+ * Keeping headers() out of this component allows Next.js 15 to classify /_not-found
+ * as Edge Runtime for @cloudflare/next-on-pages compatibility.
  */
 async function LayoutShell({ children }: { children: React.ReactNode }) {
   const settings: Record<string, string> = await getPublicSettings().catch(() => ({}));
-  const headersList = await headers();
-  const isAdmin = headersList.get('x-is-admin') === 'true';
 
   return (
     <>
       {/* Site-wide JSON-LD: Organization + WebSite + LocalBusiness */}
       <JsonLd data={organizationSchema} />
-      {!isAdmin && <Navbar />}
+      <Navbar />
       <main className="flex-grow relative z-10">{children}</main>
-      {!isAdmin && <Footer settings={settings} />}
+      <Footer settings={settings} />
       <Toaster />
     </>
   );
 }
+
 
 
 

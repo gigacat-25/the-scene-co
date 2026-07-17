@@ -5,8 +5,8 @@ export const dynamic = "force-dynamic";
 
 export default function AdminLoginPage() {
   return (
-    <div className="fixed inset-0 z-[100] bg-canvas flex items-center justify-center">
-      <div className="flex flex-col items-center gap-8">
+    <div className="fixed inset-0 z-[9999] bg-canvas flex items-center justify-center overflow-y-auto">
+      <div className="flex flex-col items-center gap-8 py-12">
         <div className="text-center">
           <h1 className="font-headline text-3xl font-bold text-ink mb-1">CMS Login</h1>
           <p className="caption-mono text-ink/50 text-sm">The Scene Co. — Admin Access Only</p>

@@ -42,7 +42,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   // If no user, middleware already redirected to /admin/login
 
   return (
-    <div className="fixed inset-0 z-[100] bg-canvas flex overflow-hidden">
+    <div className="fixed inset-0 z-[9999] bg-canvas flex overflow-hidden">
       {/* Sidebar */}
       <aside className="w-64 bg-surface-soft border-r border-hairline flex flex-col h-full shrink-0">
         <div className="p-6 border-b border-hairline">
