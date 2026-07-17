@@ -104,6 +104,8 @@ export function PortfolioGrid({ items, categories, activeCategory }: PortfolioGr
                     <img
                       src={item.image_url}
                       alt={item.title}
+                      loading="lazy"
+                      decoding="async"
                       className="object-cover w-full h-full transition-transform duration-500 scale-100 group-hover:scale-105"
                     />
 

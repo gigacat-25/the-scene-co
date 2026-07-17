@@ -122,6 +122,8 @@ export function SolutionsGrid() {
                   <img
                     src={scr.img}
                     alt="Mock Screen"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover grayscale opacity-60 group-hover/screen:grayscale-0 group-hover/screen:opacity-100 transition-all duration-500 scale-100 group-hover/screen:scale-105"
                   />
                   {/* VHS static overlay */}

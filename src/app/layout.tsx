@@ -1,12 +1,27 @@
 import type { Metadata } from 'next';
+import { Inter, JetBrains_Mono } from 'next/font/google';
+import dynamic from 'next/dynamic';
 import './globals.css';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/toaster';
 import { ClerkProvider } from '@clerk/nextjs';
 import { JsonLd, organizationSchema } from '@/components/json-ld';
-import { CustomCursor } from '@/components/ui/CustomCursor';
-import { CrtPowerOn } from '@/components/ui/CrtPowerOn';
+
+const CrtPowerOn = dynamic(() => import('@/components/ui/CrtPowerOn').then((m) => m.CrtPowerOn), { ssr: false });
+const CustomCursor = dynamic(() => import('@/components/ui/CustomCursor').then((m) => m.CustomCursor), { ssr: false });
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
+});
 
 export const runtime = "edge";
 
@@ -169,14 +184,15 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en-IN" className="scroll-smooth overflow-x-hidden" suppressHydrationWarning>
+      <html
+        lang="en-IN"
+        className={`${inter.variable} ${jetbrainsMono.variable} scroll-smooth overflow-x-hidden`}
+        suppressHydrationWarning
+      >
         <head>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap"
-            rel="stylesheet"
-          />
+          {/* Asset prefetching */}
+          <link rel="dns-prefetch" href="https://images.unsplash.com" />
+          <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="anonymous" />
           {/* Geo meta tags for local SEO */}
           <meta name="geo.region" content="IN-KA" />
           <meta name="geo.placename" content="Bangalore" />

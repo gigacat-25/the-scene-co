@@ -223,6 +223,9 @@
     z-index: 998;
     pointer-events: none;
     animation: grain-shift 8s steps(10) infinite;
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   .vhs-glitch {

@@ -46,6 +46,8 @@ export function ClientsCarousel({ clients }: ClientsCarouselProps) {
                 <img
                   src={client.logo_url}
                   alt={client.name}
+                  loading="lazy"
+                  decoding="async"
                   className="max-h-full max-w-full object-contain filter grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
                 />
               ) : (

@@ -89,6 +89,8 @@ export function Leadership({ teamMembers, showViewAll }: LeadershipProps) {
                     <img
                       src={member.image_url}
                       alt={member.name}
+                      loading="lazy"
+                      decoding="async"
                       className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
                     />
                   ) : (

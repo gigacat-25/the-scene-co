@@ -29,16 +29,19 @@ export function CustomCursor() {
 
     if (mediaQuery.matches) return;
 
+    let rafId: number | null = null;
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
       setIsVisible(true);
 
-      // Set CSS variables for background distortion/spotlight
-      const percentX = (e.clientX / window.innerWidth) * 100;
-      const percentY = (e.clientY / window.innerHeight) * 100;
-      document.documentElement.style.setProperty("--mouse-x", `${percentX}%`);
-      document.documentElement.style.setProperty("--mouse-y", `${percentY}%`);
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const percentX = (e.clientX / window.innerWidth) * 100;
+        const percentY = (e.clientY / window.innerHeight) * 100;
+        document.documentElement.style.setProperty("--mouse-x", `${percentX}%`);
+        document.documentElement.style.setProperty("--mouse-y", `${percentY}%`);
+      });
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -73,6 +76,7 @@ export function CustomCursor() {
     document.addEventListener("mouseenter", handleMouseEnter);
 
     return () => {
+      if (rafId) cancelAnimationFrame(rafId);
       mediaQuery.removeEventListener("change", handleQueryChange);
       window.removeEventListener("mousemove", moveCursor);
       window.removeEventListener("mouseover", handleMouseOver);
