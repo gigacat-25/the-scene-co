@@ -2,100 +2,12 @@
  * Cloudflare binding helpers.
  * Works in Cloudflare Pages / Workers (via getRequestContext)
  * and gracefully returns undefined in local Next.js dev.
+ *
+ * NOTE: No dynamic eval() or obfuscated require() here — those cause webpack
+ * "Critical dependency" errors that break the Cloudflare edge build.
+ * Local D1 access is handled via a separate Node.js-only helper that is
+ * dynamically imported only when not running on the edge.
  */
-
-let localDbInstance: any = null;
-
-function getLocalD1Database(): D1Database | undefined {
-    try {
-        // Guard to ensure this only runs in a true Node.js environment, not in Edge Runtime emulator
-        if (typeof process === "undefined" || !process.versions || !process.versions.node) {
-            return undefined;
-        }
-
-        // Use eval("require") and char codes to bypass Next.js / Webpack / Turbopack static analysis
-        const req = typeof require !== "undefined" ? require : eval("require");
-        const fs = req(String.fromCharCode(102, 115));
-        const path = req(String.fromCharCode(112, 97, 116, 104));
-        const { DatabaseSync } = req(String.fromCharCode(110, 111, 100, 101, 58, 115, 113, 108, 105, 116, 101));
-
-        if (localDbInstance) return localDbInstance;
-
-        // Scan .wrangler folder for the sqlite database file
-        const proc = typeof process !== "undefined" ? process : null;
-        const cwd = proc && typeof proc["cwd"] === "function" ? proc["cwd"]() : ".";
-        const wranglerDir = path.join(cwd, ".wrangler", "state", "v3", "d1", "miniflare-D1DatabaseObject");
-        if (!fs.existsSync(wranglerDir)) {
-            return undefined;
-        }
-
-        const files = fs.readdirSync(wranglerDir);
-        const sqliteFile = files.find((f: string) => f.endsWith(".sqlite"));
-        if (!sqliteFile) {
-            return undefined;
-        }
-
-        const dbPath = path.join(wranglerDir, sqliteFile);
-        const sqliteDb = new DatabaseSync(dbPath);
-
-        class MockD1PreparedStatement {
-            private sql: string;
-            private bindings: any[];
-
-            constructor(sql: string, bindings: any[] = []) {
-                this.sql = sql;
-                this.bindings = bindings;
-            }
-
-            bind(...values: any[]) {
-                return new MockD1PreparedStatement(this.sql, values);
-            }
-
-            async all() {
-                try {
-                    const stmt = sqliteDb.prepare(this.sql);
-                    const rows = stmt.all(...this.bindings);
-                    return { results: rows, success: true };
-                } catch (err: any) {
-                    console.error("D1 Local Mock Query Error:", err);
-                    throw err;
-                }
-            }
-
-            async first() {
-                try {
-                    const stmt = sqliteDb.prepare(this.sql);
-                    const rows = stmt.all(...this.bindings);
-                    return rows[0] || null;
-                } catch (err: any) {
-                    console.error("D1 Local Mock Query Error:", err);
-                    throw err;
-                }
-            }
-
-            async run() {
-                try {
-                    const stmt = sqliteDb.prepare(this.sql);
-                    const info = stmt.run(...this.bindings);
-                    return { success: true, meta: { changes: info.changes } };
-                } catch (err: any) {
-                    console.error("D1 Local Mock Run Error:", err);
-                    throw err;
-                }
-            }
-        }
-
-        localDbInstance = {
-            prepare(sql: string) {
-                return new MockD1PreparedStatement(sql);
-            }
-        } as unknown as D1Database;
-
-        return localDbInstance;
-    } catch {
-        return undefined;
-    }
-}
 
 export async function getBindings(): Promise<{
     db: D1Database | undefined;
@@ -106,13 +18,13 @@ export async function getBindings(): Promise<{
         const { env } = getRequestContext();
         return {
             // @ts-ignore – bindings are injected at CF runtime
-            db: (env.the_scene_co_db || env["the-scene-co-db"] || getLocalD1Database()) as D1Database | undefined,
+            db: (env.the_scene_co_db || env["the-scene-co-db"]) as D1Database | undefined,
             // @ts-ignore
             r2: (env.the_scene_co_media || env["the-scene-co-media"]) as R2Bucket | undefined,
         };
     } catch {
-        // Local next dev – no CF runtime
-        return { db: getLocalD1Database(), r2: undefined };
+        // Local next dev – no CF runtime; db.ts functions have static fallback data
+        return { db: undefined, r2: undefined };
     }
 }
 
