@@ -8,8 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "pages:build": "opennextjs-cloudflare build",
-    "preview": "opennextjs-cloudflare build && wrangler pages dev"
+    "pages:build": "next build && npx @cloudflare/next-on-pages"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.4.0",
@@ -43,7 +42,7 @@
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^11.3.12",
     "lucide-react": "^0.475.0",
-    "next": "^16.2.10",
+    "next": "^15.5.2",
     "patch-package": "^8.0.0",
     "react": "^19.2.1",
     "react-day-picker": "^9.11.3",
@@ -55,8 +54,8 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.16",
     "@cloudflare/workers-types": "^5.20260717.1",
-    "@opennextjs/cloudflare": "^1.20.1",
     "@types/google.maps": "^3.55.11",
     "@types/node": "^20",
     "@types/react": "^19.2.1",

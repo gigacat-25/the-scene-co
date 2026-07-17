@@ -11,8 +11,8 @@ export async function getBindings(): Promise<{
     r2: R2Bucket | undefined;
 }> {
     try {
-        const { getCloudflareContext } = await import("@opennextjs/cloudflare");
-        const { env } = await getCloudflareContext();
+        const { getRequestContext } = await import("@cloudflare/next-on-pages");
+        const { env } = getRequestContext();
         return {
             // @ts-ignore – bindings are injected at CF runtime
             db: (env.the_scene_co_db || env["the-scene-co-db"]) as D1Database | undefined,
@@ -24,6 +24,7 @@ export async function getBindings(): Promise<{
         return { db: undefined, r2: undefined };
     }
 }
+
 
 
 const ADMIN_EMAIL = "thescene.co26@gmail.com";

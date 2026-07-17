@@ -1,12 +1,13 @@
 export async function getMailEnv() {
   let env: any = process.env;
   try {
-    const { getCloudflareContext } = await import("@opennextjs/cloudflare");
-    const ctx = await getCloudflareContext();
+    const { getRequestContext } = await import("@cloudflare/next-on-pages");
+    const ctx = getRequestContext();
     if (ctx && ctx.env) {
       env = { ...process.env, ...ctx.env };
     }
   } catch {}
+
   return {
     clientId: env.GOOGLE_CLIENT_ID,
     clientSecret: env.GOOGLE_CLIENT_SECRET,
