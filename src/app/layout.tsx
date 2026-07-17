@@ -135,15 +135,40 @@ export const viewport = {
 import { getPublicSettings } from '@/lib/db';
 import { headers } from 'next/headers';
 
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+/**
+ * LayoutShell — async Server Component that handles data fetching and
+ * renders the Navbar/Footer/Toaster shell.
+ *
+ * IMPORTANT: This is intentionally a SEPARATE async component, NOT part of
+ * RootLayout itself. Keeping RootLayout synchronous is required so that
+ * Next.js 15 correctly classifies the /_not-found internal route as edge
+ * runtime in the Vercel output. If RootLayout is async (even with
+ * `export const runtime = 'edge'`), Next.js 15 downgrades /_not-found to
+ * Node.js runtime, which @cloudflare/next-on-pages rejects.
+ */
+async function LayoutShell({ children }: { children: React.ReactNode }) {
   const settings: Record<string, string> = await getPublicSettings().catch(() => ({}));
   const headersList = await headers();
   const isAdmin = headersList.get('x-is-admin') === 'true';
 
+  return (
+    <>
+      {/* Site-wide JSON-LD: Organization + WebSite + LocalBusiness */}
+      <JsonLd data={organizationSchema} />
+      {!isAdmin && <Navbar />}
+      <main className="flex-grow relative z-10">{children}</main>
+      {!isAdmin && <Footer settings={settings} />}
+      <Toaster />
+    </>
+  );
+}
+
+/** Root layout — must remain SYNCHRONOUS for edge runtime compatibility. */
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <ClerkProvider>
       <html lang="en-IN" className="scroll-smooth overflow-x-hidden" suppressHydrationWarning>
@@ -163,16 +188,11 @@ export default async function RootLayout({
         <body className="font-body antialiased bg-[#050505] text-[#F5F2EE] overflow-x-hidden flex flex-col min-h-screen relative">
           {/* Film Grain Effect Overlay */}
           <div className="film-grain-overlay" />
-          
+
           <CrtPowerOn />
           <CustomCursor />
 
-          {/* Site-wide JSON-LD: Organization + WebSite + LocalBusiness */}
-          <JsonLd data={organizationSchema} />
-          {!isAdmin && <Navbar />}
-          <main className="flex-grow relative z-10">{children}</main>
-          {!isAdmin && <Footer settings={settings} />}
-          <Toaster />
+          <LayoutShell>{children}</LayoutShell>
         </body>
       </html>
     </ClerkProvider>
