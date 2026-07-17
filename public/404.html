@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Page Not Found | The Scene Co.</title>
+  <meta name="description" content="The page you're looking for doesn't exist or has been moved." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #050505;
+      color: #F7F7FB;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    .label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #ADA0C8;
+      margin-bottom: 1rem;
+    }
+    .code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(80px, 15vw, 140px);
+      font-weight: 900;
+      color: #7A4DFF;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: clamp(20px, 3vw, 32px);
+      font-weight: 700;
+      color: #F7F7FB;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 16px;
+      color: #ADA0C8;
+      line-height: 1.6;
+      max-width: 400px;
+      margin-bottom: 2.5rem;
+    }
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+    @media (min-width: 480px) {
+      .actions { flex-direction: row; }
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      color: #F7F7FB;
+      background: linear-gradient(90deg, #251187 0%, #6542DA 55%, #7A4DFF 100%);
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      color: #ADA0C8;
+      border: 1px solid rgba(122,77,255,0.4);
+      background: transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover { border-color: #7A4DFF; color: #F7F7FB; }
+  </style>
+</head>
+<body>
+  <p class="label">Error 404</p>
+  <div class="code">404</div>
+  <h1>Page Not Found</h1>
+  <p>The page you're looking for doesn't exist or has been moved.</p>
+  <div class="actions">
+    <a href="/" class="btn-primary">&#8962; Go Home</a>
+    <a href="/portfolio" class="btn-secondary">&#8592; View Our Work</a>
+  </div>
+</body>
+</html>

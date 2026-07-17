@@ -133,35 +133,35 @@ export const viewport = {
 };
 
 import { getPublicSettings } from '@/lib/db';
-import { headers } from 'next/headers';
 
 /**
- * LayoutShell — async Server Component that handles data fetching and
- * renders the Navbar/Footer/Toaster shell.
+ * LayoutShell — async Server Component that fetches public settings and
+ * renders the Navbar / Footer / Toaster shell for all public routes.
  *
- * IMPORTANT: This is intentionally a SEPARATE async component, NOT part of
- * RootLayout itself. Keeping RootLayout synchronous is required so that
- * Next.js 15 correctly classifies the /_not-found internal route as edge
- * runtime in the Vercel output. If RootLayout is async (even with
- * `export const runtime = 'edge'`), Next.js 15 downgrades /_not-found to
- * Node.js runtime, which @cloudflare/next-on-pages rejects.
+ * The admin layout (app/admin/layout.tsx) uses `fixed inset-0 z-[100]` to
+ * overlay the entire viewport, so the Navbar/Footer rendered here are
+ * visually hidden on admin pages without needing a conditional check here.
+ *
+ * NOTE: app/not-found.tsx has been intentionally removed. @cloudflare/next-on-pages
+ * v1.x cannot process the /_not-found internal route when it exists — Next.js 15
+ * always generates it with Node.js runtime in the Vercel output, which the tool
+ * rejects. Without not-found.tsx, the /_not-found route is not generated.
  */
 async function LayoutShell({ children }: { children: React.ReactNode }) {
   const settings: Record<string, string> = await getPublicSettings().catch(() => ({}));
-  const headersList = await headers();
-  const isAdmin = headersList.get('x-is-admin') === 'true';
 
   return (
     <>
       {/* Site-wide JSON-LD: Organization + WebSite + LocalBusiness */}
       <JsonLd data={organizationSchema} />
-      {!isAdmin && <Navbar />}
+      <Navbar />
       <main className="flex-grow relative z-10">{children}</main>
-      {!isAdmin && <Footer settings={settings} />}
+      <Footer settings={settings} />
       <Toaster />
     </>
   );
 }
+
 
 /** Root layout — must remain SYNCHRONOUS for edge runtime compatibility. */
 export default function RootLayout({
