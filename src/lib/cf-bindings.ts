@@ -1,12 +1,9 @@
 /**
  * Cloudflare binding helpers.
- * Works in Cloudflare Pages / Workers (via getRequestContext)
+ * Works in Cloudflare Pages / Workers (via getCloudflareContext)
  * and gracefully returns undefined in local Next.js dev.
  *
- * NOTE: No dynamic eval() or obfuscated require() here — those cause webpack
- * "Critical dependency" errors that break the Cloudflare edge build.
- * Local D1 access is handled via a separate Node.js-only helper that is
- * dynamically imported only when not running on the edge.
+ * Uses @opennextjs/cloudflare instead of the deprecated @cloudflare/next-on-pages.
  */
 
 export async function getBindings(): Promise<{
@@ -14,8 +11,8 @@ export async function getBindings(): Promise<{
     r2: R2Bucket | undefined;
 }> {
     try {
-        const { getRequestContext } = await import("@cloudflare/next-on-pages");
-        const { env } = getRequestContext();
+        const { getCloudflareContext } = await import("@opennextjs/cloudflare");
+        const { env } = await getCloudflareContext();
         return {
             // @ts-ignore – bindings are injected at CF runtime
             db: (env.the_scene_co_db || env["the-scene-co-db"]) as D1Database | undefined,
@@ -27,6 +24,7 @@ export async function getBindings(): Promise<{
         return { db: undefined, r2: undefined };
     }
 }
+
 
 const ADMIN_EMAIL = "thescene.co26@gmail.com";
 

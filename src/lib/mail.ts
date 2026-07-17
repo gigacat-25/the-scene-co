@@ -1,8 +1,8 @@
 export async function getMailEnv() {
   let env: any = process.env;
   try {
-    const { getRequestContext } = await import("@cloudflare/next-on-pages");
-    const ctx = getRequestContext();
+    const { getCloudflareContext } = await import("@opennextjs/cloudflare");
+    const ctx = await getCloudflareContext();
     if (ctx && ctx.env) {
       env = { ...process.env, ...ctx.env };
     }

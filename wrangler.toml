@@ -1,7 +1,7 @@
 name = "the-scene-co"
 compatibility_date = "2025-01-01"
-compatibility_flags = ["nodejs_compat", "nodejs_compat_v2"]
-account_id = "3a184a05daa0add82d874818a781b994"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".open-next/assets"
 
 [[d1_databases]]
 binding = "the_scene_co_db"
@@ -11,6 +11,3 @@ database_id = "693eda6c-9daf-4e62-8c1a-5f0dd412af2f"
 [[r2_buckets]]
 binding = "the_scene_co_media"
 bucket_name = "the-scene-co-media"
-
-[vars]
-ADMIN_PASSWORD_HASH = ""
