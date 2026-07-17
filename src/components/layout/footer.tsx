@@ -2,9 +2,17 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 export function Footer({ settings }: { settings?: Record<string, string> }) {
+  const pathname = usePathname();
   const email = settings?.contact_email || "hello@thescene.co.in";
+
+  // Suppress public Footer on all /admin routes
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   
   // Animate static time/frame codes in footer
   const [frameTime, setFrameTime] = useState("00:00:00:00");

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
   { href: "/", label: "HOME" },
@@ -17,9 +18,16 @@ const navLinks = [
 ];
 
 export function Navbar() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
+  // Suppress public Navbar on all /admin routes
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   return (
+
     <>
       <header className="fixed top-0 left-0 right-0 z-50 w-full h-[60px] border-b border-[#7B6A60]/20 bg-background/80 backdrop-blur-md flex items-center transition-all duration-300">
         <div className="container mx-auto flex items-center justify-between px-4 md:px-8">
