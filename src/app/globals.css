@@ -374,9 +374,9 @@
   .color-block-panel-cream,
   .color-block-panel-mint,
   .color-block-panel-pink {
-    background-color: #080808 !important;
-    color: #F5F2EE !important;
-    border: 1px solid rgba(123, 106, 96, 0.2) !important;
+    background-color: #EBE9F0 !important;
+    color: #13143A !important;
+    border: 1px solid rgba(82, 85, 103, 0.2) !important;
     border-radius: 0px !important;
     padding: 24px !important;
   }
@@ -384,7 +384,7 @@
   .eyebrow-mono {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    color: #FFB36B !important;
+    color: #6542DA !important;
     letter-spacing: 0.25em;
     text-transform: uppercase;
   }
@@ -392,7 +392,7 @@
   .caption-mono {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
-    color: #7B6A60 !important;
+    color: #525567 !important;
     letter-spacing: 0.2em;
     text-transform: uppercase;
   }
@@ -400,7 +400,7 @@
   .body-lg-figma {
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px;
-    color: #7B6A60 !important;
+    color: #525567 !important;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     line-height: 1.6;
@@ -409,7 +409,7 @@
   .body-sm-figma {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    color: #7B6A60 !important;
+    color: #525567 !important;
     text-transform: uppercase;
   }
 

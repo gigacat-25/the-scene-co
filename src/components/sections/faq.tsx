@@ -46,21 +46,21 @@ export function FAQ({ faqs, title, subtitle }: FAQProps) {
   return (
     <section className="w-full">
       <div className="container mx-auto px-4 sm:px-6">
-        <div className="color-block-panel color-block-panel-lime">
+        <div className="color-block-panel color-block-panel-lime p-6 sm:p-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <AnimateOnScroll animationClass="animate-slide-in-up" hiddenClass="opacity-0">
-              <span className="caption-mono text-ink/50 mb-3 block">FAQ</span>
+              <span className="caption-mono text-ink/70 mb-3 block">FAQ</span>
               <h2
-                className="text-ink mb-4"
-                style={{ fontSize: "clamp(28px,4vw,48px)", fontWeight: 340, lineHeight: 1.1, letterSpacing: "-0.96px" }}
+                className="text-ink mb-4 font-medium"
+                style={{ fontSize: "clamp(28px,4vw,48px)", lineHeight: 1.1, letterSpacing: "-0.96px" }}
               >
                 {title || "Frequently asked questions"}
               </h2>
               {subtitle && (
-                <p className="body-lg-figma text-ink/75">{subtitle}</p>
+                <p className="body-lg-figma text-ink/80">{subtitle}</p>
               )}
               {!subtitle && (
-                <p className="text-ink/75" style={{ fontSize: 20, fontWeight: 330, lineHeight: 1.4 }}>
+                <p className="text-ink/80" style={{ fontSize: 20, fontWeight: 330, lineHeight: 1.4 }}>
                   Everything you need to know before getting started.
                 </p>
               )}
@@ -77,21 +77,21 @@ export function FAQ({ faqs, title, subtitle }: FAQProps) {
                   <div className="border-b border-ink/20 last:border-b-0">
                     <button
                       onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                      className="w-full flex items-start justify-between gap-4 py-5 text-left"
+                      className="w-full flex items-start justify-between gap-4 py-5 text-left group transition-colors"
                     >
-                      <span className="text-ink font-[480]" style={{ fontSize: "clamp(15px, 2.2vw, 18px)", lineHeight: 1.45 }}>
+                      <span className="text-ink font-medium group-hover:text-primary transition-colors" style={{ fontSize: "clamp(15px, 2.2vw, 18px)", lineHeight: 1.45 }}>
                         {faq.question}
                       </span>
-                      <span className="shrink-0 mt-0.5">
+                      <span className="shrink-0 mt-0.5 group-hover:text-primary transition-colors">
                         {openIndex === i ? (
-                          <Minus className="h-5 w-5 text-ink" />
+                          <Minus className="h-5 w-5 text-ink group-hover:text-primary" />
                         ) : (
-                          <Plus className="h-5 w-5 text-ink" />
+                          <Plus className="h-5 w-5 text-ink group-hover:text-primary" />
                         )}
                       </span>
                     </button>
                     {openIndex === i && (
-                      <p className="pb-5 text-ink/75" style={{ fontSize: "clamp(14px, 2.2vw, 18px)", fontWeight: 320, lineHeight: 1.45, letterSpacing: "-0.26px" }}>
+                      <p className="pb-5 text-ink/80" style={{ fontSize: "clamp(14px, 2.2vw, 18px)", fontWeight: 320, lineHeight: 1.45, letterSpacing: "-0.26px" }}>
                         {faq.answer}
                       </p>
                     )}

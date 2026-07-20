@@ -1,15 +1,12 @@
 import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
-import dynamic from 'next/dynamic';
 import './globals.css';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/toaster';
 import { ClerkProvider } from '@clerk/nextjs';
 import { JsonLd, organizationSchema } from '@/components/json-ld';
-
-const CrtPowerOn = dynamic(() => import('@/components/ui/CrtPowerOn').then((m) => m.CrtPowerOn), { ssr: false });
-const CustomCursor = dynamic(() => import('@/components/ui/CustomCursor').then((m) => m.CustomCursor), { ssr: false });
+import { ClientEffects } from '@/components/ui/ClientEffects';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -203,8 +200,7 @@ export default function RootLayout({
           {/* Film Grain Effect Overlay */}
           <div className="film-grain-overlay" />
 
-          <CrtPowerOn />
-          <CustomCursor />
+          <ClientEffects />
 
           <LayoutShell>{children}</LayoutShell>
         </body>
